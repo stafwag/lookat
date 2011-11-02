@@ -26,7 +26,7 @@ const char sel_hm		='h';
 const int sel_om                ='o';
 char *txt_help[]		= {
 "---------------------------------------------------------------------------",
-"lookat 1.4.1                                (GPL) 1997-2007 Belgie  Belgium",
+"lookat 1.4.2rc1                             (GPL) 1997-2007 Belgie  Belgium",
 "                                                            Staf Wagemakers",
 "                                                  email: staf@wagemakers.be",
 " ",
@@ -130,7 +130,7 @@ char *txt_attributen[] = {"normal","bold","underline","reverse",
 char txt_ondersheid_g[]	="[ ] Case sensitive";
 char txt_search_back[]  ="[ ] Search backwards";
 char *txt_over[]	={
-"Lookat version 1.4.1               GNU Public License",
+"Lookat version 1.4.2rc1            GNU Public License",
 "Staf Wagemakers                   (1997-2007) Belgium","\n",
 "email:                             staf@wagemakers.be",
 "homepage:                    http://www.wagemakers.be","\n",NULL};

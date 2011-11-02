@@ -33,11 +33,19 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 /* glibc2 has these functions declared in <stdio.h>.  Avoid redeclarations.  */
 # if __GLIBC__ < 2
 
+#ifndef HAVE_GETLINE 
+
 int
 getline PARAMS ((char **_lineptr, size_t *_n, FILE *_stream));
 
+#endif
+
+#ifndef HAVE_GETDELIM 
+
 int
 getdelim PARAMS ((char **_lineptr, size_t *_n, int _delimiter, FILE *_stream));
+
+#endif
 
 # endif
 

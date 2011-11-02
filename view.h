@@ -28,8 +28,8 @@
 #define TAB 9
 typedef struct 
 {
-unsigned long y,y_max,size;
-long          x,x_max;
+ssize_t y,y_max,size;
+ssize_t          x,x_max;
 char          mode;
 char          **file;
 char          *filename;

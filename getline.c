@@ -35,6 +35,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. */
 
 #if defined __GNU_LIBRARY__ && HAVE_GETDELIM
 
+#ifndef HAVE_GETLINE
+
 int
 getline (lineptr, n, stream)
      char **lineptr;
@@ -43,6 +45,8 @@ getline (lineptr, n, stream)
 {
   return getdelim (lineptr, n, '\n', stream);
 }
+
+#endif
 
 #else /* ! have getdelim */
 int

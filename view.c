@@ -102,7 +102,7 @@ FILE *fp=NULL;
 char *cp,***ccc;
 char *s;
 int i;
-unsigned ii;
+ssize_t ii;
 /* ----------------- vari voor het starten van gzip ---------------------- */
 int  is_gz=0;
 char *gzip=NULL;

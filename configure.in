@@ -10,6 +10,7 @@ OS_NAME=$build_os
 AC_PROG_CC
 AC_CHECK_FUNCS([getcwd],,AC_MSG_ERROR(not found))
 AC_CHECK_FUNCS(getdelim)
+AC_CHECK_FUNCS(getline)
 AC_CHECK_FUNCS([select],,AC_MSG_ERROR(not found))
 AC_CHECK_FUNCS([strstr],,AC_MSG_ERROR(not found))
 AC_CHECK_HEADERS([sys/select.h],,AC_MSG_ERROR(not found))

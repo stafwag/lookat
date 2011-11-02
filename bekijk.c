@@ -359,7 +359,11 @@ int open_zoek_venster (char *titel,char *tekst)
 void str_toupper (char *c)
 {
    int i=0;
-   do {c[i]=toupper(c[i]);++i;} while (c[i]!=0);
+   if ((c!=NULL) && (*c!=0)) {
+
+   	do {c[i]=toupper(c[i]);++i;} while (c[i]!=0);
+
+   }
 }
 
 /* --------------------------------------------	*/

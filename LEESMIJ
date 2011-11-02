@@ -1,0 +1,309 @@
+BEKIJK(1)                        User Commands                       BEKIJK(1)
+
+
+
+NAME
+       bekijk - Un*x bestand bekijker
+
+SYNOPSIS
+       bekijk [ --help ] [ bestandsnaam ] [ directorie_naam ]
+
+OMSCHRIJVING
+       "bekijk"  (of  "lookat"  in de Engelse versie) is een programma om Un*x
+       tekst bestanden en manual pages te bekijken.
+
+       Onder DOS gebruikte  ik  het programma  list.com  om tekst bestanden te
+       bekijken. Onder GNU/Linux bestond een dergelijk programma niet  (of heb
+       ik  het niet  gevonden).  De standaard  Un*x  programma's  (more, less,
+       view ...)  waren niet gebruiksvriendelijk  genoeg.  Om deze rede heb ik
+       "bekijk" ontwikkeld.
+
+OPTIES
+       --help
+              Deze optie toont een help tekst.
+
+       bestandsnaam
+              toont bestandsnaam
+
+       directorie_naam
+              opent de directorie directorie_naam
+
+LUIZEN EN ANDER ONGEDIERTE
+       Nog niet bekend, indien je er vindt mag je het me laten weten :-)
+
+GEBRUIK
+       Je kan "bekijk" op 4 manieren starten: bekijk :
+
+       * door gewoon 'bekijk' te typen, hierna kan je uit het bestandsmenu een
+       bestand selecteren om te bekijken.
+
+       indien er data via stdin kan lezen worden zal 'bekijk' deze tonen
+
+       voorbeeld:
+
+              ls | bekijk
+
+       door  'bekijk dir_naam' te typen, de huidige directorie wordt veranderd
+       naar  dir_naam.  Hierna  kan  je  uit  het  bestandsmenu  een   bestand
+       selecteren.
+
+       *  door  'bekijk  <bestandsnaam>'  te  typen,  hierdoor  wordt  bij het
+       opstarten het bestand automatisch geladen.
+
+       in combinatie met man
+
+       voorbeelden:
+
+              man -Pbekijk ls
+              export PAGER=bekijk; man ls
+
+       Als je "bekijk" altijd wil  gebruiken  om  man  pagina's  te  bekijken,
+       plaats je best de volgende regel in /etc/profile
+
+              alias man="man -Pbekijk"
+
+       Nadat je een bestand geladen hebt kan je volgende toetsen gebruiken:
+
+       Toetsen:
+
+                 <-, C-b         : links
+                 ->, C-f         : rechts
+                 arrow up, C-p   : omhoog
+                 arrow down, C-n : omlaag
+                 PgUp, u         : pagina omhoog
+                 PgDwn, d        : pagina omlaag
+                 HOME            : ga naar het begin van een regel
+                 END             : ga naar het einde van een regel
+                 o               : openen van een bestand
+                 t,<             : ga naar de eerste regel
+                 b,e,>           : ga naar de laatste regel
+                 g               : ga naar een lijnnummer
+                 /,z,s,f         : zoeken van een tekst
+                 F3,n , c, v     : verder zoeken
+                 F9              : menu
+                 ALT+b           : bestandsmenu
+                 ALT+g           : ga menu
+                 ALT+z           : zoek menu
+                 ALT+h           : help menu
+                 F10,ESC,q       : verlaat het programma
+                 F1,h,?          : openend help bestand
+                 r               : herteken het scherm
+
+       Door op F9 te drukken kan je gebruik maken van de trekmenu's, de meeste
+       functies zijn ook bereikbaar via het toetsenbord (zie hierboven).
+
+       Bestand|Openen of 'o':
+
+              Hierna wordt er een venster geopend met links de  bestanden  van
+              de  huidige directorie, door een bestand te selecteren wordt het
+              geladen.
+
+              Rechts staan de directories, door op de TAB toets te drukken kan
+              je  omschakelen  tussen de bestanden en de directories, door een
+              directorie te selecteren wordt er van directorie veranderd.
+
+              Door op ESC te drukken verlaat je het venster
+
+       Bestand|Afsluiten of 'F10,ESC,q':
+
+              Verlaat het programma.
+
+       Ga|Begin of 'b':
+
+              Verplaats je naar het begin van het bestand.
+
+       Ga|Einde of 'e':
+
+              Verplaats je naar het einde van een bestand.
+
+       Ga|Naar begin regel of 'HOME':
+
+              Verplaats je naar het begin van een regel.
+
+       Ga|Naar einde regel of 'END':
+
+              Verplaats je naar het einde van een regel
+
+       Zoek|tekst of '/,z,s,f'
+
+              Deze functie dient om  tekst  in  het  bestand  te  zoeken.  Het
+              opzoeken  van de tekst gebeurt van huidige regel tot de laatste.
+              Er komt een venster op het scherm welke  je  vraagt  om  de  te-
+              zoeken-tekst  in  te  geven.  Het  opzoeken kan op twee manieren
+              gebeuren ofwel wordt er  géén  rekening  houden  met  hoofd  -of
+              kleine  letters  ofwel  wel. Met de TAB toets kan men selecteren
+              bij
+
+                   [ ] Onderscheidt tussen grootte & kleine letters
+
+              hoe de opzoeking moet gebeuren. Door middel van de TAB toets kan
+              je gebruik maken van de [  OK  ] en [ Annuleer ] knoppen.
+
+       Zoek|van  begin  tekst  Zelfde functie als hierboven alleen, gebeurt de
+       opzoeking vanaf het begin van het bestand.
+
+       Zoek|Nogmaals of 'F3'
+
+              Zoek de laatste tekst nogmaals.
+
+       Opties|cursor
+
+              Zet de cursor aan/uit.
+
+       Opties|vragen om af te sluiten
+
+              Vragen om af te sluiten aan/uit.
+
+       Opties|Types
+
+              Bijvoegen, wissen, veranderen van types.
+
+       Opties|Kleuren
+
+              Veranderen van de kleuren.
+
+       Opties|Opties bewaren
+
+              Opties bewaren in je cfg bestand ($HOME/.lookat)
+
+       Help|Zie helptekst of 'F1,h,?'
+
+              Open help bestand.
+
+       Help|Toetsen
+
+              Toont een lijst met welke toetsen je in "bekijk" kan  gebruiken.
+
+       Help|Over
+
+              Geeft algemene informatie over het programma (versie ,etc.)
+
+CONFIGURATIE
+       Nota:
+
+              Het  formaat  van  het configuratie bestand is gewijzigd, het is
+              aangeraden om het "=" teken te verwijderen in je  oude  configu-
+              ratie  bestand  te  verwijderen.  De oude configuratie bestanden
+              werken nog maar worden waarschijnlijk niet verder ondersteund in
+              de volgende versies.
+
+       bekijk  gebruikt  twee configuratie bestanden, een globaal configuratie
+       bestand ( /etc/lookat.conf  )  en  gebruikers  configuratie  bestand  (
+       $HOME/.lookat  ).  Indien  het  gebruikers configuratie bestand bestaat
+       wordt het globale genegeerd.
+
+       Als de configuratie bestanden niet beschikbaar zijn worden  de  default
+       waarden gebruikt.
+
+
+       cursor  on|off
+              zet de cursor aan / uit
+
+       give_notice  on|of
+
+              zet "vragen om af te sluiten" aan / uit
+
+
+              creëer een type.
+
+              Indien  bestandsnaam  overeen  komt  met  een  type wordt er een
+              extern commando gebruikt om het bestand te openen.  Een  typisch
+              voorbeeld zijn gegzipte bestanden:
+
+                 .gz     "gzip -cd"
+
+              De type volgorde is belangrijk, bekijk vergelijk de bestandsnaam
+              met de type en begint met de eerste  type.  Indien  een  .gz  en
+              .tar.gz wilt definieren moet je het .tar.gz eerst zetten.
+
+              De type volgorde is belangrijk, bekijk vergelijk de bestandsnaam
+              met de type en begint met de eerste  type.  Indien  een  .gz  en
+              .tar.gz wilt definieren moet je het .tar.gz eerst zetten.
+
+       color object voorgrond achtergrond [ attribuut ]
+
+              Indien  je  terminal  kleuren ondersteund laat deze parameter je
+              toe om  bepaalde  objecten  van  kleur  te  veranderen.  Geldige
+              objecten   zijn:   view,   view_bold,   view_italic,  main_menu,
+              main_menusel, main_menuhot, main_menuhotsel,  status_bar,  win1,
+              win1_edit,  win1_menu, win1_menusel, win1_menuhot, win1_menuhot-
+              sel, win2,  win2_edit,  win2_menu,  win2_menusel,  win2_menuhot,
+              win2_menuhotsel, view_found.
+
+              Geldige  kleuren zijn: white, black, green, magenta, blue, cyan,
+              yellow, red.
+
+              Geldige attributen zijn: normal, bold, underline,  reverse,  and
+              standout.
+
+       mono object voorgrond_attribuut [ background_attribuut ]
+
+              Indien je terminal geen kleuren ondersteund dan kan je voorgrond
+              en Achtergrond attributen aan objecten toekennen.
+
+DANK AAN ...
+       Free Software Foundation inc.
+
+              The GNU C Library Reference  Manual  door  Sandra  Loosemore  En
+              natuurlijk  voor  gcc, make, bash, grep, man, ls, cp, tar, gzip,
+              emacs, less en more :-)
+
+       Sven Golt, Sven van der Meer, Scott Burkett, Matt Welsh
+
+              Van het Linux Documentation Project voor hun Linux  Programmer's
+              Guide.
+
+       Linus, en anderen ...
+
+              Voor Linux natuurlijk ;-)
+
+       Jan Wagemakers
+
+              Voor  het  zoeken naar bugs in de beta versie & het plaatsen van
+              "bekijk" op zijn Webpagina. http://www.janw.easynet.be
+
+       Roel Diederen
+
+              Voor het creëren van de manpage voor see 1.1
+
+       Aubin Paul
+
+              Voor zijn Mac OSX patch, dit maakte  het  mogelijk  om  "bekijk"
+              naar andere platformen te porten dan GNU/Linux.
+
+       Jim W. Jaszewski
+
+              Corrigeerde spellingsfouten fouten in de manpage van lookat.
+
+       Kevin Keegan
+
+              Voor  melde  van zij installatie problemen op SCO OpenServer. En
+              het beschikbaar stellen van binaries voor SCO Unix.
+
+       Alle vrije software programmeurs (op gelijk welk platform)
+
+       En iedereen die ik vergeten ben :-{
+
+SLOT
+       Indien je "bekijk" bruikbaar vindt (of onbruikbaar),  suggesties  hebt,
+       bugs vindt :-( , mag je dit altijd laten weten.
+
+AUTEUR
+       V1.4.0 Staf Wagemakers
+
+       homepage : http://www.wagemakers.be
+       email : staf@wagemakers.be
+
+COPYRIGHT
+       Kopieren en distributie van dit bestand, met of zonder verandering, zijn
+       toegelaten op elk medium.
+
+       Deze software is copyright (c) 1997, 1998, 2000, 2001, 2002, 2003, 2004  
+       door  Staf  Wagemakers <staf@wagemakers.be>
+
+       Je bent vrij om deze software te verdelen als je de GNU General  Public
+       License respecteert.
+
+
+
+BEKIJK 1.4.0                      April 2003                         BEKIJK(1)

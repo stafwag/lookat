@@ -1,0 +1,75 @@
+Lookat / Bekijk 1.4.1     ( 10 Apr 2007 )
+ - BUGFIX: corrected set color window location
+
+Lookat / Bekijk 1.4.1rc1  ( 12 Aug 2006 )
+ - BUGFIX: compile warnings SUNpro C compiler on solaris corrected
+ - auto window resize in view mode
+
+Lookat / Bekijk 1.4.1pre1 ( 17 May 2006 )
+ - BUGFIX: compile warnings corrected
+ - BUGFIX: This version will compile correctly on 64 bits systems
+
+Lookat / Bekijk 1.4.0     ( 16 Apr 2004 )
+ - Documentation updated
+ - Makefile.am updated
+
+Lookat / Bekijk 1.4.0rc1  ( 21 Feb 2004 )
+ - BUGFIX: error in dos text file handling corrected 
+
+Lookat / Bekijk 1.4.0pre2 ( 22 Apr 2003 )
+ - BUGFIX: resolves some segmentation fault in previous release
+ - BUGFIX: resolves various BUGS in the new color code.
+ - BUGFIX: previous version didn't compile on SCO OpenServer
+ - code cleanup
+ - documentation update
+ - "give notice on exit" works in the file open window.
+
+Lookat / Bekijk 1.4.0pre1 ( 19 Feb 2003 )
+ - The ability to modify the colors
+ - Typos corrected
+
+Lookat / Bekijk 1.3.2 ( 13 Jan 2003 )
+ - BUGFIX lookat crashed without a configuration file
+ - Solaris support
+
+Lookat / Bekijk 1.3.1 ( 29 Nov 2002 )
+ - Support for other systems than GNU/Linux ( *BSD, OSX, ... )
+ - Code cleanup
+
+Lookat / Bekijk 1.3.0 (11 Nov 2002)
+ - Backward Search
+ - Uses GNU AutoMake / AutoConf to build
+
+Lookat / Bekijk 1.2.1 (3 jun 2001)
+
+ - BUGFIX release: solves some segmentation faults
+
+Lookat / Bekijk 1.2 ( 25 Nov 2000 )
+
+ - the name is changed to "lookat" instead of "see" since the name "see" is
+   already used in Debian GNU/Linux 2.X
+ - cursor support
+ - configuration files
+ - types
+ - BUGFIX: if you try to open .tgz or .gz that contain faults or
+           aren't gzip/tar files see 1.1 will crash with a segmentation fault
+ - BUGFIX: pulldown menus weren't always correctly updated in see 1.1
+ - BUGFIX: memory leaks
+
+See / Bekijk 1.1 ( 28 Jun 1998 )
+
+ - View gzipped files
+ - View contents of *.tar, *.tgz and *.tar.gz files
+ - Read form stdin
+ - Write to stdout
+ - Move to a directory by the commandline.
+ - View manual pages
+ - License, version 1.1 is not donated to the Public Domain but is (like
+   most Linux programs) published under the GNU General Public License.
+ - BugFix : find
+ - BugFix : insert key in input routine
+ 
+See / Bekijk 1.0 ( ?? ?? 1997 )
+
+  - initial release
+				

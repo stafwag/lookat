@@ -1,0 +1,311 @@
+LOOKAT(1)                        User Commands                       LOOKAT(1)
+
+
+
+NAME
+       lookat - Un*x file viewer
+
+SYNOPSIS
+       lookat [ --help ] [ filename ] [ dir_name ]
+
+DESCRIPTION
+       "lookat"  (or  "bekijk" in the Dutch version) is a program to view Un*x
+       text files and manual pages.
+
+       Under DOS I used list.com to view text  files. I  didn't  find  such  a
+       program  under  my favorite OS, GNU/Linux. The standard  Un*x utilities
+       ( more, less, view ...) weren't userfriendly enough. For this reason  I
+       created "lookat".
+
+OPTIONS
+       --help
+              This option displays a help text.
+
+       file_name
+              view file_name
+
+       dir_name
+              change the current directory to dir_name
+
+BUGS
+       None known yet, when you find one you let me know :-)
+
+USAGE
+       There are four ways to start lookat :
+
+       *  by just typing 'lookat', after the program is started you can select
+       the file you want to view.
+
+       if there is already data on stdin, lookat will read the from stdin, and
+       display the contents of stdin
+
+       example:
+
+              ls | lookat
+
+       *  type  'lookat  dir_name',  change the current directory to dir_name.
+       When the program is started you can select the file you want to view.
+
+       * by typing 'lookat <filename>', the file with <filename> will automat-
+       ically be loaded.
+
+       * in combination with "man"
+
+       examples :
+
+              man -Plookat ls
+              export PAGER=lookat; man ls
+
+       If  you  like  "lookat" as your manual page viewer you can put the next
+       lines in your /etc/profile
+
+              alias man="man -Plookat"
+
+       After you have loaded a file, the following keys can be used:
+
+       Keys:
+                 <-, C-b         : move left / back
+                 ->, C-f         : move right / forward
+                 arrow up, C-p   : move up / previous line
+                 arrow down, C-n : move down / next line
+                 PgUp, u         : move up a screen
+                 PgDwn, d        : move down a screen
+                 HOME            : go to the beginning of a line
+                 END             : go to the end of a line
+                 o               : open a new file
+                 t,<             : go to top (start of file)
+                 b,e,>           : go to the last line  (end of file)
+                 g               : go to a line number
+                 /,z,s,f         : search for a string
+                 F3, n, c, v     : continue search
+                 F9              : menu
+                 ALT+f           : file menu
+                 ALT+g           : go menu
+                 ALT+s           : search menu
+                 ALT+h           : help menu
+                 F10,ESC,q       : quit program
+                 F1,h,?          : view this help file
+                 r               : rebuild screen
+
+       When you press F9 you get access to the pull-down menus,  most  of  the
+       functions are also available through the keyboard (see above).
+
+       File|Open or 'o':
+
+              When you select this function you get a window, at the left side
+              of the window you get the files of the  current  directory.   By
+              selecting  a  file  it  will be loaded. At the right size of the
+              window you see the directories, by pressing the TAB key you  are
+              able  to switch between the file and the directory selection. By
+              selecting a directory with ENTER you change the  current  direc-
+              tory. With the ESC key you cancel the file open operation.
+
+       File|Quit or 'F10,ESC,q':
+
+              Quit program.
+
+       Go|to begin or 'b':
+
+              Move to the first line of the file.
+
+       Go|to end or 'e':
+
+              Move to the last line of the file.
+
+       Go|to line or 'g':
+
+              With  this  function you are able to move to a certain line num-
+              ber. After you have selected this  function  you  get  a  window
+              which  asks  you  to give a line number. With ESC you cancel the
+              operation, by pressing the TAB key you can use the  [    OK    ]
+              and [ Cancel ] buttons.
+
+       Go|to end of a line or 'END':
+
+              Move to the end of a line.
+
+       Go|to the beginning of a line or 'HOME':
+
+              Move to the beginning of a line.
+
+       Search|for a string or '/,z,s,f'
+
+              With this function you can search for a string in the file.  The
+              searching will start from the current line (the  first  line  on
+              the  screen) to the last line in the file. After you select this
+              function you will see a window which asks you to give a  string.
+              The  searching  can  been done on two ways, with or without case
+              sensitivity. By pressing the TAB key you can select -with  SPACE
+              or ENTER- how to search at
+
+                  [ ] Case sensitive
+
+              With  the  TAB key you are also able to use the [   OK   ] and [
+              Cancel ] buttons.
+
+       Search|from beginning of the file
+
+              See above, the searching will start from the first line.
+
+       Search|Again or 'F3'
+
+              Search for the last string again.
+
+       Options|cursor
+
+              Turn the cursor on/off
+
+       Options|give notice
+
+              Notice on exit on/off
+
+       Options|types
+
+              Add, delete, modify types
+
+       Options|colors
+
+              Modify the colors
+
+       Options|Save options
+
+              Save the options to your cfg file ($HOME/.lookat)
+
+       Help|See help file or 'F1,h,?'
+
+              View this help file.
+
+       Help|Keys ...
+
+              Shows a list with the keys you can use in "lookat".
+
+       Help|About
+
+              Shows information about the program (version ,etc.).
+
+CONFIGURATION
+       Note:
+
+              The format of the configuration file has changed, please  remove
+              the  "="  sign. The old configuration files will still work, but
+              may not be supported in the future.
+
+       lookat uses two configuration  files  a  global  configuration  file  (
+       /etc/lookat.conf  )  and a user configuration file ( $HOME/.lookat ) if
+       the user's configuration file exists the global is ignored.
+
+       If the configuration files aren't available the defaults are used.
+
+CONFIGURATION DIRECTIVES
+       cursor  on|off
+
+              turn the cursor on / off
+
+       give_notice  on|of
+
+              give notice on exit  on / off
+
+
+              create a new type
+
+              If a filename matches a type the external command will  be  used
+              to open the file. A typical usage are gzipped files:
+
+                 .gz     "gzip -cd"
+
+              The  type  order  is  important lookat will compare the filename
+              with the types starting with the first type and continues  until
+              a type matches a filename.
+
+              So  if  you  want to define a type for ".gz" and ".tar.gz" files
+              you have to put the .tar.gz type first.
+
+       color object foreground background [ attribute ]
+
+              If your terminal supports colors, this directive can be  use  to
+              modify  the  color  of certain objects. Valid objects are: view,
+              view_bold, view_italic, main_menu,  main_menusel,  main_menuhot,
+              main_menuhotsel,   status_bar,   win1,   win1_edit,   win1_menu,
+              win1_menusel, win1_menuhot,  win1_menuhotsel,  win2,  win2_edit,
+              win2_menu,    win2_menusel,    win2_menuhot,    win2_menuhotsel,
+              view_found.
+
+              Valid colors are: white, black, green, magenta, blue, cyan, yel-
+              low, red.
+
+              Valid  attributes  are:  normal,  bold,  underline, reverse, and
+              standout.
+
+       mono object foreground_attribute [ background_attribute ]
+
+              If your terminal doesn't support color,  you  can  still  assign
+              foreground and background attributes to certain objects.
+
+THANKS TO ...
+       Free Software Foundation inc.
+
+              The  GNU  C  Library Reference Manual by Sandra Loosemore And of
+              course for gcc, make, bash, grep, man, ls, cp, tar, gzip, emacs,
+              less, ..., and more :-)
+
+       Sven Golt, Sven van der Meer, Scott Burkett, Matt Welsh
+
+              From  the  Linux  Documentation Project for their Linux Program-
+              mer's Guide.
+
+       Linus, and others ...
+
+              for Linux of course ;-)
+
+       Jan Wagemakers
+
+              For his debugging & to place "see" on his Webpage.  You can find
+              more  information  about  Linux  and  Assembly  on his Webpage :
+              http://www.janw.easynet.be
+
+       Roel Diederen
+
+              To create the man page for see 1.1
+
+       Aubin Paul
+
+              Aubin created the Mac OSX patch, this made it a  lot  easier  to
+              port "lookat" to other platform than GNU/Linux.
+
+       Jim W. Jaszewski
+
+              Corrected some typos in the manpage.
+
+       Kevin Keegan
+
+              For  reporting  his  installation problem on SCO OpenServer box,
+              and to provide pre-compiled binaries for SCO Unix.
+
+       All Free software programmers (on any computer system)
+
+       And everyone I had forgot to mention :-{
+
+LAST WORDS ...
+       When you find "lookat" useful (or useless), have  suggestions,  find  a
+       bug :-( you may let me know.
+
+AUTHOR
+       V1.4.0 Staf Wagemakers
+
+       homepage : http://www.wagemakers.be
+       email : staf@wagemakers.be
+
+COPYRIGHT
+       Copying and distribution of this file, with or without modification,
+       are permitted in any medium without royalty provided the copyright
+       notice and this notice are preserved.
+
+       This software is copyright  (c) 1997, 1998, 2000, 2001, 2002, 2003  
+       by  Staf  Wagemakers <staf@wagemakers.be>
+
+       You are free to distribute this software under the  terms  of  the  GNU
+       General Public License
+
+
+
+lookat 1.4.0                     April 2003                         LOOKAT(1)

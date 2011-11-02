@@ -1,0 +1,310 @@
+.TH BEKIJK "1" "April 2004" "BEKIJK 1.4.0" "User Commands"
+.SH NAME
+.PP
+bekijk \- Un*x bestand bekijker
+.SH SYNOPSIS
+.B bekijk
+[ \-\-help ] [ \fIbestandsnaam\fP ] [ \fIdirectorie_naam\fP ]
+.SH OMSCHRIJVING
+.PP
+"bekijk" (of "lookat" in de Engelse versie) is een programma om Un*x
+tekst bestanden en manual pages te bekijken.
+.PP
+Onder DOS gebruikte ik het programma (en gebruik ik nog steeds)
+list.com om tekst bestanden te bekijken. Onder Linux bestond een
+dergelijk programma niet (of heb ik het niet gevonden). De standaard
+Un*x programma's (more, less, view ...) waren niet gebruiksvriendelijk
+genoeg. Om deze rede heb ik "bekijk" ontwikkeld.
+.SH OPTIES
+.IP "--help"
+.br
+Deze optie toont een help tekst.
+.IP "\fIbestandsnaam\fP"
+toont \fIbestandsnaam\fP
+.IP "\fIdirectorie_naam\fP"
+opent de directorie \fIdirectorie_naam\fP
+.SH LUIZEN EN ANDER ONGEDIERTE
+.PP
+Nog niet bekend, indien je er vindt mag je het me laten weten :-)
+.SH GEBRUIK
+.PP   
+Je kan "bekijk" op 4 manieren starten:
+.I bekijk
+:
+.PP  
+* door gewoon '\fIbekijk\fP' te typen, hierna kan je uit het bestandsmenu
+een bestand selecteren om te bekijken.
+.PP	 
+indien er data via stdin kan lezen worden zal 'bekijk' deze tonen
+.PP	 
+voorbeeld:
+.IP
+ls | bekijk
+.PP
+door '\fIbekijk\fP \fIdir_naam\fP' te typen, de huidige directorie wordt
+veranderd naar \fIdir_naam\fP. Hierna kan je uit het bestandsmenu een
+bestand selecteren.
+.PP
+* door 'bekijk <bestandsnaam>' te typen, hierdoor wordt bij het
+opstarten het bestand automatisch geladen.
+.PP
+in combinatie met man
+.PP       
+voorbeelden:
+.IP
+man -Pbekijk ls
+.br
+export PAGER=bekijk; man ls
+.PP
+Als je "bekijk" altijd wil gebruiken om man pagina's te bekijken,
+plaats je best de volgende regel in /etc/profile
+.IP
+alias man="man -Pbekijk"
+.PP
+Nadat je een bestand geladen hebt kan je volgende toetsen gebruiken:
+.TP
+Toetsen:
+
+   <-, C-b         : links
+   ->, C-f         : rechts
+   arrow up, C-p   : omhoog
+   arrow down, C-n : omlaag
+   PgUp, u         : pagina omhoog
+   PgDwn, d        : pagina omlaag
+   HOME            : ga naar het begin van een regel
+   END             : ga naar het einde van een regel
+   o               : openen van een bestand
+   t,<             : ga naar de eerste regel
+   b,e,>           : ga naar de laatste regel
+   g               : ga naar een lijnnummer
+   /,z,s,f         : zoeken van een tekst
+   F3, n, c, v, \  : verder zoeken
+   F9              : menu
+   ALT+b           : bestandsmenu
+   ALT+g           : ga menu
+   ALT+z           : zoek menu
+   ALT+h           : help menu
+   F10,ESC,q       : verlaat het programma
+   F1,h,?          : openend help bestand
+   r               : herteken het scherm
+.PP 
+Door op F9 te drukken kan je gebruik maken van de trekmenu's,
+de meeste functies zijn ook bereikbaar via het toetsenbord (zie
+hierboven).
+.PP
+.B Bestand|Openen   of 'o':
+.IP
+Hierna wordt er een venster geopend met links de bestanden
+van de huidige directorie, door een bestand te selecteren
+wordt het geladen.
+.IP
+Rechts staan de directories, door op de TAB toets te drukken
+kan je omschakelen tussen de bestanden en de directories,
+door een directorie te selecteren wordt er van directorie
+veranderd.
+.IP
+Door op ESC te drukken verlaat je het venster
+.PP	  
+.B Bestand|Afsluiten   of 'F10,ESC,q':
+.IP
+Verlaat het programma.
+.PP
+.B Ga|Begin   of 'b':
+.IP
+Verplaats je naar het begin van het bestand.
+.PP
+.B Ga|Einde   of 'e':
+.IP
+Verplaats je naar het einde van een bestand.
+.PP		  
+.B Ga|Naar begin regel   of 'HOME':
+.IP       
+Verplaats je naar het begin van een regel.
+.PP	  
+.B Ga|Naar einde regel   of 'END':
+.IP       
+Verplaats je naar het einde van een regel
+.PP   
+.B Zoek|tekst   of '/,z,s,f'
+.IP
+Deze functie dient om tekst in het bestand te zoeken. Het opzoeken van de 
+tekst gebeurt van huidige regel tot de laatste. Er komt een venster op het 
+scherm welke je vraagt om de te-zoeken-tekst in te geven. Het opzoeken kan 
+op twee manieren gebeuren ofwel wordt er géén rekening houden met hoofd -of 
+kleine letters ofwel wel. Met de TAB toets kan men selecteren bij
+.IP
+     [ ] Onderscheidt tussen grootte & kleine letters
+.IP
+hoe de opzoeking moet gebeuren. Door middel van de TAB toets kan je gebruik 
+maken van de [  OK  ] en [ Annuleer ] knoppen.
+.PP
+.B Zoek|van begin tekst
+Zelfde functie als hierboven alleen, gebeurt de opzoeking vanaf het begin 
+van het bestand.
+.PP
+.B Zoek|Nogmaals   of 'F3'
+.IP       
+Zoek de laatste tekst nogmaals.
+.PP       
+.B Opties|cursor
+.IP       
+Zet de cursor aan/uit.
+.PP       
+.B Opties|vragen om af te sluiten
+.IP       
+Vragen om af te sluiten aan/uit.
+.PP       
+.B Opties|Types
+.IP       
+Bijvoegen, wissen, veranderen van types.
+.PP
+.B Opties|Kleuren
+.IP
+Veranderen van de kleuren.
+.PP 
+.B Opties|Opties bewaren
+.IP 
+Opties bewaren in je cfg bestand ($HOME/.lookat)
+.PP	  
+.B Help|Zie helptekst  of 'F1,h,?'
+.IP       
+Open help bestand. 
+.PP       
+.B Help|Toetsen
+.IP
+Toont een lijst met welke toetsen je in "bekijk" kan gebruiken.
+.PP	  
+.B Help|Over
+.IP
+Geeft algemene informatie over het programma (versie ,etc.)
+.SH CONFIGURATIE
+.PP
+.B Nota:
+.IP
+Het formaat van het configuratie bestand is gewijzigd, het
+is aangeraden om het "=" teken te verwijderen in je oude configuratie
+bestand te verwijderen. De oude configuratie bestanden werken
+nog maar worden waarschijnlijk niet verder ondersteund in de volgende
+versies.
+.PP
+bekijk gebruikt twee configuratie bestanden, een globaal configuratie
+bestand ( /etc/lookat.conf ) en gebruikers configuratie bestand 
+( $HOME/.lookat ). Indien het gebruikers configuratie bestand bestaat
+wordt het globale genegeerd.
+.PP
+Als de configuratie bestanden niet beschikbaar zijn worden de
+default waarden gebruikt.
+.SH 
+.PP CONFIGURATIE PARAMETERS
+.nf
+\fBcursor\fP  \fIon\fP\fb|\fP\fIoff\fP	     
+.fi
+.IP
+zet de cursor aan / uit
+.PP
+.nf
+\fBgive_notice\fP  \fIon\fP\fb|\fP\fIof\fP
+.fi
+.IP
+zet "vragen om af te sluiten" aan / uit
+.PP
+.nf
+\fB\.[\fP\fIextensie\fP\fB]\fP \fB"\fP\fIextern commando\fP\fB"\fP
+.fi
+.IP
+creëer een type.
+.IP
+Indien bestandsnaam overeen komt met een type wordt er een extern
+commando gebruikt om het bestand te openen. Een typisch voorbeeld zijn
+gegzipte bestanden:
+.IP
+   \.gz     "gzip -cd"
+.IP
+De type volgorde is belangrijk, bekijk vergelijk de bestandsnaam met de
+type en begint met de eerste type. Indien een .gz en .tar.gz wilt definieren
+moet je het .tar.gz eerst zetten.
+.IP
+De type volgorde is belangrijk, bekijk vergelijk de bestandsnaam met de
+type en begint met de eerste type. Indien een .gz en .tar.gz wilt definieren
+moet je het .tar.gz eerst zetten.
+.PP
+.nf
+\fBcolor\fP \fIobject\fP \fIvoorgrond\fP \fIachtergrond\fP [ \fIattribuut\fP ]
+.fi
+.IP
+Indien je terminal kleuren ondersteund laat deze parameter je toe om
+bepaalde objecten van kleur te veranderen. Geldige objecten zijn:
+\fBview\fP, \fBview_bold\fP, \fBview_italic\fP, \fBmain_menu\fP, 
+\fBmain_menusel\fP, \fBmain_menuhot\fP, \fBmain_menuhotsel\fP, 
+\fBstatus_bar\fP, \fBwin1\fP, \fBwin1_edit\fP, \fBwin1_menu\fP, 
+\fBwin1_menusel\fP, \fBwin1_menuhot\fP, \fBwin1_menuhotsel\fP, 
+\fBwin2\fP, \fBwin2_edit\fP, \fBwin2_menu\fP, \fBwin2_menusel\fP, 
+\fBwin2_menuhot\fP, \fBwin2_menuhotsel\fP, \fBview_found\fP.
+.IP
+Geldige kleuren zijn: \fBwhite\fP, \fBblack\fP, \fBgreen\fP, \fBmagenta\fP, 
+\fBblue\fP, \fBcyan\fP, \fByellow\fP, \fBred\fP.
+.IP
+Geldige attributen zijn: \fBnormal\fP, \fBbold\fP, \fBunderline\fP, \fBreverse\fP, 
+and \fBstandout\fP.
+.PP
+.nf
+\fBmono\fP \fIobject\fP \fIvoorgrond_attribuut\fP [ \fIbackground_attribuut\fP ]
+.fi
+.IP
+Indien je terminal geen kleuren ondersteund dan kan je
+\fIvoorgrond\fP en \fIAchtergrond\fP attributen aan objecten toekennen.
+.SH DANK AAN ...
+.PP 
+Free Software Foundation inc.
+.IP
+The GNU C Library Reference Manual door Sandra Loosemore
+En natuurlijk voor gcc, make, bash, grep, man, ls, cp, tar, gzip,
+emacs, less en more :-)
+.PP      
+Sven Golt, Sven van der Meer, Scott Burkett, Matt Welsh
+.IP
+Van het Linux Documentation Project voor hun Linux Programmer's Guide.
+.PP
+Linus, en anderen ... 
+.IP
+Voor Linux natuurlijk ;-)
+.PP         
+Jan Wagemakers
+.IP
+Voor het zoeken naar bugs in de beta versie & het plaatsen van "bekijk"
+op zijn Webpagina. http://www.janw.easynet.be
+.PP	 
+Roel Diederen
+.IP   
+Voor het creëren van de manpage voor see 1.1
+.PP
+Aubin Paul
+.IP
+Voor zijn Mac OSX patch, dit maakte het mogelijk om "bekijk" naar
+andere platformen te porten dan GNU/Linux.
+.PP
+Jim W. Jaszewski
+.IP
+Corrigeerde spellingsfouten fouten in de manpage van lookat.
+.PP 
+Kevin Keegan
+.IP
+Voor melde van zij installatie problemen op SCO OpenServer. En het beschikbaar stellen van binaries voor SCO Unix.
+.PP
+Alle vrije software programmeurs (op gelijk welk platform)
+.PP
+En iedereen die ik vergeten ben :-{
+.SH SLOT
+.PP 
+Indien je "bekijk" bruikbaar vindt (of onbruikbaar), suggesties hebt,
+bugs vindt :-( , mag je dit altijd laten weten.
+.SH AUTEUR
+V1.4.0pre2 Staf Wagemakers
+.PP   
+homepage : http://www.wagemakers.be
+.br
+email : staf@wagemakers.be
+.SH COPYRIGHT
+.PP
+Kopieren en distributie van dit bestand, met of zonder verandering, zijn
+toegelaten op elk medium.

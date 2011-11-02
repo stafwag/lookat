@@ -1,0 +1,21 @@
+SUPPORTED SYSTEMS
+
+    lookat / bekijk should compile and run on most Unix alike operation 
+    systems with ncurses.
+    
+    And has been tested with Debian GNU/Linux 4.0 (Etch), Mac OSX and 
+    FreeBSD 4.6
+
+    
+INSTALLATION
+
+    To build and install lookat/bekijk, type:
+
+        $ ./configure --prefix=/usr/local/lookat
+	$ make
+        $ make install
+
+    To build without debug information, type:
+
+	$ ./configure --prefix=/usr/local/lookat CFLAGS="-O2"
+

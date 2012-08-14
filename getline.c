@@ -49,8 +49,15 @@ getline (lineptr, n, stream)
 #endif
 
 #else /* ! have getdelim */
-int
-getdelim (lineptr, n, delimiter, stream);
+
+#if defined(__FreeBSD__)
+#include <osreldate.h>
+#if __FreeBSD_version <= 800066
+int getdelim (lineptr, n, delimiter, stream);
+#else
+ssize_t getdelim (lineptr, n, delimiter, stream);
+#endif
+#endif
 
 # include <assert.h>
 
@@ -154,7 +161,14 @@ getline (lineptr, n, stream)
   return getstr (lineptr, n, stream, '\n', 0);
 }
 
+#if defined(__FreeBSD__)
+#include <osreldate.h>
+#if __FreeBSD_version <= 800066
 int
+#else
+ssize_t
+#endif
+#endif
 getdelim (lineptr, n, delimiter, stream)
      char **lineptr;
      size_t *n;

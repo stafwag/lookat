@@ -42,8 +42,13 @@ getline PARAMS ((char **_lineptr, size_t *_n, FILE *_stream));
 
 #ifndef HAVE_GETDELIM 
 
+#if defined(__FreeBSD__)
+#include <osreldate.h>
+#if __FreeBSD_version <= 800066
 int
 getdelim PARAMS ((char **_lineptr, size_t *_n, int _delimiter, FILE *_stream));
+#endif
+#endif
 
 #endif
 

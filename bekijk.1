@@ -52,14 +52,14 @@ in combinatie met man
 .PP       
 voorbeelden:
 .IP
-man -Pbekijk ls
+man \-Pbekijk ls
 .br
 export PAGER=bekijk; man ls
 .PP
 Als je "bekijk" altijd wil gebruiken om man pagina's te bekijken,
 plaats je best de volgende regel in /etc/profile
 .IP
-alias man="man -Pbekijk"
+alias man="man \-Pbekijk"
 .PP
 Nadat je een bestand geladen hebt kan je volgende toetsen gebruiken:
 .TP
@@ -130,7 +130,7 @@ Verplaats je naar het einde van een regel
 Deze functie dient om tekst in het bestand te zoeken. Het opzoeken van de 
 tekst gebeurt van huidige regel tot de laatste. Er komt een venster op het 
 scherm welke je vraagt om de te-zoeken-tekst in te geven. Het opzoeken kan 
-op twee manieren gebeuren ofwel wordt er géén rekening houden met hoofd -of 
+op twee manieren gebeuren ofwel wordt er géén rekening houden met hoofd \-of 
 kleine letters ofwel wel. Met de TAB toets kan men selecteren bij
 .IP
      [ ] Onderscheidt tussen grootte & kleine letters
@@ -218,7 +218,7 @@ Indien bestandsnaam overeen komt met een type wordt er een extern
 commando gebruikt om het bestand te openen. Een typisch voorbeeld zijn
 gegzipte bestanden:
 .IP
-   \.gz     "gzip -cd"
+   \.gz     "gzip \-cd"
 .IP
 De type volgorde is belangrijk, bekijk vergelijk de bestandsnaam met de
 type en begint met de eerste type. Indien een .gz en .tar.gz wilt definieren

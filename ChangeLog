@@ -1,3 +1,13 @@
+Lookat / Bekijk 1.4.2rc2  ( - - - )
+ - Added FreeBSD patch
+ - Added redhat specfile
+ - Added debian package dir
+ - Corrected mirror manpage errors
+ - xmalloc.c updated for non compatible GNU malloc for systems like AIX 
+ 
+Lookat / Bekijk 1.4.2rc1  ( 2 Nov 2011 )
+ - Lookat 1.4.2rc1 is a maintenance release that resolves compile issues on some 64bits systems.
+
 Lookat / Bekijk 1.4.1     ( 10 Apr 2007 )
  - BUGFIX: corrected set color window location
 

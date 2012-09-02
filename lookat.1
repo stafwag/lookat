@@ -52,14 +52,14 @@ automatically be loaded.
 .PP       
 examples : 
 .IP
-man -Plookat ls
+man \-Plookat ls
 .br
 export PAGER=lookat; man ls
 .PP
 If you like "lookat" as your manual page viewer you can put the 
 next lines in your /etc/profile
 .IP
-alias man="man -Plookat"
+alias man="man \-Plookat"
 .PP
 After you have loaded a file, the following keys can be used:
 .TP
@@ -138,7 +138,7 @@ line on the screen) to the last line in the file. After you
 select this function you will see a window which asks you to 
 give a string. The searching can been done on two ways, with 
 or without case sensitivity. By pressing the TAB key you can 
-select -with SPACE or ENTER- how to search at 
+select \-with SPACE or ENTER\- how to search at 
 .IP	     
     [ ] Case sensitive
 .IP
@@ -220,7 +220,7 @@ create a new type
 If a filename matches a type the external command will be 
 used to open the file. A typical usage are gzipped files:
 .IP
-   \.gz     "gzip -cd"
+   \.gz     "gzip \-cd"
 .IP   
 The type order is important lookat will compare the filename 
 with the types starting with the first type and continues 
@@ -260,7 +260,7 @@ Free Software Foundation inc.
 .IP      
 The GNU C Library Reference Manual by Sandra Loosemore
 And of course for gcc, make, bash, grep, man, ls, cp, tar, 
-gzip, emacs, less, ..., and more :-)
+gzip, emacs, less, ..., and more :\-)
 .PP      
 Sven Golt, Sven van der Meer, Scott Burkett, Matt Welsh
 .IP      
@@ -268,7 +268,7 @@ From the Linux Documentation Project for their Linux Programmer's Guide.
 .PP
 Linus, and others ... 
 .IP      
-for Linux of course ;-)
+for Linux of course ;\-)
 .PP         
 Jan Wagemakers
 .IP   
@@ -292,15 +292,15 @@ Corrected some typos in the manpage.
 Kevin Keegan
 .IP
 For reporting his installation problem on SCO OpenServer box, and to 
-provide pre-compiled binaries for SCO Unix.
+provide pre\-compiled binaries for SCO Unix.
 .PP
 All Free software programmers (on any computer system)
 .PP      
-And everyone I had forgot to mention :-{
+And everyone I had forgot to mention :\-{
 .SH LAST WORDS ...
 .PP 
 When you find "lookat" useful (or useless), have suggestions, 
-find a bug :-( you may let me know.
+find a bug :\-( you may let me know.
 .SH AUTHOR
 V1.4.0 Staf Wagemakers
 .PP   

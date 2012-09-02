@@ -2754,7 +2754,7 @@ fi
 
 # Define the identity of the package.
  PACKAGE=lookat_bekijk
- VERSION=1.4.2rc1
+ VERSION=1.4.2rc2
 
 
 cat >>confdefs.h <<_ACEOF

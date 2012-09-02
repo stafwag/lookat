@@ -1,0 +1,18 @@
+Source: lookat
+Section: text
+Priority: extra
+Maintainer: staf wagemakers <staf@wagemakers.be>
+Build-Depends: debhelper (>= 7.0.50~), autotools-dev, libncurses5-dev, mime-support, mawk
+Standards-Version: 3.9.1
+Homepage: http://www.wagemakers/english/programs/lookat
+#Vcs-Git: git://git.debian.org/collab-maint/lookat.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/lookat.git;a=summary
+
+Package: lookat
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: is a program to view Un*x text files and manual pages
+ "lookat" (or "bekijk" in the Dutch version) is a program to view Un*x text
+ files and manual pages. Files that are compressed with gzip or bzip can
+ automatically be decompressed.
+

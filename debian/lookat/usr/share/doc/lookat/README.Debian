@@ -1,0 +1,7 @@
+lookat for Debian
+-----------------
+
+The lookat executable is renamed to lookat-viewer due a conflict with
+openvrml-lookat
+
+ -- Staf Wagemakers <staf@patat.org>, Wed, 17 Mar 2004 11:03:47 +0100

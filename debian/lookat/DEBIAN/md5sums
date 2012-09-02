@@ -1,0 +1,13 @@
+f373f8ccd5141bf8236071d2adbd5fb5  usr/bin/bekijk
+d376aab57e33fad039f95261d7352dbf  usr/bin/lookat-viewer
+78187adc3223b4fce94ae1b454b032b0  usr/share/doc/lookat/AUTHORS
+ec798670edd4dd3504449eefd2cb74f1  usr/share/doc/lookat/ChangeLog.gz
+92a5b65757d14392728631522c3ae926  usr/share/doc/lookat/LEESMIJ.gz
+b4ebbc5458acfae46788bca058c720e0  usr/share/doc/lookat/README.Debian
+56210fa5bb36404adea4676a92f60b5c  usr/share/doc/lookat/README.gz
+ad9b8926cff27122f41c936eeff8c94f  usr/share/doc/lookat/changelog.Debian.gz
+9b616ac968db0775629df46495b2b6ee  usr/share/doc/lookat/changelog.gz
+412ed200b05598c39629f74126ad07ab  usr/share/doc/lookat/copyright
+6c8285bce9eca9527d0f90e1e8f1c957  usr/share/doc/lookat/examples/blue_config.cfg
+2aa55182f0c008d649c71c2349da9281  usr/share/man/man1/bekijk.1.gz
+feb2e3f98de788a8056048ce34cbc28d  usr/share/man/man1/lookat-viewer.1.gz

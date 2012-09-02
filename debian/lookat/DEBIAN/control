@@ -1,0 +1,13 @@
+Package: lookat
+Version: 1.4.2rc2-1
+Architecture: amd64
+Maintainer: staf wagemakers <staf@wagemakers.be>
+Installed-Size: 272
+Depends: libc6 (>= 2.7), libncurses5 (>= 5.7+20100313)
+Section: text
+Priority: extra
+Homepage: http://www.wagemakers/english/programs/lookat
+Description: is a program to view Un*x text files and manual pages
+ "lookat" (or "bekijk" in the Dutch version) is a program to view Un*x text
+ files and manual pages. Files that are compressed with gzip or bzip can
+ automatically be decompressed.

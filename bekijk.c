@@ -1432,7 +1432,7 @@ bv.txt_f_open1=txt_f_open1;
 bv.txt_f_load=txt_f_laden;
 bv.txt_f_fseek=txt_f_fseek;
 if (!(initscr())) {
-   fprintf(stderr,txt_f_initscr);exit(1);
+   fprintf(stderr,"%s",txt_f_initscr);exit(1);
    }
 
 set_memerr(outofmemory);

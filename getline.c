@@ -30,6 +30,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. */
 #ifndef _GNU_SOURCE
 # define _GNU_SOURCE	1
 #endif
+
+#if defined(__FreeBSD__)
+#include <osreldate.h>
+#if __FreeBSD_version >= 900000
+#define _WITH_GETLINE
+#endif
+#endif
+
 #include <stdio.h>
 #include <sys/types.h>
 
@@ -52,10 +60,12 @@ getline (lineptr, n, stream)
 
 #if defined(__FreeBSD__)
 #include <osreldate.h>
+#if __FreeBSD_version < 900000
 #if __FreeBSD_version <= 800066
 int getdelim (lineptr, n, delimiter, stream);
 #else
 ssize_t getdelim (lineptr, n, delimiter, stream);
+#endif
 #endif
 #endif
 

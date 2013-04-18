@@ -29,10 +29,11 @@
 char *only_global(char *line,char **current_section,int *global)
 {
 char *c,*s=line,*globals,*found,*end_section;
-globals=(char *)xmalloc(strlen(line)+1);
+size_t size=strlen(line)+1;
+globals=(char *)xmalloc(size);
 end_section=(char *)xmalloc(1);
 strcpy(globals,line);
-memset(globals,'\0',sizeof(globals));
+memset(globals,'\0',size);
 while(1) {
    if (*global) {
       if((found=strstr(s,"<"))==NULL) {

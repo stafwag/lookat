@@ -26,7 +26,7 @@ const int sel_om                ='o';
 const int sel_hm		='h';
 char  *txt_help[] = {
 "---------------------------------------------------------------------------",
-"bekijk 1.4.2                                (GPL) 1997-2012 Belgie  Belgium",
+"bekijk 1.4.3rc1                             (GPL) 1997-2012 Belgie  Belgium",
 "                                                            Staf Wagemakers",
 "                                                  email: staf@wagemakers.be",
 " ",
@@ -129,8 +129,8 @@ char *txt_attributen[] = {"normaal","dik","onderlijnd","reverse",
 char txt_ondersheid_g[]	="[ ] grootte & kleine letters  ";
 char txt_search_back[]  ="[ ] Achteruit zoeken";
 char *txt_over[]	={
-"Bekijk versie 1.4.2                GNU Public License",
-"Staf Wagemakers                    (1997-2007) Belgie","\n",
+"Bekijk versie 1.4.3rc1             GNU Public License",
+"Staf Wagemakers                    (1997-2013) Belgie","\n",
 "email:                             staf@wagemakers.be",
 "homepagina:                  http://www.wagemakers.be","\n",NULL};
 char txt_bedank[]       ="Bedankt voor het gebruik van dit programma!";

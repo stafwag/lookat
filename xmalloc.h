@@ -23,6 +23,8 @@
  * some system use malloc.h, most modern unixes have malloc defined in
  * stdlib.h
  */
+
+#include "config.h"
 #ifdef STDC_HEADERS
 #include <stdlib.h>
 #else

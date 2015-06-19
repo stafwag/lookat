@@ -783,7 +783,7 @@ void free_type(char **cc,int a)
 int i;
 for (i=0;i<=a-1;i++) xfree(cc[i]);
 xfree(cc);
-cc=NULL;
+*cc=NULL;
 }
 /* -------------------------------------------- */
 /* Funktie voor types...                        */
@@ -1331,7 +1331,7 @@ void set_colors ()
 
 void cp2stdout(FILE *fp)
 {
-char c;
+int c;
 while(1) {
 	 if ((c=getc(fp))==EOF) break;
 	 fputc(c,stdout);

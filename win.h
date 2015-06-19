@@ -30,7 +30,7 @@
 #include <sys/types.h>
 #include <dirent.h>
 
-#if HAVE_SYS_SELECT
+#if HAVE_SYS_SELECT_H
 #include <sys/select.h>
 #endif
 

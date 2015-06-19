@@ -132,7 +132,7 @@ while (fgets(s,BUFFER_LEN,fp)) {
         if (!strncasecmp(c,var_name,l)) {
 	   c+=l;
 	   c=mv_2_next(c);
-	   r=(char *) realloc(r,strlen(c)+1);
+	   r=(char *) xrealloc(r,strlen(c)+1);
            strcpy(r,c);
 	   if(mode==2) break;
 	}

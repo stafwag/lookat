@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 
 AC_INIT(bekijk.c)
 AC_CANONICAL_SYSTEM
-AM_INIT_AUTOMAKE(lookat_bekijk, 1.4.3rc1)
+AM_INIT_AUTOMAKE(lookat_bekijk,1.4.4)
 AM_CONFIG_HEADER(config.h)
 
 OS_NAME=$build_os
@@ -19,15 +19,17 @@ AC_CHECK_HEADERS([stdlib.h],,AC_MSG_ERROR(not found))
 AC_CHECK_HEADERS([string.h],,AC_MSG_ERROR(not found))
 AC_CHECK_HEADERS([sys/time.h],,AC_MSG_ERROR(not found))
 AC_CHECK_HEADERS([unistd.h],,AC_MSG_ERROR(not found))
-AC_CHECK_HEADERS([ncurses.h],FOUND_NCURSES_H=1,FOUND_NCURSES_H=0)
-AC_CHECK_HEADERS([ctype.h])
+AC_CHECK_HEADERS([ncurses.h],FOUND_NCURSES_H=1)
+AC_CHECK_HEADERS([ncurses/ncurses.h],FOUND_NCURSES_H=1)
 
 if test "$FOUND_NCURSES_H" != "1"; then
 
-	AC_CHECK_HEADERS([ncurses/ncurses.h],FOUND_NCURSES_H=1,AC_MSG_ERROR(ncurses_h not found))
+	AC_MSG_ERROR(ncurses_h not found)
 
 fi
 
+AC_CHECK_HEADERS([ctype.h])
+AC_CHECK_HEADERS([malloc.h])
 AC_FUNC_MALLOC
 AC_FUNC_REALLOC
 AC_FUNC_SELECT_ARGTYPES

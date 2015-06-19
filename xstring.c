@@ -44,7 +44,7 @@ do {
 }
 void cut_after_quote (char *c) 
 {
-char *cp;
+char *cp=c;
 do {
    if(*c=='\"') {
       if(c==cp) 

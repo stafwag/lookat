@@ -1,8 +1,11 @@
 dnl Process this file with autoconf to produce a configure script.
 
-AC_INIT(bekijk.c)
+AC_INIT(lookat_bekijk,1.4.4)
 AC_CANONICAL_SYSTEM
-AM_INIT_AUTOMAKE(lookat_bekijk,1.4.4)
+AC_CONFIG_SRCDIR(bekijk.c)
+AM_INIT_AUTOMAKE
+
+
 AM_CONFIG_HEADER(config.h)
 
 OS_NAME=$build_os

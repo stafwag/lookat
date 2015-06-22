@@ -565,7 +565,7 @@ void ga_lijn ()
    brol=open_inputwin(7,60,&m,kleur[16],&s,txt,1,win1);
    curs_set(0);
    if (strlen(s.c)&&!brol) {
-      sscanf(s.c,"%ld",&y);
+      sscanf(s.c,"%lu",&y);
       if (y) --y;
         else bv.y=0;
       view_sety(y);

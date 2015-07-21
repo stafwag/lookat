@@ -1,7 +1,7 @@
 /*
  *  eng.h
  *
- *  Copyright (C) 1997, 1998, 2000, 2001, 2002, 2003, 2004, 2006, 2011, 2012  Staf Wagemakers Belgie/Belgium
+ *  Copyright (C) 1997 - 2015  Staf Wagemakers Belgie/Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ const char sel_hm		='h';
 const int sel_om                ='o';
 char *txt_help[]		= {
 "---------------------------------------------------------------------------",
-"lookat 1.4.3                                (GPL) 1997-2013 Belgie  Belgium",
+"lookat 1.4.4                                (GPL) 1997-2013 Belgie  Belgium",
 "                                                            Staf Wagemakers",
 "                                                  email: staf@wagemakers.be",
 " ",
@@ -130,7 +130,7 @@ char *txt_attributen[] = {"normal","bold","underline","reverse",
 char txt_ondersheid_g[]	="[ ] Case sensitive";
 char txt_search_back[]  ="[ ] Search backwards";
 char *txt_over[]	={
-"Lookat version 1.4.3               GNU Public License",
+"Lookat version 1.4.4               GNU Public License",
 "Staf Wagemakers                   (1997-2013) Belgium","\n",
 "email:                             staf@wagemakers.be",
 "homepage:                    http://www.wagemakers.be","\n",NULL};

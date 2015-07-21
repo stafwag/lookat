@@ -1,5 +1,5 @@
 Name:		lookat_bekijk
-Version:	1.4.2
+Version:	1.4.4
 Release:	1%{?dist}
 Summary:	Lookat / bekijk is a program to view Un*x text files and man pages. 
 

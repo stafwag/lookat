@@ -1,4 +1,11 @@
-Lookat / Bekijk 1.4.3rc1  ( 18 Aug 2013 )
+Lookat / Bekijk 1.4.4rc1  ( ?? ??? 2015 )
+ - openBSD support
+ - English translation issues corrected 
+ - autoconf updated to 2.69
+ - Corrected mirror compile warnings
+ 
+
+Lookat / Bekijk 1.4.3     ( 18 Aug 2013 )
  - Lookat 1.4.3rc1 has been released as 1.4.3
 
 Lookat / Bekijk 1.4.3rc1  ( 27 Apr 2013 )

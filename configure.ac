@@ -5,6 +5,7 @@ AC_INIT(lookat_bekijk,1.4.4,staf@wagemakers.be)
 AC_CANONICAL_SYSTEM
 AC_CONFIG_SRCDIR(bekijk.c)
 AM_INIT_AUTOMAKE
+AM_MAINTAINER_MODE([disable])
 
 
 AM_CONFIG_HEADER(config.h)

@@ -1,7 +1,7 @@
 /*
  *  ned.h
  *
- *  Copyright (C) 1997, 1998, 2000, 2001, 2002, 2003, 2004, 2006  Staf Wagemakers Belgium
+ *  Copyright (C) 1997 - 2015   Staf Wagemakers Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ const int sel_om                ='o';
 const int sel_hm		='h';
 char  *txt_help[] = {
 "---------------------------------------------------------------------------",
-"bekijk 1.4.3                                (GPL) 1997-2013 Belgie  Belgium",
+"bekijk 1.4.4                                (GPL) 1997-2013 Belgie  Belgium",
 "                                                            Staf Wagemakers",
 "                                                  email: staf@wagemakers.be",
 " ",
@@ -129,7 +129,7 @@ char *txt_attributen[] = {"normaal","dik","onderlijnd","reverse",
 char txt_ondersheid_g[]	="[ ] grootte & kleine letters  ";
 char txt_search_back[]  ="[ ] Achteruit zoeken";
 char *txt_over[]	={
-"Bekijk versie 1.4.3                GNU Public License",
+"Bekijk versie 1.4.4                GNU Public License",
 "Staf Wagemakers                    (1997-2013) Belgie","\n",
 "email:                             staf@wagemakers.be",
 "homepagina:                  http://www.wagemakers.be","\n",NULL};

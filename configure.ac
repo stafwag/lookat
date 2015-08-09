@@ -59,11 +59,11 @@ AC_TYPE_SIZE_T
 AC_CHECK_LIB(ncurses,initscr,,
 
 dnl
-dnl *BSD uses ncurses as their default curses lib
+dnl OpenBSD uses ncurses as their default curses lib
 dnl
 
-AC_MSG_CHECKING([*BSD system?])
-if echo $OS_NAME | grep -i bsd > /dev/null 2>&1; then
+AC_MSG_CHECKING([OpenBSD system?])
+if echo $OS_NAME | grep -i openbsd > /dev/null 2>&1; then
    AC_MSG_RESULT(yes - assuming libcurses is ncurses)
    AC_CHECK_LIB(curses,initscr,,AC_MSG_ERROR(curses lib not found))
 else

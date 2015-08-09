@@ -167,6 +167,7 @@ getstr (lineptr, n, stream, terminator, offset)
 }
 
 #ifndef __OpenBSD__
+#ifndef __NetBSD__
 
 int
 getline (lineptr, n, stream)
@@ -195,5 +196,6 @@ getdelim (lineptr, n, delimiter, stream)
 }
 #endif
 
+#endif /* ifndef __NetBSD__ */
 #endif /* ifndef __OpenBSD__ */
 

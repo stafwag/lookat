@@ -7,6 +7,7 @@ doc_DATA       = README LEESMIJ
 ENG_DOCFILE    = $(docdir)README
 NED_DOCFILE    = $(docdir)LEESMIJ
 CONFIGFILE=$(sysconfdir)/lookat.conf
+
 lookat.o: bekijk.c
 	$(COMPILE) -D_ENG -DCONFIGFILE=\"$(CONFIGFILE)\" -DDOCFILE=\"$(ENG_DOCFILE)\" -o lookat.o -c bekijk.c 
 

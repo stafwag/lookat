@@ -921,6 +921,7 @@ uninstall-man: uninstall-man1
 
 .PRECIOUS: Makefile
 
+
 lookat.o: bekijk.c
 	$(COMPILE) -D_ENG -DCONFIGFILE=\"$(CONFIGFILE)\" -DDOCFILE=\"$(ENG_DOCFILE)\" -o lookat.o -c bekijk.c 
 bekijk.o: bekijk.c

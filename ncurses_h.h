@@ -19,6 +19,7 @@
  *
  */
 
+#include <ncurses/ncurses.h>
 #include "config.h"
 
 #ifdef HAVE_NCURSES_H

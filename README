@@ -281,6 +281,10 @@ THANKS TO ...
               For  reporting  his  installation problem on SCO OpenServer box,
               and to provide pre-compiled binaries for SCO Unix.
 
+       Brian Callahan <bcallah@cvs.openbsd.org>
+
+	      openbsd patch, corrected English translation issues
+
        All Free software programmers (on any computer system)
 
        And everyone I had forgot to mention :-{
@@ -290,7 +294,7 @@ LAST WORDS ...
        bug :-( you may let me know.
 
 AUTHOR
-       V1.4.0 Staf Wagemakers
+       V1.4.4rc Staf Wagemakers
 
        homepage : http://www.wagemakers.be
        email : staf@wagemakers.be

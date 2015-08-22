@@ -280,6 +280,11 @@ DANK AAN ...
               Voor  melde  van zij installatie problemen op SCO OpenServer. En
               het beschikbaar stellen van binaries voor SCO Unix.
 
+       Brian Callahan <bcallah@cvs.openbsd.org>
+
+              openbsd patch, heeft de Engelse vertaling verbeterd
+
+
        Alle vrije software programmeurs (op gelijk welk platform)
 
        En iedereen die ik vergeten ben :-{
@@ -289,7 +294,7 @@ SLOT
        bugs vindt :-( , mag je dit altijd laten weten.
 
 AUTEUR
-       V1.4.0 Staf Wagemakers
+       V1.4.4rc Staf Wagemakers
 
        homepage : http://www.wagemakers.be
        email : staf@wagemakers.be

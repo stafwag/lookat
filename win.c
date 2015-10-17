@@ -83,6 +83,8 @@ if (!(w=newwin(yy,xx,y,x))) {
    fprintf(stderr,"Failed to create ncurses windows");
    exit(1);
    }
+keypad(w,TRUE);
+meta(w,TRUE);
 return(w);
 }
 /* -------------------------------------------- */

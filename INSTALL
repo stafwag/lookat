@@ -20,7 +20,16 @@ INSTALLATION
 
 	Run configure
 
+	    Use ncursesXXX-config to set CPPFLAGS and LIBS 
+
 		$ ./configure CPPFLAGS="`ncurses5-config --cflags`/.." LIBS="`ncurses5-config --libs`"
+
+	    Or set them manually 
+
+		$ ./configure CPPFLAGS="-I/usr/pkg/include/" LIBS="-Wl,-R/usr/pkg/lib -L/usr/pkg/lib -lncurses"
+
+	Make
+
 		$ make 
 		$ make install
 

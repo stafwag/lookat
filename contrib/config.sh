@@ -22,7 +22,7 @@
 #
 
 ScriptName=$0
-BaseDir="../`dirname $ScriptName`"
+BaseDir="`dirname $ScriptName`/.."
 
 cd $BaseDir || {
 

@@ -22,6 +22,6 @@
 #
 
 
-which cppcheck && cppcheck --xml --xml-version=2 --enable=all --inconclusive --language=c "*.c"
+which cppcheck && cppcheck --xml --xml-version=2 --enable=all --inconclusive --language=c "*.c" > cppcheck.xml
 
 exit 0

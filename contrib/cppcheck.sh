@@ -23,3 +23,5 @@
 
 
 which cppcheck && cppcheck --xml --xml-version=2 --enable=all --inconclusive --language=c "*.c"
+
+exit 0

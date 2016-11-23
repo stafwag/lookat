@@ -1,7 +1,7 @@
 /*
  *  input.h
  *
- *  Copyright (C) 1997, 1998, 2006  Staf Wagemakers Belgie/Belgium
+ *  Copyright (C) 1997, 1998, 2006, 2016  Staf Wagemakers Belgie/Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@
 #define __INPUT_H
 #include "config.h"
 #include "common.h"
+#define NCURSES_INTERNALS 1
 #include "ncurses_h.h"
 typedef struct {
 	WINDOW *w;	/* input vensters				 */

@@ -169,6 +169,8 @@ getstr (lineptr, n, stream, terminator, offset)
 #ifndef __OpenBSD__
 #ifndef __NetBSD__
 
+#ifndef HAVE_GETLINE
+
 int
 getline (lineptr, n, stream)
      char **lineptr;
@@ -177,6 +179,10 @@ getline (lineptr, n, stream)
 {
   return getstr (lineptr, n, stream, '\n', 0);
 }
+
+#endif
+
+#ifndef HAVE_GETDELIM 
 
 #if defined(__FreeBSD__)
 #include <osreldate.h>
@@ -194,6 +200,8 @@ getdelim (lineptr, n, delimiter, stream)
 {
   return getstr (lineptr, n, stream, delimiter, 0);
 }
+#endif
+
 #endif
 
 #endif /* ifndef __NetBSD__ */

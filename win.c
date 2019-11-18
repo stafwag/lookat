@@ -392,7 +392,11 @@ do {
   int fout;
   if (txt_path!=NULL) {
        wrefresh(win2);
-       chdir(txt_path);
+       /* return if chdir is failing */
+       if (chdir(txt_path) != 0) {
+         xfree(txt_path);
+         return NULL;
+       }
        xfree(txt_path);
        txt_path=NULL;
      }

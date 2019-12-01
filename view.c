@@ -1,7 +1,7 @@
 /*
  *  view.c
  *
- *  Copyright (C) 1997, 1998, 2000, 2003, 2004, 2006, 2007 Staf Wagemakers Belgium
+ *  Copyright (C) 1997, 1998, 2000, 2003, 2004, 2006, 2007, 2019 Staf Wagemakers Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -131,8 +131,15 @@ if(p->filename!=NULL) {
 if(gzip) {
   int sys_err;
   
-  if (p->cmd==1) freopen("/dev/null","w",stderr);
-  freopen("/dev/null","w",stdout);
+  if (p->cmd==1) {
+    if (win_freopen("/dev/null","w",stderr,p->m_ok,p->win)) return(1);
+  }
+  if(freopen("/dev/null","w",stdout) ==NULL) {
+    if(win_freopen("/dev/tty","w",stdout,p->m_ok,p->win)) return(1);
+    char *txt[]={p->txt_f_freopen,NULL};
+    open_okwin(6,40,p->m_ok,txt,p->win);
+    return(1);
+  }
   sys_err=system(gzip);
   if (sys_err==0) {
      gz_fp=popen(gzip,"r");
@@ -140,9 +147,12 @@ if(gzip) {
         else  is_gz=1;
      } 
 	    
-  freopen("/dev/tty","w",stdout);
-  if (p->cmd==1) freopen("/dev/tty","w",stderr);
-  free(gzip);
+  if(win_freopen("/dev/tty","w",stdout,p->m_ok,p->win)) return(1);
+  if (p->cmd==1) {
+    if(win_freopen("/dev/tty","w",stderr,p->m_ok,p->win)) return(1);
+    return(1);
+  }
+  xfree(gzip);
 }
 if (p->cmd<2) {
   if ((fp=fopen(p->filename,"r"))==NULL) {

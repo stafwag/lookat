@@ -1,7 +1,7 @@
 /*
  *  win.h
  *
- *  Copyright (C) 1997, 1998, 2001, 2006, 2015  Staf Wagemakers Belgie/Belgium
+ *  Copyright (C) 1997, 1998, 2001, 2006, 2015, 2019  Staf Wagemakers Belgie/Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,6 +21,8 @@
 
 #ifndef __VENSTER_H
 #define __VENSTER_H
+#include <stdio.h>
+#include <stdarg.h>
 #include "common.h"
 #include "ncurses_h.h"
 #include "xstring.h"
@@ -61,6 +63,7 @@ char *open_filewin(WINDOW *win2,char **txt,chtype *kleur,WINDOW *win1,int (*ends
 int open_inputwin (int yy,int xx,MENU *m,chtype kleur,INPUT_STRING *read_str,char **txt,char mode,WINDOW *win1);
 void wexit(int i);
 int open_ynwin (int yy,int xx,MENU *m,char **txt,WINDOW *win1);
+int win_freopen(const char *pathname, const char *mode, FILE *stream, MENU *m, WINDOW *win1);
 #endif
 
 

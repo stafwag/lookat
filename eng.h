@@ -1,7 +1,7 @@
 /*
  *  eng.h
  *
- *  Copyright (C) 1997 - 2015  Staf Wagemakers Belgie/Belgium
+ *  Copyright (C) 1997 - 2019  Staf Wagemakers Belgie/Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ const char sel_hm		='h';
 const int sel_om                ='o';
 char *txt_help[]		= {
 "---------------------------------------------------------------------------",
-"lookat 1.4.4                                (GPL) 1997-2015 Belgie  Belgium",
+"lookat 1.4.5pre                             (GPL) 1997-2019 Belgie  Belgium",
 "                                                            Staf Wagemakers",
 "                                                  email: staf@wagemakers.be",
 " ",
@@ -78,11 +78,15 @@ unsigned hplace_type[]      	={4,1,2,1};
 
 char txt_info_open[]	="Select a file or directory     TAB = files <-> directories       ESC = cancel";
 char txt_term[]         ="Program terminated by signal ";
+char txt_err_freopen[]    ="freopen failed:";
 char *txt_f_writecfg[]	={"Sorry, can't write config file...\n",NULL};
 char txt_f_open1[]	="Sorry, I can't open : ";
 char txt_f_open2[]	="\n";
 char txt_f_laden[]	="No such file or directory...";
 char txt_f_fseek[]	="Sorry, fseek() has failed ...";
+char txt_f_freopen[]	="Sorry, freopen() has failed ...";
+char txt_f_view_load[]	="Sorry, view_load() has failed ...";
+char txt_f_open_best[]	="Sorry, open_best() has failed ...";
 char txt_f_toegang[]	="Access denied ...";
 char txt_f_ok[]         ="[ Ok ]";
 char txt_f_initscr[]	="Sorry, initscr() has failed ...";
@@ -130,7 +134,7 @@ char *txt_attributen[] = {"normal","bold","underline","reverse",
 char txt_ondersheid_g[]	="[ ] Case sensitive";
 char txt_search_back[]  ="[ ] Search backwards";
 char *txt_over[]	={
-"Lookat version 1.4.4               GNU Public License",
+"Lookat version 1.4.5pre            GNU Public License",
 "Staf Wagemakers                   (1997-2015) Belgium","\n",
 "email:                             staf@wagemakers.be",
 "homepage:                    http://www.wagemakers.be","\n",NULL};
@@ -187,6 +191,9 @@ char *txt_hlpm[]={"View help file <F1,H,?>","Keys ...","About ..."};
 char txt_fg[]="Foreground:";
 char txt_bg[]="Background:";
 char txt_attr[]="Attribute:";
-		
-
-
+char txt_abort_lookat[]="Bekijk afbreken?";
+char *txt_freopen_abort[]={txt_f_freopen,"",txt_abort_lookat,NULL};
+char *txt_view_load_abort[]={txt_f_view_load,txt_abort_lookat,NULL};
+char *txt_view_load_error[]={txt_f_view_load,"",NULL};
+char *txt_open_best_error[]={txt_f_open_best,"",NULL};
+char *txt_open_best_abort[]={txt_f_open_best,"",txt_abort_lookat,NULL};

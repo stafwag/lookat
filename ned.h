@@ -1,7 +1,7 @@
 /*
  *  ned.h
  *
- *  Copyright (C) 1997 - 2015   Staf Wagemakers Belgium
+ *  Copyright (C) 1997 - 2019   Staf Wagemakers Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ const int sel_om                ='o';
 const int sel_hm		='h';
 char  *txt_help[] = {
 "---------------------------------------------------------------------------",
-"bekijk 1.4.4                                (GPL) 1997-2015 Belgie  Belgium",
+"bekijk 1.4.5pre                             (GPL) 1997-2015 Belgie  Belgium",
 "                                                            Staf Wagemakers",
 "                                                  email: staf@wagemakers.be",
 " ",
@@ -75,12 +75,16 @@ unsigned hplace_ok_anu[]	={4,1,2,1};
 unsigned hplace_zoek[]		={0,0,0,0,4,1,2,1};
 unsigned hplace_type[]		={4,1,2,1};
 char txt_term[]         ="Programma beeindigd door signaal ";
+char txt_err_freopen[]    ="freopen failed:";
 char txt_info_open[]	="ENTER = selektie       TAB = bestanden <-> direktories      ESC = anuleer";
 char *txt_f_writecfg[]	={"Sorry, kan configuratie bestand","niet wegschrijven.",NULL};
 char txt_f_open1[]	="Sorry, kan";
 char txt_f_open2[]	="niet openen\n";
 char txt_f_laden[]	="Kan bestand of directorie niet openen ...";
 char txt_f_fseek[]	="Sorry, er is een fout opgetreden bij fseek()";
+char txt_f_freopen[]	="Sorry, er is een fout opgetreden bij freopen()";
+char txt_f_view_load[]	="Sorry, er is een fout opgetreden bij view_load()...";
+char txt_f_open_best[]	="Sorry, er is een fout opgetreden bij open_best()...";
 char txt_f_toegang[]	="Toegang geweigerd ...";
 char txt_f_ok[]		="[ Ok ]";
 char txt_f_initscr[]	="Sorry, er is een fout opgetreden bij initscr() ...";
@@ -129,7 +133,7 @@ char *txt_attributen[] = {"normaal","dik","onderlijnd","reverse",
 char txt_ondersheid_g[]	="[ ] grootte & kleine letters  ";
 char txt_search_back[]  ="[ ] Achteruit zoeken";
 char *txt_over[]	={
-"Bekijk versie 1.4.4                GNU Public License",
+"Bekijk versie 1.4.5pre             GNU Public License",
 "Staf Wagemakers                    (1997-2015) Belgie","\n",
 "email:                             staf@wagemakers.be",
 "homepagina:                  http://www.wagemakers.be","\n",NULL};
@@ -186,4 +190,9 @@ char *txt_hlpm[]={"Zie helptekst <F1,H,?>","Toetsen ...","Over ..."};
 char txt_fg[]="Voorgrond:";
 char txt_bg[]="Achtergron:";
 char txt_attr[]="Attribuut:";
-		
+char txt_abort_lookat[]="Bekijk afbreken?";
+char *txt_freopen_abort[]={txt_f_freopen,"",txt_abort_lookat,NULL};
+char *txt_view_load_abort[]={txt_f_view_load,txt_abort_lookat,NULL};
+char *txt_view_load_error[]={txt_f_view_load,"",NULL};
+char *txt_open_best_error[]={txt_f_open_best,"",NULL};
+char *txt_open_best_abort[]={txt_f_open_best,"",txt_abort_lookat,NULL};

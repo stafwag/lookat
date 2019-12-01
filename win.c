@@ -1,7 +1,7 @@
 /*
  *  win.c
  *
- *  Copyright (C) 1997, 2000, 2001, 2006, 2007  Staf Wagemakers Belgie/Belgium
+ *  Copyright (C) 1997, 2000, 2001, 2006, 2007, 2019  Staf Wagemakers Belgie/Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -116,21 +116,33 @@ unsigned pl_ok[2];
 int key_m[]={'\n','\n','\n','\n','\n','\n'};
 w=open_cwin(yy,xx);
 leaveok(w,TRUE);
+
 curs_set(0);
-pl_ok[0]=yy-2;
-pl_ok[1]=xx/2-strlen(m->txt[0])/2;
-m->w=w;
-m->amount=1;
-m->l=0;
-m->place=pl_ok;
-m->sel=m->used=0;
-m->key=key_m;
-wbkgdset(w,m->color1);
+
 werase(w);
 i=0;
 while (txt[i]!=NULL) mvwaddstr(w,2+i,3,txt[i++]); 
 box(w,0,0);
-do i=menu_key(m); while(!i);
+touchwin(w);
+wrefresh(w);
+
+if (m!=NULL) {
+  wbkgdset(w,m->color1);
+  pl_ok[0]=yy-2;
+  pl_ok[1]=xx/2-strlen(m->txt[0])/2;
+  m->w=w;
+  m->amount=1;
+  m->l=0;
+  m->place=pl_ok;
+  m->sel=m->used=0;
+  m->key=key_m;
+  touchwin(w);
+  wrefresh(w);
+  do i=menu_key(m); while(!i);
+} else {
+  wrefresh(w);
+  sleep(10);
+}
 wrefresh(w);
 delwin(w);
 if (win1!=NULL) touchwin(win1);
@@ -574,7 +586,10 @@ if (data!=NULL) get_dir_free(data);
 xfree(txt_wd); 
 delwin(w);
 
-if (win1!=NULL) wrefresh(win1);
+if (win1!=NULL) {
+  touchwin(win1);
+  wrefresh(win1);
+}
 
 if (i) return (NULL);
 
@@ -650,4 +665,47 @@ if (!m->sel) return(0);
 return (1);
 }
 
+/* 
+ * freopen wrapper with error handling.
+ * An error window will be displayed if freopen fails
+ */
+int win_freopen(const char *pathname, const char *mode, FILE *stream, MENU *m, WINDOW *win1)
+{
+  FILE *fp;
+  char txt_stdin[]="stdin";
+  char txt_stdout[]="stdout";
+  char txt_stderr[]="stderr";
+  char txt_unknown[]="unknown";
+  char **txt_err_array=xmalloc(4 *sizeof(char *));
 
+  fp=freopen(pathname,mode,stream);
+  if(fp==NULL) {
+
+     char * txt_err=xmalloc(100);
+     char * txt_errno=xmalloc(100);
+     char * txt_stream;
+
+     if (stream == stdin) { 
+         txt_stream=txt_stdin;
+     } else if ( stream == stdout) {
+        txt_stream=txt_stdout;
+     } else if ( stream == stderr ) {
+        txt_stream=txt_stderr;
+     } else {
+        txt_stream=txt_unknown;
+     }
+
+     snprintf(txt_err,100,"freopen(%s,%s,%s) failed",pathname,mode,txt_stream);
+     snprintf(txt_errno,100,"errno = \"%d\" strerror=\"%s\"",errno,strerror(errno));
+
+     txt_err_array[0]=txt_err;
+     txt_err_array[1]=txt_errno;
+     txt_err_array[2]=NULL;
+
+     open_okwin(8,40,m,txt_err_array,win1);
+     xfree(txt_err);
+     xfree(txt_err_array);
+     return 1;
+  }
+  return 0;
+}

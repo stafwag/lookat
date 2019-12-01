@@ -36,6 +36,7 @@ char          *filename;
 char          load,cmd;
 char          *txt_f_open2,*txt_f_open1,*txt_f_load;
 char          *txt_f_fseek;
+char          *txt_f_freopen;
 char	      ***view_exec;
 MENU          *m_ok;
 WINDOW        *win;

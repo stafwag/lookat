@@ -7,3 +7,5 @@ to other platforms than GNU/Linux.
 
 Brian Callahan <bcallah@cvs.openbsd.org> openbsd patch, corrected English translation
 issues 
+
+Ryan Schmidt patch to compile Lookat on Macos 10.7+

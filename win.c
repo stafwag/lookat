@@ -24,10 +24,10 @@ void wexit(int i) {
 	endwin();
 	exit(i);
 }
-/* ----------------------------------------- */
-/* Print een kar. als een string af, dit     */
-/* geeft minder problemen met speciale kar.  */
-/* ----------------------------------------- */
+/*
+ * Print een kar. als een string af, dit
+ * geeft minder problemen met speciale kar.
+*/
 void waddch_fix (WINDOW *w,char c)
 {
 char s[2]={'\0','\0'};
@@ -35,29 +35,29 @@ if (isbin(c)) c='.';
 s[0]=c;
 waddstr(w,s);
 }
-/* ------------------------------------------- */
-/* Tekenen van horizontale lijn		       */
-/* ------------------------------------------- */
+/*
+ * Tekenen van horizontale lijn
+ */
 void win_hline(WINDOW *w,int h)
 {
 int i;
 for (i=0;i<h;i++) waddch(w,ACS_HLINE);
 }
-/* ------------------------------------------- */
-/* Tekenen van een vertikale lijn	       */
-/* ------------------------------------------- */
+/*
+ * Tekenen van een vertikale lijn
+ */
 void win_vline(WINDOW *w,int v)
 {
 int i;
 for (i=0;i<v;i++) waddch(w,ACS_VLINE);
 }
-/* ----------------------------------------- */
-/* Tekenen van een kader in een venster	...  */
-/*					     */
-/* w     : venster			     */
-/* y,x   : horizontale & vertikale grootte   */
-/* yp,xp : horizontale & vertikale positie   */
-/* ----------------------------------------- */
+/*
+ * Tekenen van een kader in een venster	...
+ *
+ * w     : venster
+ * y,x   : horizontale & vertikale grootte
+ * yp,xp : horizontale & vertikale positie
+ */
 void win_box(WINDOW *w,int y,int x,int yp,int xp)
 {
 mvwaddch (w,yp,xp,ACS_ULCORNER);
@@ -71,10 +71,10 @@ mvwaddch(w,yp+y,xp,ACS_LLCORNER);
 whline(w,ACS_HLINE,x-1);
 mvwaddch(w,yp+y,xp+x,ACS_LRCORNER);
 }
-/* -------------------------------------------- */
-/* Procedure voor het openen van een venster +	*/
-/* fout afhandeling				*/
-/* -------------------------------------------- */
+/*
+ * Procedure voor het openen van een venster +
+ * fout afhandeling
+ */
 WINDOW * open_win(int yy,int xx,int y,int x)
 {
 WINDOW *w;
@@ -87,27 +87,27 @@ keypad(w,TRUE);
 meta(w,TRUE);
 return(w);
 }
-/* -------------------------------------------- */
-/* Procedure voor het openen van een gecenteerd */
-/* venster					*/
-/* int yy,xx  : lengte, breedte			*/
-/*						*/
-/* Geeft een pointer naar venster terug		*/
-/* -------------------------------------------- */
+/*
+ * Procedure voor het openen van een gecenteerd
+ * venster
+ * int yy,xx  : lengte, breedte
+ *
+ * Geeft een pointer naar venster terug
+ */
 WINDOW * open_cwin (int yy,int xx)
 {
 WINDOW *w;
 w=open_win(yy,xx,LINES/2-yy/2,COLS/2-xx/2);
 return(w);
 }
-/* -------------------------------------------- */
-/* Procedure voor het openen van een		*/
-/* "ok"-venster					*/
-/* int yy,xx  : lengte, breedte			*/
-/* char **txt : pointer naar array van strings  */
-/*		NULL = einde array		*/
-/* chtype   c : normale kleur			*/
-/* -------------------------------------------- */
+/*
+ * Procedure voor het openen van een
+ * "ok"-venster
+ * int yy,xx  : lengte, breedte
+ * char **txt : pointer naar array van strings
+ *		NULL = einde array
+ * chtype   c : normale kleur
+ */
 void open_okwin (int yy,int xx,MENU *m,char **txt,WINDOW *win1)
 {
 WINDOW *w;
@@ -116,8 +116,9 @@ unsigned pl_ok[2];
 int key_m[]={'\n','\n','\n','\n','\n','\n'};
 w=open_cwin(yy,xx);
 leaveok(w,TRUE);
-
 curs_set(0);
+
+if (m != NULL ) wbkgdset(w,m->color1);
 
 werase(w);
 i=0;
@@ -126,8 +127,7 @@ box(w,0,0);
 touchwin(w);
 wrefresh(w);
 
-if (m!=NULL) {
-  wbkgdset(w,m->color1);
+if (m!=NULL) { 
   pl_ok[0]=yy-2;
   pl_ok[1]=xx/2-strlen(m->txt[0])/2;
   m->w=w;
@@ -143,20 +143,22 @@ if (m!=NULL) {
   wrefresh(w);
   sleep(10);
 }
+
 wrefresh(w);
 delwin(w);
 if (win1!=NULL) touchwin(win1);
 }
-/* -------------------------------------------- */
-/* Procedure het open van een "ja/nee"-venster  */
-/* int yy,xx  : lengte, breedte			*/
-/* char **txt : pointer naar array van strings  */
-/*		NULL = einde array		*/
-/* chtype   c : normale kleur			*/
-/*						*/
-/* Geeft terug 0 : -> nee / ESC			*/
-/*	       1 : -> ja			*/
-/* -------------------------------------------- */
+
+/*
+ * Procedure het open van een "ja/nee"-venster
+ * int yy,xx  : lengte, breedte
+ * char **txt : pointer naar array van strings
+ *		NULL = einde array
+ * chtype   c : normale kleur
+ *
+ * Geeft terug 0 : -> nee / ESC
+ *	       1 : -> ja
+ */
 int open_ynwin (int yy,int xx,MENU *m,char **txt,WINDOW *win1)
 {
 #define TAB 9
@@ -197,16 +199,16 @@ if (i==6)  return(0);
 if (m->sel) return(0);
 return(1);
 }
-/* -------------------------------------------- */
-/* Procedure voor het openen van een		*/
-/* anim-venster					*/
-/* int yy,xx  : lengte, breedte			*/
-/* char **txt : pointer naar array van strings  */
-/*		NULL = einde array		*/
-/* chtype   c : normale kleur			*/
-/* char   mode: 0 -> stop                       */
-/*              1 -> don't stop                 */
-/* -------------------------------------------- */
+/*
+ * Procedure voor het openen van een
+ * anim-venster
+ * int yy,xx  : lengte, breedte
+ * char **txt : pointer naar array van strings
+ *		NULL = einde array
+ * chtype   c : normale kleur
+ * char   mode: 0 -> stop
+ *              1 -> don't stop
+ */
 void open_animwin (int yy,int xx,MENU *m,char **txt,char *animtxt,WINDOW *win1,char mode)
 {
 WINDOW *w;
@@ -267,9 +269,9 @@ wrefresh(w);
 delwin(w);
 if (win1!=NULL) touchwin(win1);
 }
-/* ------------------------------------------- */
-/* Procedure voor het openen van menu venster  */
-/* ------------------------------------------- */	
+/*
+ * Procedure voor het openen van menu venster
+ */
 void m_open(MENU *m,WINDOW *win1)
 {
 touchwin(win1);
@@ -297,29 +299,29 @@ str.mode=0;
 wbkgdset(m->w,m->color3);
 input_show_string(&str);
 }
-/* ----------------------------------------- */
-/* Inlezen van de bestandsnaam ...	     */	
-/* *win2 : info venster indien NULL geen info */
-/* *txt_info_open : info tekst                */
-/* **txt      [0] : tekst in info venster    */
-/*            [1] : geen toegang             */
-/*            [2] : kan bestand nt openen    */
-/*            [3] : huidige dir              */
-/*            [4] : selektie		     */
-/*            [5] : titel venster            */
-/*            [6] : bestanden                */
-/*            [7] : dirs                     */
-/*            [8] : ok			     */
-/* *kleur     [0] : win kleur                */
-/*            [1] : menu color		     */
-/*            [2] : selektie kleur           */
-/*            [3] : balkkleur                */
-/* *win1          : te verversen window      */
-/*                                           */
-/* Geeft terug :                             */
-/* bestandsnaam                              */
-/* NULL -> fout                              */
-/* ----------------------------------------- */
+/*
+ * Inlezen van de bestandsnaam ...
+ * *win2 : info venster indien NULL geen info
+ * *txt_info_open : info tekst
+ * **txt      [0] : tekst in info venster
+ *            [1] : geen toegang
+ *            [2] : kan bestand nt openen
+ *            [3] : huidige dir
+ *            [4] : selektie
+ *            [5] : titel venster
+ *            [6] : bestanden
+ *            [7] : dirs
+ *            [8] : ok
+ * *kleur     [0] : win kleur
+ *            [1] : menu color
+ *            [2] : selektie kleur
+ *            [3] : balkkleur
+ * *win1          : te verversen window
+ *
+ * Geeft terug :
+ * bestandsnaam
+ * NULL -> fout
+ */
 char * open_filewin(WINDOW *win2,char **txt,chtype *kleur,WINDOW *win1,int (*ends)())
 {
 MENU dm,bm,fm;			/* menus 		*/
@@ -595,19 +597,19 @@ if (i) return (NULL);
 
 return (bestandsnaam);
 }
-/* ----------------------------------------- */
-/* Openen van een input venster              */
-/*					     */
-/* INPUT_STRING *s = pointer naar string     */
-/* char *titel = pointer naar venster-titel  */
-/* char *tekst = pointer naar info-tekst     */
-/* int    mode = input-mode                  */
-/*                   0 = string              */
-/*                   1 = dec.                */
-/*                   2 = hex                 */
-/* Geeft terug 1 -> ok                       */
-/*             0 -> nok                      */
-/* ----------------------------------------- */
+/*
+ * Openen van een input venster
+ *
+ * INPUT_STRING *s = pointer naar string
+ * char *titel = pointer naar venster-titel
+ * char *tekst = pointer naar info-tekst
+ * int    mode = input-mode
+ *                   0 = string
+ *                   1 = dec.
+ *                   2 = hex
+ * Geeft terug 1 -> ok
+ *             0 -> nok
+ */
 int open_inputwin (int yy,int xx,MENU *m,chtype kleur,INPUT_STRING *read_str,char **txt,char mode,WINDOW *win1)
 {
 WINDOW *w;

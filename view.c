@@ -59,9 +59,9 @@ while (*s)
 rc=(char *) xrealloc(rc,strlen(rc)+1);
 return rc;
 }
-/* --------------------------------------------	*/
+/* -------------------------------------------- */
 /* Wis een het bestand uit het geheugen ...     */
-/* --------------------------------------------	*/
+/* -------------------------------------------- */
 void view_free_file()
 {
 unsigned long l;
@@ -70,8 +70,8 @@ xfree(p->file);
 }
 void view_free()
 {
-	view_free_file();
-	free_string_array(*p->view_exec);
+  view_free_file();
+  free_string_array(*p->view_exec);
 }
 int get_strlen (char *s)
 {
@@ -84,17 +84,17 @@ while (*s) {
 return xmax;
 }
 /* ---------------------------------------------------- */ 
-/* Inladen van te bekijken bestand ...		        */
-/*						        */
-/* aanroep  :						*/
-/*							*/
-/* char filename[] = te lezen bestand		        */
-/* char **file      = ptr naar geh. pl.		        */
-/*							*/
-/* antwoord :						*/
-/* 0 = ok               				*/
-/* 1 = nok	                                    	*/
-/*							*/
+/* Inladen van te bekijken bestand ...            */
+/*                    */
+/* aanroep  :           */
+/*              */
+/* char filename[] = te lezen bestand           */
+/* char **file      = ptr naar geh. pl.           */
+/*              */
+/* antwoord :           */
+/* 0 = ok                       */
+/* 1 = nok                                        */
+/*              */
 /* ---------------------------------------------------- */ 
 int view_load ()
 {
@@ -106,7 +106,7 @@ size_t ii;
 /* ----------------- vari voor het starten van gzip ---------------------- */
 int  is_gz=0;
 char *gzip=NULL;
-FILE *popen(),*gz_fp;	
+FILE *popen(),*gz_fp; 
 /* ----------------------------------------------------------------------- */
 ccc=p->view_exec;
 if(p->filename!=NULL) {
@@ -115,7 +115,7 @@ if(p->filename!=NULL) {
        s=p->filename+strlen(p->filename)-strlen(ccc[0][0]);
      }
      else {
-	     s=p->filename;
+       s=p->filename;
      }
      if(!strcmp(s,ccc[0][0])){  
          gzip=(char *)xmalloc(strlen(ccc[0][1])+strlen(p->filename)+2);
@@ -146,7 +146,7 @@ if(gzip) {
      if (gz_fp==NULL) pclose(fp);
         else  is_gz=1;
      } 
-	    
+      
   if(win_freopen("/dev/tty","w",stdout,p->m_ok,p->win)) return(1);
   if (p->cmd==1) {
     if(win_freopen("/dev/tty","w",stderr,p->m_ok,p->win)) return(1);
@@ -194,28 +194,28 @@ do {
 
         if (p->cmd==2) p->size+=p->x;
 
-	if (p->x>1) {
+  if (p->x>1) {
 
-	if (*(p->file[p->y_max]+p->x-2)==13) { 
-	  *(p->file[p->y_max]+p->x-2)=10;
-	  *(p->file[p->y_max]+p->x-1)=0;
-	  };
-	}
+  if (*(p->file[p->y_max]+p->x-2)==13) { 
+    *(p->file[p->y_max]+p->x-2)=10;
+    *(p->file[p->y_max]+p->x-1)=0;
+    };
+  }
 
 
-	for (i=0;i<strlen(p->file[p->y_max]);i++) {
-	   if (*(p->file[p->y_max]+i)==TAB) {
-	     s=(char *) xmalloc(strlen(p->file[p->y_max])+(((i/8)+1)*8-i)+1);
-	     strcpy(s,p->file[p->y_max]);
-	     for (z=0;z<((i/8)+1)*8-i;z++) strcpy((s+i+z)," ");
-	     strcpy((s+i+z),(p->file[p->y_max]+i+1));
-	     cp=*(p->file+p->y_max);
-	     cp=(char *)xrealloc(cp,strlen(s)+1);
-	     *(p->file+p->y_max)=cp;
-	     strcpy(p->file[p->y_max],s);
-	     free(s);
-	    } 
-	 } 
+  for (i=0;i<strlen(p->file[p->y_max]);i++) {
+     if (*(p->file[p->y_max]+i)==TAB) {
+       s=(char *) xmalloc(strlen(p->file[p->y_max])+(((i/8)+1)*8-i)+1);
+       strcpy(s,p->file[p->y_max]);
+       for (z=0;z<((i/8)+1)*8-i;z++) strcpy((s+i+z)," ");
+       strcpy((s+i+z),(p->file[p->y_max]+i+1));
+       cp=*(p->file+p->y_max);
+       cp=(char *)xrealloc(cp,strlen(s)+1);
+       *(p->file+p->y_max)=cp;
+       strcpy(p->file[p->y_max],s);
+       free(s);
+      } 
+   } 
        if ((get_strlen(p->file[p->y_max])>p->x_max)&&(p->x!=-1)) p->x_max=get_strlen(p->file[p->y_max]); 
        ++p->y_max;
        }
@@ -230,7 +230,7 @@ return(0);
 }
 /* ----------------------------------------- */
 /* Print een kar. op het scherm, filter voor */
-/* '/0' en 0x0ad.			     */
+/* '/0' en 0x0ad.          */
 /* ----------------------------------------- */
 void view_addch(char *c)
 {
@@ -240,9 +240,9 @@ if (*c==(char)0xad) waddch_fix(p->win,'-');
 }
 /* ----------------------------------------- */
 /* Print een regel uit **bestand af ...      */
-/*					     */
+/*               */
 /* int yp          = y-postie                */
-/* unsigned long r = regel		     */
+/* unsigned long r = regel         */
 /* ----------------------------------------- */
 void view_addline (int yp,unsigned long r)
 {
@@ -261,7 +261,7 @@ if (p->y<=p->y_max) {
        else {++s;++tt;}
      if (tt>=lx) return;
      }
-  }	
+  } 
   wmove(p->win,yp,0);
   view_addstr(s);
 }
@@ -269,32 +269,45 @@ if (p->y<=p->y_max) {
 }
 void view_addstr(char *s)
 { 
-int lx=0;
-unsigned t;
-for (t=0;t<=strlen(s);t++) {
- if (((lx>p->cols-1)&&*(s+t)!=8)||(*(s+t)==0)) break; 
- if (*(s+t)==8) {
-	lx--;
-	if (*(s+t-1)==*(s+t+1)) {
-	   waddch_fix(p->win,*(s+t));
-	   wbkgdset(p->win,p->color[2]);
-	   view_addch(s+(++t));
-	   wbkgdset(p->win,p->color[1]);
-	 }
-	 else {
-	   if (*(s+t-1)=='_') {
-	      waddch_fix(p->win,*(s+t));
-	      wbkgdset(p->win,p->color[3]);
-	      view_addch(s+(++t));
-	      wbkgdset(p->win,p->color[1]);
-	    }
-	    else waddch_fix(p->win,'.');
-	 }
-	}
-     else view_addch(s+t); 
-     lx++;
-     }
+  int lx=0;
+  unsigned t;
+
+  for (t=0;t<=strlen(s);t++) {
+
+    if (((lx>p->cols-1)&&*(s+t)!=8)||(*(s+t)==0)) break; 
+    if (*(s+t)==8) {
+      lx--;
+      if (*(s+t-1)==*(s+t+1)) {
+        waddch_fix(p->win,*(s+t));
+        wbkgdset(p->win,p->color[2]);
+        view_addch(s+(++t));
+        wbkgdset(p->win,p->color[1]);
+      }
+      else {
+        if (*(s+t-1)=='_') {
+          waddch_fix(p->win,*(s+t));
+          wbkgdset(p->win,p->color[3]);
+          view_addch(s+(++t));
+          wbkgdset(p->win,p->color[1]);
+        }
+        else waddch_fix(p->win,'.');
+      }
+    }
+    else {
+      if (*(s+t) == 0xffffffe2 ) {
+        char str[5];
+        strncpy(str,(s+t),4);
+        str[4]=0;
+        waddstr(p->win,str);
+        t=t+4;
+      } else {
+        view_addch(s+t);
+      }
+    }
+    lx++;
+  }
 }
+
 void view_sety(unsigned long y)
 {
 if (!p->mode) {
@@ -307,7 +320,7 @@ if (y > (p->y_max-p->lines-1)) {
    p->y=p->y_max-p->lines;
    p->sy=y-p->y;
    }
-   else  {	
+   else  {  
    p->y=(y/p->lines)*p->lines;
    p->sy=y%p->lines;
    }
@@ -336,9 +349,9 @@ void view_refresh()
 int i;
 if (!p->mode) {if (p->y>p->y_max-1) p->y=p->y_max-1;}
    else { if (p->y_max>p->lines)
-	    if (p->y+p->sy+p->lines>p->y_max-1) p->y=p->y_max-p->lines;
+      if (p->y+p->sy+p->lines>p->y_max-1) p->y=p->y_max-p->lines;
         }
-	
+  
 werase(p->win);
 
 for (i=0;i<p->lines;i++) view_addline(i,p->y++);
@@ -366,12 +379,12 @@ if (!p->mode) {
   else {
       if (p->y+p->sy-p->lines<p->y_max-1) {
          if (++p->sy>=p->lines) {
-	    p->sy=p->lines-1;
+      p->sy=p->lines-1;
             scrollok(p->win,TRUE);
             wscrl(p->win,1);
             scrollok(p->win,FALSE);
             view_addline(p->lines-1,p->y++);
-	    wrefresh(p->win);
+      wrefresh(p->win);
             }
          }
       view_set_cursor();
@@ -396,7 +409,7 @@ if (!p->mode) {
    else {
       if (--p->sy<0) {
          p->sy=0;
-	 if (p->y>p->lines) {
+   if (p->y>p->lines) {
             scrollok(p->win,TRUE);
             wscrl(p->win,-1);
             scrollok(p->win,FALSE);
@@ -410,16 +423,16 @@ if (!p->mode) {
       }
 }   
 /* ---------------------------------------------------- */ 
-/* Vorige pagina printen ...				*/
+/* Vorige pagina printen ...        */
 /* ---------------------------------------------------- */ 
 void view_previous()
 {
 if (p->y>=2*(p->lines)) p->y-=2*(p->lines);
    else p->y=0; 
-view_refresh();	
+view_refresh(); 
 }
 /* ---------------------------------------------------- */ 
-/* Scherm naar rechts ...				*/
+/* Scherm naar rechts ...       */
 /* ---------------------------------------------------- */ 
 void view_right()
 {
@@ -433,17 +446,17 @@ if (!p->mode) {
    else {
         if (p->x+p->sx<view_strlen(p->file[p->sy+p->y-p->lines])-1) {
         if (++p->sx>=p->cols) {
-	      p->sx=p->cols-7;
+        p->sx=p->cols-7;
               p->y-=p->lines;
               p->x+=7;
               view_refresh();
-	      }
+        }
         else  view_set_cursor();
-	}
+  }
    }
 }
 /* ---------------------------------------------------- */ 
-/* Scherm naar links ...				*/
+/* Scherm naar links ...        */
 /* ---------------------------------------------------- */ 
 void view_left()
 {
@@ -457,16 +470,16 @@ if (!p->mode) {
   else {
       if(--p->sx<0) {
           if ((p->x+p->sx)>=0) {
-	     p->sx=6;
+       p->sx=6;
              p->y-=p->lines;
              p->x-=7;
-	     if (p->x<0) {
-	        p->sx+=p->x;
-		p->x=0;
-		}
+       if (p->x<0) {
+          p->sx+=p->x;
+    p->x=0;
+    }
              view_refresh();
-	  }
-	  else p->sx=0;
+    }
+    else p->sx=0;
       }
       else view_set_cursor();
       } 

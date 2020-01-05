@@ -22,7 +22,6 @@
 #ifndef __COMMON_H
 
 #define __COMMON_H
-
 #include "config.h"
 #include "xmalloc.h"
 
@@ -34,6 +33,7 @@
 #include <ctype.h>
 #endif
 
+#include <locale.h>
 #endif
 
 

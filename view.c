@@ -267,10 +267,40 @@ if (p->y<=p->y_max) {
 }
 }
 }
+
+char * view_charstr(char *c) {
+
+  char *str;
+  int   number_of_chars=0;
+
+  switch (*c) {
+    case 0x00 ... 0x7F:
+      number_of_chars=1;
+    case 0xffffffC0 ... 0xffffffDF:
+      number_of_chars=2;
+      break;
+    case 0xffffffE2 ... 0xffffffEF:
+      number_of_chars=3;
+      break;
+    case 0xffffffF0 ... 0xffffffF7:
+      number_of_chars=4;
+      break;
+    default:
+      number_of_chars=1;
+      break;
+  }
+
+  str=xcalloc(number_of_chars + 1, sizeof(char));
+  strncpy(str,c,number_of_chars);
+
+  return(str);
+
+}
 void view_addstr(char *s)
 { 
   int lx=0;
   unsigned t;
+  char *str;
 
   for (t=0;t<=strlen(s);t++) {
 
@@ -294,6 +324,10 @@ void view_addstr(char *s)
       }
     }
     else {
+        str=view_charstr(s+t);
+        waddstr(p->win,str);
+        t=t+strlen(str)-1;
+/*
       if (*(s+t) == 0xffffffe2 ) {
         char str[5];
         strncpy(str,(s+t),4);
@@ -303,6 +337,7 @@ void view_addstr(char *s)
       } else {
         view_addch(s+t);
       }
+*/
     }
     lx++;
   }

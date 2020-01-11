@@ -1,7 +1,7 @@
 /*
  *  view.c
  *
- *  Copyright (C) 1997, 1998, 2000, 2003, 2004, 2006, 2007, 2019 Staf Wagemakers Belgium
+ *  Copyright (C) 1997, 1998, 2000, 2003, 2004, 2006, 2007, 2019, 2020 Staf Wagemakers Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -28,12 +28,16 @@ if (par!=NULL) p=par;
 }
 unsigned view_strlen(char *c)
 {
-unsigned u=0;
-while (*c) {
-      if (*c!=8) ++u;
-      ++c;
-      }
-return u;
+  unsigned u=0;
+
+  while (*c) {
+
+      u=u+1;
+      c=c+view_charstr_len(c);
+
+  }
+
+  return u;
 }
 unsigned long view_gety()
 {
@@ -268,14 +272,14 @@ if (p->y<=p->y_max) {
 }
 }
 
-char * view_charstr(char *c) {
+unsigned view_charstr_len(char *c) {
 
-  char *str;
   int   number_of_chars=0;
 
   switch (*c) {
     case 0x00 ... 0x7F:
-      number_of_chars=1;
+      number_of_chars=1; if (*c != 0x8);
+      break;
     case 0xffffffC0 ... 0xffffffDF:
       number_of_chars=2;
       break;
@@ -289,6 +293,15 @@ char * view_charstr(char *c) {
       number_of_chars=1;
       break;
   }
+
+  return(number_of_chars);
+
+}
+
+char * view_charstr(char *c) {
+
+  char *str;
+  int   number_of_chars=view_charstr_len(c);
 
   str=xcalloc(number_of_chars + 1, sizeof(char));
   strncpy(str,c,number_of_chars);
@@ -327,6 +340,7 @@ void view_addstr(char *s)
         str=view_charstr(s+t);
         waddstr(p->win,str);
         t=t+strlen(str)-1;
+        xfree(str);
 /*
       if (*(s+t) == 0xffffffe2 ) {
         char str[5];

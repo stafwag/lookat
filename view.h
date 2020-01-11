@@ -64,4 +64,6 @@ void view_up();
 void view_previous();
 void view_right();
 void view_left();
+char * view_charstr(char *c);
+unsigned view_charstr_len(char *c);
 #endif

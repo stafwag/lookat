@@ -27,20 +27,26 @@ if (par!=NULL) p=par;
   return (p);
 }
 
-unsigned view_strlen(char *str)
-{
+unsigned view_strlen(char *str) {
+
   unsigned u=0;
   unsigned charLength=strlen(str);
   unsigned pointer=0; 
   char *c;
   c=str;
 
-
   while (*c) {
 
-      u=u+1;
-      pointer=pointer+view_charstr_len(c);
+      pointer=pointer+view_charstr_size(c);
 
+      if (*c == 0x08 ) {
+        if ( (c+1) > (str+charLength) ) continue;
+        if ( (c-1) < str) continue;
+        if ( *(c-1) == *(c+1) ) u=u-1;
+        if ( *(c-1) == '_'  ) u=u-1;
+      } else {
+        ++u;
+      }
       if(pointer>charLength) return u;
       c=str+pointer;
 
@@ -335,7 +341,7 @@ if (p->y<=p->y_max) {
 }
 }
 
-unsigned view_charstr_len(char *c) {
+unsigned view_charstr_size(char *c) {
 
   int   number_of_chars=0;
 
@@ -364,7 +370,7 @@ unsigned view_charstr_len(char *c) {
 char * view_charstr(char *c) {
 
   char *str;
-  int   number_of_chars=view_charstr_len(c);
+  int   number_of_chars=view_charstr_size(c);
 
   str=xcalloc(number_of_chars + 1, sizeof(char));
   strncpy(str,c,number_of_chars);
@@ -372,6 +378,7 @@ char * view_charstr(char *c) {
   return(str);
 
 }
+
 void view_addstr(char *s)
 { 
   int lx=0;
@@ -453,16 +460,20 @@ void view_set_cursor(void)
 {
 wmove(p->win,p->sy,p->sx);
 }
-/* ----------------------------------------- */
-/* Print een volledig scherm af ...          */
-/* ----------------------------------------- */
-void view_refresh()
-{
-int i;
-if (!p->mode) {if (p->y>p->y_max-1) p->y=p->y_max-1;}
-   else { if (p->y_max>p->lines)
+/*
+ * Print een volledig scherm af ...
+ */
+void view_refresh() {
+  int i;
+
+  if (!p->mode) {
+
+    if (p->y>p->y_max-1) p->y=p->y_max-1;
+
+  } else {
+      if (p->y_max>p->lines)
       if (p->y+p->sy+p->lines>p->y_max-1) p->y=p->y_max-p->lines;
-        }
+  }
   
 werase(p->win);
 

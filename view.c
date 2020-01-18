@@ -27,6 +27,9 @@ if (par!=NULL) p=par;
   return (p);
 }
 
+/*
+ * calculate the char length of a utf8 string
+ */
 unsigned view_strlen(char *str) {
 
   unsigned u=0;
@@ -56,44 +59,74 @@ unsigned view_strlen(char *str) {
   return u;
 }
 
-unsigned long view_gety()
-{
-if (p->mode) return(p->y+p->sy-p->lines+1);
-   else return(p->y-p->lines+1);
-}
-unsigned long view_getx()
-{
-if (p->mode) return(p->x+p->sx+1);
-   else return(p->x+1);
-}
-char *view_getstr(unsigned long y)
-{
-char *rc,*c,*s;
-s=p->file[y];
-c=rc=(char *) xmalloc(strlen(s)+1);
-while (*s) 
-  { if (*s!=8) { *c=*s;++c;}
-      else if(c>rc) --c;
-    ++s;
-  }
-*c=0;
-rc=(char *) xrealloc(rc,strlen(rc)+1);
-return rc;
+/*
+ * get the currect y position
+ */
+unsigned long view_gety() {
+
+  if (p->mode) return(p->y+p->sy-p->lines+1);
+    else return(p->y-p->lines+1);
 }
 
-/* -------------------------------------------- */
-/* Wis een het bestand uit het geheugen ...     */
-/* -------------------------------------------- */
-void view_free_file()
-{
-unsigned long l;
-for (l=0;l<=p->y_max;l++)  free(p->file[l]);
-xfree(p->file);
+
+/*
+ * get the currect x position
+ */
+unsigned long view_getx() {
+
+  if (p->mode) return(p->x+p->sx+1);
+   else return(p->x+1);
 }
-void view_free()
-{
+
+/*
+ * get the string @ y
+ */
+
+char *view_getstr(unsigned long y) {
+
+  char *rc,*c,*s;
+  s=p->file[y];
+  c=rc=(char *) xmalloc(strlen(s)+1);
+
+  while (*s) {
+
+    if (*s!=8) {
+      *c=*s;++c;
+    } else if(c>rc) --c;
+
+    ++s;
+  }
+
+  *c=0;
+  rc=(char *) xrealloc(rc,strlen(rc)+1);
+  return rc;
+
+}
+
+/*
+ *
+ * Removes a file from memory
+ *
+ */
+void view_free_file() {
+
+  unsigned long l;
+  for (l=0;l<=p->y_max;l++)  free(p->file[l]);
+  xfree(p->file);
+
+}
+
+/*
+ *
+ * frees alllcated memory
+ *
+ */
+
+void view_free() {
+
   view_free_file();
   free_string_array(*p->view_exec);
+
 }
 
 /*
@@ -304,10 +337,10 @@ int view_load () {
   return(0);
 
 }
-/* ----------------------------------------- */
-/* Print een kar. op het scherm, filter voor */
-/* '/0' en 0x0ad.          */
-/* ----------------------------------------- */
+/*
+ * Print een kar. op het scherm, filter voor
+ * '/0' en 0x0ad.
+ */
 void view_addch(char *c)
 {
 /* VIEW_PAR *p=view_par(NULL); */
@@ -374,6 +407,9 @@ void view_addline (int yp,unsigned long r) {
 
 }
 
+/*
+ * calcuates the byte sizes for utf8 string
+ */
 unsigned view_charstr_size(char *c) {
 
   int   number_of_chars=0;
@@ -400,6 +436,9 @@ unsigned view_charstr_size(char *c) {
 
 }
 
+/*
+ * returns a string with the first utf8 char
+ */
 char * view_charstr(char *c) {
 
   char *str;
@@ -412,8 +451,10 @@ char * view_charstr(char *c) {
 
 }
 
-void view_addstr(char *s)
-{ 
+/*
+ * print string 
+ */
+void view_addstr(char *s) { 
   int lx=0;
   unsigned t;
   char *str;
@@ -449,29 +490,43 @@ void view_addstr(char *s)
   }
 }
 
-void view_sety(unsigned long y)
-{
-if (!p->mode) {
-if (y > p->y_max) y=p->y_max;
-   p->y=y;
-   return;
-   }
-if (y > p->y_max-1) y=p->y_max-1;
-if (y > (p->y_max-p->lines-1)) {
+/* 
+ * set the y position
+ */
+void view_sety(unsigned long y) {
+
+  if (!p->mode) {
+  if (y > p->y_max) y=p->y_max;
+    p->y=y;
+    return;
+  }
+
+  if (y > p->y_max-1) y=p->y_max-1;
+  if (y > (p->y_max-p->lines-1)) {
+
    p->y=p->y_max-p->lines;
    p->sy=y-p->y;
-   }
-   else  {  
+
+  } else  {  
+    
    p->y=(y/p->lines)*p->lines;
    p->sy=y%p->lines;
-   }
+
+  }
 }
-void view_setx(long x)
-{
-p->x=x/p->cols;
-p->sx=x%p->cols;
-p->x*=p->cols;
+
+
+/* 
+ * set the x position
+ */
+void view_setx(long x) {
+
+  p->x=x/p->cols;
+  p->sx=x%p->cols;
+  p->x*=p->cols;
+
 }
+
 void view_move (unsigned long y, long x)
 {
 view_sety(y);

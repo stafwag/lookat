@@ -47,6 +47,7 @@ unsigned view_strlen(char *str) {
       } else {
         ++u;
       }
+
       if(pointer>charLength) return u;
       c=str+pointer;
 
@@ -54,6 +55,7 @@ unsigned view_strlen(char *str) {
 
   return u;
 }
+
 unsigned long view_gety()
 {
 if (p->mode) return(p->y+p->sy-p->lines+1);
@@ -78,6 +80,7 @@ while (*s)
 rc=(char *) xrealloc(rc,strlen(rc)+1);
 return rc;
 }
+
 /* -------------------------------------------- */
 /* Wis een het bestand uit het geheugen ...     */
 /* -------------------------------------------- */
@@ -311,34 +314,64 @@ void view_addch(char *c)
 if (*c==(char)0xad) waddch_fix(p->win,'-');
    else if (*(c)) waddch_fix(p->win,*c);
 }
-/* ----------------------------------------- */
-/* Print een regel uit **bestand af ...      */
-/*               */
-/* int yp          = y-postie                */
-/* unsigned long r = regel         */
-/* ----------------------------------------- */
-void view_addline (int yp,unsigned long r)
-{
-char *s;
-unsigned t;
-int lx=0;
-if (r>=p->y_max) return;
-if (strlen(p->file[r])>p->x) {
-if (p->y<=p->y_max) {
-  s=p->file[r];
-  lx=strlen(s);
-  if (p->x) {
-  unsigned tt=0;
-  for (t=0;t<=p->x-1;t++) { 
-     if (*(s+1)==8) {s+=3;tt+=3;}
-       else {++s;++tt;}
-     if (tt>=lx) return;
-     }
-  } 
-  wmove(p->win,yp,0);
-  view_addstr(s);
-}
-}
+
+/*
+ * Print een regel uit **bestand af ...
+ *
+ * int yp          = y-postie
+ * unsigned long r = regel
+ */
+
+void view_addline (int yp,unsigned long r) {
+
+  char *str_start;
+  char *str_end;
+  char *c;
+  unsigned t;
+  int lx=0;
+
+  if (r>=p->y_max) return;
+
+  if (view_strlen(p->file[r])>p->x) {
+
+    if (p->y<=p->y_max) {
+
+        str_start=p->file[r];
+        str_end=str_start + strlen(str_start);
+        c=str_start;
+
+        lx=view_strlen(str_start);
+
+        if (p->x) {
+
+            for (t=0;t<=p->x-1;t++) { 
+
+              c=c+view_charstr_size(c);
+              if(c>str_end) return;
+
+              /*
+
+              if (*(s+1)==8) { 
+                s+=3;tt+=3;
+            
+              } else { 
+
+                ++s;++tt;
+
+              }
+
+              */
+
+              if (t>=lx) return;
+
+            }
+        } 
+
+      wmove(p->win,yp,0);
+      view_addstr(c);
+    }
+  }
+
 }
 
 unsigned view_charstr_size(char *c) {
@@ -411,17 +444,6 @@ void view_addstr(char *s)
         waddstr(p->win,str);
         t=t+strlen(str)-1;
         xfree(str);
-/*
-      if (*(s+t) == 0xffffffe2 ) {
-        char str[5];
-        strncpy(str,(s+t),4);
-        str[4]=0;
-        waddstr(p->win,str);
-        t=t+4;
-      } else {
-        view_addch(s+t);
-      }
-*/
     }
     lx++;
   }
@@ -460,10 +482,12 @@ void view_set_cursor(void)
 {
 wmove(p->win,p->sy,p->sx);
 }
+
 /*
  * Print een volledig scherm af ...
  */
 void view_refresh() {
+
   int i;
 
   if (!p->mode) {
@@ -475,16 +499,19 @@ void view_refresh() {
       if (p->y+p->sy+p->lines>p->y_max-1) p->y=p->y_max-p->lines;
   }
   
-werase(p->win);
+  werase(p->win);
 
-for (i=0;i<p->lines;i++) view_addline(i,p->y++);
-wrefresh(p->win);
-if (p->mode) { 
-   leaveok(p->win,FALSE);
-   curs_set(1);
-   view_set_cursor();
-   }
+  for (i=0;i<p->lines;i++) view_addline(i,p->y++);
+  wrefresh(p->win);
+
+  if (p->mode) { 
+    leaveok(p->win,FALSE);
+    curs_set(1);
+    view_set_cursor();
+  }
+
 }
+
 /* ----------------------------------------------------- */
 /* Scherm 1 regel naarboven + volgende regel printen ... */
 /* ----------------------------------------------------- */

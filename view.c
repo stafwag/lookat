@@ -42,8 +42,8 @@ unsigned view_strlen(char *str) {
       if (*c == 0x08 ) {
         if ( (c+1) > (str+charLength) ) continue;
         if ( (c-1) < str) continue;
-        if ( *(c-1) == *(c+1) ) u=u-1;
-        if ( *(c-1) == '_'  ) u=u-1;
+        if ( *(c-1) == *(c+1) ) --u;
+        if ( *(c-1) == '_'  ) --u;
       } else {
         ++u;
       }
@@ -352,7 +352,7 @@ unsigned view_charstr_size(char *c) {
     case 0xffffffC0 ... 0xffffffDF:
       number_of_chars=2;
       break;
-    case 0xffffffE2 ... 0xffffffEF:
+    case 0xffffffE0 ... 0xffffffEF:
       number_of_chars=3;
       break;
     case 0xffffffF0 ... 0xffffffF7:

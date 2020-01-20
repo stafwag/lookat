@@ -33,7 +33,7 @@ if (par!=NULL) p=par;
 unsigned view_strlen(char *str) {
 
   unsigned u=0;
-  unsigned charLength=strlen(str);
+  unsigned size=strlen(str);
   unsigned pointer=0; 
   char *c;
   c=str;
@@ -43,7 +43,7 @@ unsigned view_strlen(char *str) {
       pointer=pointer+view_charstr_size(c);
 
       if (*c == 0x08 ) {
-        if ( (c+1) > (str+charLength) ) continue;
+        if ( (c+1) > (str+size) ) continue;
         if ( (c-1) < str) continue;
         if ( *(c-1) == *(c+1) ) --u;
         if ( *(c-1) == '_'  ) --u;
@@ -51,7 +51,7 @@ unsigned view_strlen(char *str) {
         ++u;
       }
 
-      if(pointer>charLength) return u;
+      if(pointer>size) return u;
       c=str+pointer;
 
   }
@@ -337,16 +337,6 @@ int view_load () {
   return(0);
 
 }
-/*
- * Print een kar. op het scherm, filter voor
- * '/0' en 0x0ad.
- */
-void view_addch(char *c)
-{
-/* VIEW_PAR *p=view_par(NULL); */
-if (*c==(char)0xad) waddch_fix(p->win,'-');
-   else if (*(c)) waddch_fix(p->win,*c);
-}
 
 /*
  * Print een regel uit **bestand af ...
@@ -382,19 +372,6 @@ void view_addline (int yp,unsigned long r) {
               c=c+view_charstr_size(c);
               if(c>str_end) return;
 
-              /*
-
-              if (*(s+1)==8) { 
-                s+=3;tt+=3;
-            
-              } else { 
-
-                ++s;++tt;
-
-              }
-
-              */
-
               if (t>=lx) return;
 
             }
@@ -408,7 +385,7 @@ void view_addline (int yp,unsigned long r) {
 }
 
 /*
- * calcuates the byte sizes for utf8 string
+ * calcuates the byte size for utf8 string
  */
 unsigned view_charstr_size(char *c) {
 
@@ -445,7 +422,12 @@ char * view_charstr(char *c) {
   int   number_of_chars=view_charstr_size(c);
 
   str=xcalloc(number_of_chars + 1, sizeof(char));
-  strncpy(str,c,number_of_chars);
+
+  if ( (number_of_chars==1) && isbin(*c)) {
+    str[0]='.';
+  } else {
+    strncpy(str,c,number_of_chars);
+  }
 
   return(str);
 
@@ -454,40 +436,71 @@ char * view_charstr(char *c) {
 /*
  * print string 
  */
-void view_addstr(char *s) { 
-  int lx=0;
-  unsigned t;
-  char *str;
+void view_addstr(char *str) { 
 
-  for (t=0;t<=strlen(s);t++) {
+  unsigned lx=0;
+  unsigned size=strlen(str);
+  unsigned pointer=0; 
+  unsigned prevPointer=0; 
+  char *c;
+  char *utf8Char;
+  char *prevChar;
+  char *nextChar;
 
-    if (((lx>p->cols-1)&&*(s+t)!=8)||(*(s+t)==0)) break; 
-    if (*(s+t)==8) {
-      lx--;
-      if (*(s+t-1)==*(s+t+1)) {
-        waddch_fix(p->win,*(s+t));
-        wbkgdset(p->win,p->color[2]);
-        view_addch(s+(++t));
-        wbkgdset(p->win,p->color[1]);
-      }
-      else {
-        if (*(s+t-1)=='_') {
-          waddch_fix(p->win,*(s+t));
-          wbkgdset(p->win,p->color[3]);
-          view_addch(s+(++t));
+  c=str;
+
+  while (*c) {
+
+      if ((lx>p->cols-1)&&*c!=0x08) break; 
+
+      if (*c == 0x08 ) {
+
+        if ( (c+1) > (str+size) ) continue;
+        if ( (c-1) < str) continue;
+
+        --lx;
+
+        prevChar=view_charstr(str+prevPointer);
+        nextChar=view_charstr(c+1);
+
+        if (strcmp(prevChar,nextChar) == 0 ) { 
+
+          waddch(p->win,*c);
+          wbkgdset(p->win,p->color[2]);
+          waddstr(p->win,nextChar);
+          pointer+=strlen(nextChar);
           wbkgdset(p->win,p->color[1]);
+
         }
-        else waddch_fix(p->win,'.');
+        if ( *(c-1) == '_'  ) {
+
+          waddch(p->win,*c);
+          wbkgdset(p->win,p->color[3]);
+          waddstr(p->win,nextChar);
+          pointer+=strlen(nextChar);
+          wbkgdset(p->win,p->color[1]);
+
+        }
+
+        xfree(prevChar);
+        xfree(nextChar);
+
+      } else {
+
+        utf8Char=view_charstr(c);
+        waddstr(p->win,utf8Char);
+        xfree(utf8Char);
+
       }
-    }
-    else {
-        str=view_charstr(s+t);
-        waddstr(p->win,str);
-        t=t+strlen(str)-1;
-        xfree(str);
-    }
-    lx++;
+
+      prevPointer=pointer;
+      pointer=pointer+view_charstr_size(c);
+      if(pointer>size) return;
+      c=str+pointer;
+      lx++;
+
   }
+
 }
 
 /* 

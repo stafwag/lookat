@@ -230,7 +230,7 @@ int exit_lookat(WINDOW *rw) {
 /*
  * displays an error msg for view_load
  */
-int view_load_failed() {
+void view_load_failed() {
     refresh();
     open_okwin(9,43,&m_ok,txt_view_load_error,win1);
 }
@@ -299,7 +299,7 @@ int open_best(int mode)
 /*
  * displays an error msg for view_load
  */
-int open_best_failed() {
+void open_best_failed() {
     refresh();
     open_okwin(9,43,&m_ok,txt_open_best_error,win1);
 }

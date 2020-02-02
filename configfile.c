@@ -88,7 +88,6 @@ if(fp==NULL) return NULL;
 if(mode!=2) fseek(fp,0,SEEK_SET);
   else var_name[0]='\0';
 
-if (s==NULL) return(NULL);
 if (section_name!=NULL) {
    start_section=(char *)xmalloc(strlen(section_name)+1+strlen("<")+strlen(">"));
    end_section=(char *)xmalloc(strlen(section_name)+1+strlen("</")+strlen(">"));

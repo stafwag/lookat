@@ -393,7 +393,7 @@ unsigned view_charstr_size(char *c) {
 
   switch (*c) {
     case 0x00 ... 0x7F:
-      number_of_chars=1; if (*c != 0x8);
+      if (*c != 0x8) number_of_chars=1;
       break;
     case 0xffffffC0 ... 0xffffffDF:
       number_of_chars=2;

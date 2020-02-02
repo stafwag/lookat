@@ -1,7 +1,7 @@
 /*
  *  view.h
  *
- *  Copyright (C) 1997, 1998, 2006  Staf Wagemakers Belgie/Belgium
+ *  Copyright (C) 1997, 1998, 2006, 2020 Staf Wagemakers Belgie/Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -29,20 +29,20 @@
 typedef struct 
 {
 ssize_t y,y_max,size;
-ssize_t          x,x_max;
-char          mode;
-char          **file;
-char          *filename;
-char          load,cmd;
-char          *txt_f_open2,*txt_f_open1,*txt_f_load;
-char          *txt_f_fseek;
-char          *txt_f_freopen;
-char	      ***view_exec;
-MENU          *m_ok;
-WINDOW        *win;
-chtype        *color;
-int           cols,lines;
-int           sx,sy;
+ssize_t x,x_max;
+char    mode;
+char    **file;
+char    *filename;
+char    load,cmd;
+char    *txt_f_open2,*txt_f_open1,*txt_f_load;
+char    *txt_f_fseek;
+char    *txt_f_freopen;
+char    ***view_exec;
+MENU    *m_ok;
+WINDOW  *win;
+chtype  *color;
+int     cols,lines;
+int     sx,sy;
 } VIEW_PAR;
 VIEW_PAR *view_par (VIEW_PAR *par);
 void view_free();
@@ -64,5 +64,6 @@ void view_up();
 void view_previous();
 void view_right();
 void view_left();
+char * view_charstr(char *c);
+unsigned view_charstr_size(char *c);
 #endif
-

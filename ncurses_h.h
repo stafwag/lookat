@@ -1,7 +1,7 @@
 /*
  *  ncurses_h.h
  *
- *  Copyright (C) 2006,2015  Staf Wagemakers Belgie/Belgium
+ *  Copyright (C) 2006,2015, 2020  Staf Wagemakers Belgie/Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,6 +21,12 @@
 
 #include "config.h"
 
+#ifdef HAVE_NCURSESW_NCURSES_H
+
+#include <ncursesw/ncurses.h>
+
+#else
+
 #ifdef HAVE_NCURSES_H
 
 #include <ncurses.h>
@@ -30,6 +36,8 @@
 #ifdef HAVE_NCURSES_NCURSES_H
 
 #include <ncurses/ncurses.h>
+
+#endif
 
 #endif
 

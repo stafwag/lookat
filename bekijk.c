@@ -1445,6 +1445,13 @@ MENU *sub_NULL[]={NULL,NULL,NULL,NULL,NULL,NULL};
 FILE *fp;
 char ***ccc;
 s[0]=0;
+
+/*
+ * utf-8
+ */
+
+setlocale(LC_ALL, "en_US.UTF-8");
+
 {
 char *c;
 char **type=NULL;

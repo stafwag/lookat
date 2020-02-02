@@ -26,6 +26,7 @@ AC_CHECK_HEADERS([sys/time.h],,AC_MSG_ERROR(not found))
 AC_CHECK_HEADERS([unistd.h],,AC_MSG_ERROR(not found))
 AC_CHECK_HEADERS([ncurses.h],FOUND_NCURSES_H=1)
 AC_CHECK_HEADERS([ncurses/ncurses.h],FOUND_NCURSES_H=1)
+AC_CHECK_HEADERS([ncursesw/ncurses.h],FOUND_NCURSES_H=1)
 
 if test "$FOUND_NCURSES_H" != "1"; then
 
@@ -56,7 +57,7 @@ AC_PROG_INSTALL
 AC_PROG_LN_S 
 AC_TYPE_SIGNAL
 AC_TYPE_SIZE_T
-AC_CHECK_LIB(ncurses,initscr,,
+AC_CHECK_LIB(ncursesw,initscr,,
 
 dnl
 dnl OpenBSD uses ncurses as their default curses lib
@@ -68,10 +69,23 @@ if echo $OS_NAME | grep -i openbsd > /dev/null 2>&1; then
    AC_CHECK_LIB(curses,initscr,,AC_MSG_ERROR(curses lib not found))
 else
    AC_MSG_RESULT(no)
-   AC_MSG_ERROR(no valid ncurses lib found)
+   AC_CHECK_LIB(ncurses,initscr,,
+
+   dnl
+   dnl OpenBSD uses ncurses as their default curses lib
+   dnl
+
+   AC_MSG_CHECKING([OpenBSD system?])
+   if echo $OS_NAME | grep -i openbsd > /dev/null 2>&1; then
+      AC_MSG_RESULT(yes - assuming libcurses is ncurses)
+      AC_CHECK_LIB(curses,initscr,,AC_MSG_ERROR(curses lib not found))
+   else
+      AC_MSG_RESULT(no)
+      AC_MSG_ERROR(no valid ncurses lib found)
+   fi
+  )
 fi
 )
 
+
 AC_OUTPUT(Makefile)
-
-

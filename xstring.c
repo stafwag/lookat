@@ -139,7 +139,7 @@ free(cc);
 
 /*
  * replaces a needle with a new string head & tail are added to needle
- *
+ */
 char * replace_headtail_needle(char *txt, char *needle1, char *replace,char *head,char *tail)
 {
    char *c,*s,*ret;

@@ -471,7 +471,7 @@ unsigned utf8_strsize(char *c) {
 
   switch (*c) {
     case 0x00 ... 0x7F:
-      if (*c != 0x8) number_of_chars=1;
+      number_of_chars=1;
       break;
     case 0xffffffC0 ... 0xffffffDF:
       number_of_chars=2;

@@ -40,7 +40,7 @@ unsigned view_strlen(char *str) {
 
   while (*c) {
 
-      pointer=pointer+view_charstr_size(c);
+      pointer=pointer+utf8_strsize(c);
 
       if (*c == 0x08 ) {
         if ( (c+1) > (str+size) ) continue;
@@ -319,7 +319,7 @@ int view_load () {
 
         } 
 
-        if ( (view_strlen(p->file[p->y_max])>p->x_max) && (p->x!=-1) ) p->x_max=view_strlen(p->file[p->y_max]); 
+        if ( (utf8_strlen(p->file[p->y_max])>p->x_max) && (p->x!=-1) ) p->x_max=utf8_strlen(p->file[p->y_max]); 
         ++p->y_max;
 
       }
@@ -355,7 +355,7 @@ void view_addline (int yp,unsigned long r) {
 
   if (r>=p->y_max) return;
 
-  if (view_strlen(p->file[r])>p->x) {
+  if (utf8_strlen(p->file[r])>p->x) {
 
     if (p->y<=p->y_max) {
 
@@ -363,13 +363,13 @@ void view_addline (int yp,unsigned long r) {
         str_end=str_start + strlen(str_start);
         c=str_start;
 
-        lx=view_strlen(str_start);
+        lx=utf8_strlen(str_start);
 
         if (p->x) {
 
             for (t=0;t<=p->x-1;t++) { 
 
-              c=c+view_charstr_size(c);
+              c=c+utf8_strsize(c);
               if(c>str_end) return;
 
               if (t>=lx) return;
@@ -419,7 +419,7 @@ unsigned view_charstr_size(char *c) {
 char * view_charstr(char *c) {
 
   char *str;
-  int   number_of_chars=view_charstr_size(c);
+  int   number_of_chars=utf8_strsize(c);
 
   str=xcalloc(number_of_chars + 1, sizeof(char));
 
@@ -494,7 +494,7 @@ void view_addstr(char *str) {
       }
 
       prevPointer=pointer;
-      pointer=pointer+view_charstr_size(c);
+      pointer=pointer+utf8_strsize(c);
       if(pointer>size) return;
       c=str+pointer;
       lx++;
@@ -667,7 +667,7 @@ void view_right() {
 
    } else {
 
-      if (p->x+p->sx<view_strlen(p->file[p->sy+p->y-p->lines])-1) {
+      if (p->x+p->sx<utf8_strlen(p->file[p->sy+p->y-p->lines])-1) {
 
         if (++p->sx>=p->cols) {
 

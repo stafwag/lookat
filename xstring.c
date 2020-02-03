@@ -1,7 +1,7 @@
 /*
  *  xstring.c  - Tired of writing these things over and over again -
  *
- *  Copyright (C) 2001,2015  Staf Wagemakers Belgie/Belgium
+ *  Copyright (C) 2001,2015,2020  Staf Wagemakers Belgie/Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -20,13 +20,14 @@
  */
 
 #include "xstring.h"
-/* ----------------------------------------------------------------------
+/*
  * replaces the first ch in c with a '\0', if ch == '\0' 
  * the first space is replaced                                  
- * ---------------------------------------------------------------------- */
+ */
 void cut_after_char (char *c,char ch)
 {
-do {
+if (c==NULL) return;
+for(;*c!='\0';c++) {
    if (ch=='\0') {
       if (isspace(*c)) { 
          *c='\0';
@@ -39,13 +40,15 @@ do {
 	    break;
 	 }
       }
-   ++c;
-   } while (*c);
+   }
 }
-void cut_after_quote (char *c) 
+void cut_after_quote (char *c)
 {
 char *cp=c;
-do {
+
+if (c==NULL) return;
+
+for(;*c!='\0';c++) {
    if(*c=='\"') {
       if(c==cp) 
 	{
@@ -58,13 +61,13 @@ do {
 	   break;
 	}
    }
-++c;
-} while(*c);
 }
 
-/* ------------------------------------------- */
-/* get the size of a item                      */
-/* ------------------------------------------- */
+}
+
+/*
+ * get the size of a item
+ */
 int get_quoted_item_size (char *c)
 {
 char *cc=c;
@@ -79,9 +82,9 @@ return(c-cc);
 }
    
    
-/* ---------------------------------------------------------------------- 
+/*
  * removes everything after a space           
- * ---------------------------------------------------------------------- */
+ */
 void cut_space (char *c)
 {
 cut_after_char(c,'\0');
@@ -134,9 +137,9 @@ while (*cc2) { free(*cc2);cc2++; }
 free(cc);
 }
 
-/* ----------------------------------------------------------------------- */
-/* replaces a needle with a new string head & tail are added to needle     */
-/* ----------------------------------------------------------------------- */
+/*
+ * replaces a needle with a new string head & tail are added to needle
+ *
 char * replace_headtail_needle(char *txt, char *needle1, char *replace,char *head,char *tail)
 {
    char *c,*s,*ret;
@@ -162,18 +165,18 @@ char * replace_headtail_needle(char *txt, char *needle1, char *replace,char *hea
   return(ret);
 }
 
-/* ------------------------------------------------------------------------
+/*
  * replace needle with a new string
- * ------------------------------------------------------------------------ */
+ */
 char * replace_needle(char *txt, char *needle, char *replace)
 {
    return(replace_headtail_needle(txt,needle,replace,"",""));
 }
 
-/* ------------------------------------------------------------------------
+/*
  * replaces an array of head-tail needles
  * needles[0][0] = needle1 , needles[0][1] = value1 , ...
- * ------------------------------------------------------------------------ */
+ */
 char * replace_headtail_needles(char *txt, char *needles[][2],char *head,char *tail)
 {
    int i=0;
@@ -193,19 +196,19 @@ char * replace_headtail_needles(char *txt, char *needles[][2],char *head,char *t
    return(ret);
 }
 
-/* ------------------------------------------------------------------------
+/*
  * replaces an array of needles
  * needles[0][0] = needle1 , needles[0][1] = value1 , ...
- * ------------------------------------------------------------------------ */
+ */
 char * replace_needles(char *txt, char *needles[][2])
 {
    return(replace_headtail_needles(txt,needles,"",""));
 }
 
-/* ------------------------------------------------------------------------
+/*
  * delete all animals with head and tail.
  * !!!! txt be will freed !!!!!
- * ------------------------------------------------------------------------ */
+ */
 char * real_cut_between(char *txt,char *head, char *tail) {
    char *ret,*s,*c;
    ret=(char *) xmalloc(sizeof(char));
@@ -230,9 +233,9 @@ char * real_cut_between(char *txt,char *head, char *tail) {
    return(real_cut_between(ret,head,tail));
 }
 
-/* ------------------------------------------------------------------------
+/*
  * delete all animals with head and tail.
- * ------------------------------------------------------------------------ */
+ */
 char * cut_between(char *txt,char *head, char *tail) 
 {
    char *txt2;
@@ -295,14 +298,14 @@ char *c,*cc;
    str[strlen(str)]='\0';
 }
 
-/* ----------------------------------------- */
-/* Verwijderen v/e karakter in een string    */
-/* char     *c -> string                     */
-/* unsigned i  -> positie in string          */
-/*                                           */
-/* P.S. Deze funktie schuift de kar's ook    */
-/* naar rechts!                              */
-/* ----------------------------------------- */
+/*
+ * Verwijderen v/e karakter in een string
+ * char     *c -> string
+ * unsigned i  -> positie in string
+ *
+ * P.S. Deze funktie schuift de kar's ook
+ * naar rechts!
+ */
 void rmpos (char *c,unsigned i)
 {
    unsigned x;
@@ -396,13 +399,95 @@ int copy_string_array_pointers (char **dest, char **src) {
 	return(0);
 }
 
-/* ----------------------------------------- */
-/* filter voor speciale kar's                */
-/* ----------------------------------------- */
+/*
+ * filter voor speciale kar's
+ */
 int isbin(unsigned char c)
 {
 if (c==10||c==8) return 0;
 if ((c<32)||(c>126&&c<160)) return 1;
   else return 0;
+}
+
+/*
+ * calculate the char length of a utf8 string
+ */
+unsigned utf8_strlen(char *str) {
+
+  unsigned u=0;
+  unsigned size=strlen(str);
+  unsigned pointer=0; 
+  char *c;
+  c=str;
+
+  while (*c) {
+
+      pointer=pointer+utf8_strsize(c);
+
+      if (*c == 0x08 ) {
+        if ( (c+1) > (str+size) ) continue;
+        if ( (c-1) < str) continue;
+        if ( *(c-1) == *(c+1) ) --u;
+        if ( *(c-1) == '_'  ) --u;
+      } else {
+        ++u;
+      }
+
+      if(pointer>size) return u;
+      c=str+pointer;
+
+  }
+
+  return u;
+}
+
+/*
+ * returns a string with the first utf8 char
+ */
+char * utf8_firstchar(char *c) {
+
+  char *str;
+  int   number_of_chars=utf8_strsize(c);
+
+  str=xcalloc(number_of_chars + 1, sizeof(char));
+
+  if ( (number_of_chars==1) && isbin(*c)) {
+    str[0]='.';
+  } else {
+    strncpy(str,c,number_of_chars);
+  }
+
+  return(str);
+
+}
+
+
+/*
+ * calcuates the byte size for utf8 string
+ */
+unsigned utf8_strsize(char *c) {
+
+  int   number_of_chars=0;
+
+  switch (*c) {
+    case 0x00 ... 0x7F:
+      if (*c != 0x8) number_of_chars=1;
+      break;
+    case 0xffffffC0 ... 0xffffffDF:
+      number_of_chars=2;
+      break;
+    case 0xffffffE0 ... 0xffffffEF:
+      number_of_chars=3;
+      break;
+    case 0xffffffF0 ... 0xffffffF7:
+      number_of_chars=4;
+      break;
+    default:
+      number_of_chars=1;
+      break;
+  }
+
+  return(number_of_chars);
+
 }
 

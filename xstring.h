@@ -1,7 +1,7 @@
 /*
  *  string.h
  *
- *  Copyright (C) 2001, 2006  Staf Wagemakers Belgie/Belgium
+ *  Copyright (C) 2001, 2006, 2020  Staf Wagemakers Belgie/Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -46,4 +46,6 @@ int number_of_strings (char **array);
 int copy_string_array_pointers (char **dest, char **src);
 void cut_rem (char *c);
 int isbin(unsigned char c);
-
+unsigned utf8_strsize(char *c);
+char * utf8_firstchar(char *c);
+unsigned utf8_strlen(char *str);

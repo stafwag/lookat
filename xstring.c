@@ -71,6 +71,7 @@ for(;*c!='\0';c++) {
 int get_quoted_item_size (char *c)
 {
 char *cc=c;
+
 for(;*c!='\0';c++) {
   if (*c=='\"') 
      {
@@ -89,25 +90,26 @@ void cut_space (char *c)
 {
 cut_after_char(c,'\0');
 }
-/* ---------------------------------------------------------------------
+/*
  * removes everything after a #                
- * --------------------------------------------------------------------- */
+ */
 void cut_rem (char *c)
 {
 cut_after_char(c,'#');
 }
-/* --------------------------------------------------------------------
+/*
  * move to the next item                       
- * -------------------------------------------------------------------- */
+ */
 char * mv_2_next (char *c)
 {
+if (c==NULL) return NULL;
 do if (isspace(*c)) ++c; else break; while (*c);
 return c;
 }
 
-/* ------------------------------------------- */
-/* get the size of a item ch=IFS               */
-/* ------------------------------------------- */
+/*
+ * get the size of a item ch=IFS
+ */
 int get_char_item_size (char *c,char ch)
 {
 char *cc=c;
@@ -115,9 +117,9 @@ do if ((*c!=ch)&&(*c!='\0')) ++c; else break; while (*c);
 return(c-cc);
 }
 
-/* ------------------------------------------- */
-/* get the size of a item                      */
-/* ------------------------------------------- */
+/*
+ * get the size of a item
+ */
 int get_item_size (char *c)
 {
 char *cc=c;
@@ -126,12 +128,13 @@ return(c-cc);
 }
 
 
-/* ------------------------------------------- */
-/* frees an array of strings		       */
-/* ------------------------------------------- */
+/*
+ * frees an array of strings
+ */
 void free_null_array (char **cc)
 {
 char ** cc2;
+if (cc==NULL) return;
 cc2=cc;
 while (*cc2) { free(*cc2);cc2++; }
 free(cc);
@@ -244,6 +247,9 @@ char * cut_between(char *txt,char *head, char *tail)
    return(real_cut_between(txt2,head,tail));
 }
 
+/*
+ * convert str to lower case
+ */
 int strtolower(char *str) {
    char *c;
    if ( str == NULL ) return(-1);
@@ -255,6 +261,9 @@ int strtolower(char *str) {
    return 0;
 }
 
+/*
+ * convert str to upcase
+ */
 int strtoupper(char *str) {
    char *c;
    if ( str == NULL ) return(-1);
@@ -266,10 +275,15 @@ int strtoupper(char *str) {
    return 0;
 }
 
+/*
+ * like strstr but ignore case
+ * Please use strcasestr if you can
+ */
 char * istrstr(char *haystack, char *needle) {
    char *ihaystack, *ineedle;
    char *c,*r=NULL;
    int l;
+
    ihaystack=xmalloc(strlen(haystack)+1);
    ineedle=xmalloc(strlen(needle)+1);
    
@@ -283,12 +297,16 @@ char * istrstr(char *haystack, char *needle) {
       r=haystack+l;
    }
 
-   free(ihaystack);
-   free(ineedle);
+   xfree(ihaystack);
+   xfree(ineedle);
    return(r);
 }
+
+/*
+ * removes all char rmc in str
+ */
 void rmchar(char *str,char rmc) {
-char *c,*cc;
+   char *c,*cc;
 
    for( c=str;*c!='\0';c++) {  
       while(*c==rmc) {
@@ -299,12 +317,11 @@ char *c,*cc;
 }
 
 /*
- * Verwijderen v/e karakter in een string
+ * Deletes a char in a string
  * char     *c -> string
- * unsigned i  -> positie in string
+ * unsigned i  -> position
  *
- * P.S. Deze funktie schuift de kar's ook
- * naar rechts!
+ * This wil shift all chars to the right
  */
 void rmpos (char *c,unsigned i)
 {
@@ -313,6 +330,9 @@ void rmpos (char *c,unsigned i)
    c[strlen(c)]='\0';
 }
 
+/*
+ * removes all back slashes from a string
+ */
 void stripslahes (char *c) 
 {
 for(;*c!='\0';c++) {
@@ -340,8 +360,8 @@ for(;*c!='\0';c++) {
 }
 
 /*
- * returns 1 is var is "yes"|"on"|"1"
- * returns 0 is var is "no"|"off"|"0"
+ * returns 1 if var is "yes"|"on"|"1"
+ * returns 0 if var is "no"|"off"|"0"
  * returns -1 is undefined
  */
 int is_var_yes(char *var)
@@ -357,6 +377,9 @@ int is_var_yes(char *var)
     return(-1);
 }
 
+/*
+ * frees the memory of the array of strings.
+ */
 void free_string_array (char **array) {
 	char **ccp;
 	if(array==NULL) return;
@@ -375,6 +398,9 @@ void free_string_array (char **array) {
 	xfree(array);
 }
 
+/*
+ * returns the number of string in array
+ */
 int number_of_strings (char **array) {
 	char **ccp;
 	int ret=0;
@@ -383,6 +409,9 @@ int number_of_strings (char **array) {
 	return(ret);
 }
 
+/*
+ * copy the string pointers from src to dest
+ */
 int copy_string_array_pointers (char **dest, char **src) {
 	char **ccp;
 	char **ccp2;
@@ -400,7 +429,8 @@ int copy_string_array_pointers (char **dest, char **src) {
 }
 
 /*
- * filter voor speciale kar's
+ * return 0 if c is \n or bacspace
+ *          if c is no acscii
  */
 int isbin(unsigned char c)
 {

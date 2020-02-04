@@ -28,38 +28,6 @@ if (par!=NULL) p=par;
 }
 
 /*
- * calculate the char length of a utf8 string
- */
-unsigned view_strlen(char *str) {
-
-  unsigned u=0;
-  unsigned size=strlen(str);
-  unsigned pointer=0; 
-  char *c;
-  c=str;
-
-  while (*c) {
-
-      pointer=pointer+utf8_strsize(c);
-
-      if (*c == 0x08 ) {
-        if ( (c+1) > (str+size) ) continue;
-        if ( (c-1) < str) continue;
-        if ( *(c-1) == *(c+1) ) --u;
-        if ( *(c-1) == '_'  ) --u;
-      } else {
-        ++u;
-      }
-
-      if(pointer>size) return u;
-      c=str+pointer;
-
-  }
-
-  return u;
-}
-
-/*
  * get the currect y position
  */
 unsigned long view_gety() {
@@ -385,55 +353,6 @@ void view_addline (int yp,unsigned long r) {
 }
 
 /*
- * calcuates the byte size for utf8 string
- */
-unsigned view_charstr_size(char *c) {
-
-  int   number_of_chars=0;
-
-  switch (*c) {
-    case 0x00 ... 0x7F:
-      if (*c != 0x8) number_of_chars=1;
-      break;
-    case 0xffffffC0 ... 0xffffffDF:
-      number_of_chars=2;
-      break;
-    case 0xffffffE0 ... 0xffffffEF:
-      number_of_chars=3;
-      break;
-    case 0xffffffF0 ... 0xffffffF7:
-      number_of_chars=4;
-      break;
-    default:
-      number_of_chars=1;
-      break;
-  }
-
-  return(number_of_chars);
-
-}
-
-/*
- * returns a string with the first utf8 char
- */
-char * view_charstr(char *c) {
-
-  char *str;
-  int   number_of_chars=utf8_strsize(c);
-
-  str=xcalloc(number_of_chars + 1, sizeof(char));
-
-  if ( (number_of_chars==1) && isbin(*c)) {
-    str[0]='.';
-  } else {
-    strncpy(str,c,number_of_chars);
-  }
-
-  return(str);
-
-}
-
-/*
  * print string 
  */
 void view_addstr(char *str) { 
@@ -460,8 +379,8 @@ void view_addstr(char *str) {
 
         --lx;
 
-        prevChar=view_charstr(str+prevPointer);
-        nextChar=view_charstr(c+1);
+        prevChar=utf8_firstchar(str+prevPointer);
+        nextChar=utf8_firstchar(c+1);
 
         if (strcmp(prevChar,nextChar) == 0 ) { 
 
@@ -487,7 +406,7 @@ void view_addstr(char *str) {
 
       } else {
 
-        utf8Char=view_charstr(c);
+        utf8Char=utf8_firstchar(c);
         waddstr(p->win,utf8Char);
         xfree(utf8Char);
 

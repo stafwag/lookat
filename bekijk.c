@@ -2004,11 +2004,11 @@ do {
          break;
     case '$'      :
     case KEY_END  :  bv.y-=(LINES-2);
-               if (!bv.mode) bv.x=view_strlen(bv.file[bv.y]);
-                  else bv.x=view_strlen(bv.file[bv.y+bv.sy]);
+               if (!bv.mode) bv.x=utf8_strlen(bv.file[bv.y]);
+                  else bv.x=utf8_strlen(bv.file[bv.y+bv.sy]);
          if (bv.x<COLS) bv.x=0;
          else bv.x-=COLS;
-         bv.sx=view_strlen(bv.file[bv.y+bv.sy])-bv.x-1;
+         bv.sx=utf8_strlen(bv.file[bv.y+bv.sy])-bv.x-1;
                view_refresh();
          break;
     case 'o'      :

@@ -140,10 +140,10 @@ while (fgets(s,BUFFER_LEN,fp)) {
   }
 }
 
-if((mode==1)&&(ss!=NULL)) free(ss); 
-if(start_section!=NULL) free(start_section); 
-if(end_section!=NULL) free(end_section);
-if(current_section!=NULL) free(current_section);
+if((mode==1)&&(ss!=NULL)) xfree(ss); 
+if(start_section!=NULL) xfree(start_section); 
+if(end_section!=NULL) xfree(end_section);
+if(current_section!=NULL) xfree(current_section);
 return(r);
 }
 
@@ -303,7 +303,7 @@ char * add_parms(char *txt,char *parms[][2]) {
 char *ret,*c,*txt2;
 c=txt2=replace_headtail_needles(txt,parms,"%{","}");
 ret=cut_between(txt2,"%{","}");
-free(c);
+xfree(c);
 return(ret);
 }
 /* ------------------------------------------- */

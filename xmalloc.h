@@ -39,7 +39,7 @@
 
 #include <stdio.h>
 
-# define __XMALLOC_H
+#define __XMALLOC_H
 
 void (*set_memerr(void (*s)()))();
 void *xmalloc (size_t size);

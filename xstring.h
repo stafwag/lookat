@@ -21,6 +21,7 @@
 
 #include "common.h"
 #include <stdlib.h>
+#include <string.h>
 void cut_space (char *c);
 void cut_after_quote(char *c);
 void cut_after_char(char *c, char ch);
@@ -36,7 +37,7 @@ char * replace_needles(char *txt, char *needles[][2]);
 char * cut_between(char *txt,char *head, char *tail);
 int strtoupper(char *str);
 int strtolower(char *str);
-char *istrstr(char *haystack, char *needle);
+char *strcasestr(char *haystack, char *needle);
 void rmchar(char *str,char rmc);
 void rmpos (char *c,unsigned i);
 void stripslahes (char *c);

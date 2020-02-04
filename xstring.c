@@ -275,11 +275,12 @@ int strtoupper(char *str) {
    return 0;
 }
 
+#ifndef HAVE_STRCASESTR
 /*
- * like strstr but ignore case
+ * like strcharstr but ignore case
  * Please use strcasestr if you can
  */
-char * istrstr(char *haystack, char *needle) {
+char * strcasestr(char *haystack, char *needle) {
    char *ihaystack, *ineedle;
    char *c,*r=NULL;
    int l;
@@ -301,6 +302,7 @@ char * istrstr(char *haystack, char *needle) {
    xfree(ineedle);
    return(r);
 }
+#endif
 
 /*
  * removes all char rmc in str

@@ -362,9 +362,9 @@ void view_addstr(char *str) {
   unsigned pointer=0; 
   unsigned prevPointer=0; 
   char *c;
-  char *utf8Char;
-  char *prevChar;
-  char *nextChar;
+  char *utf8Char=NULL;
+  char *prevChar=NULL;
+  char *nextChar=NULL;
 
   c=str;
 
@@ -372,45 +372,53 @@ void view_addstr(char *str) {
 
       if ((lx>p->cols-1)&&*c!=0x08) break; 
 
-      if (*c == 0x08 ) {
+        if (*c == 0x08 ) {
 
-        if ( (c+1) > (str+size) ) continue;
-        if ( (c-1) < str) continue;
+          --lx;
 
-        --lx;
+          prevChar=utf8_firstchar(str+prevPointer);
+          if ( (c+1) > (str+size) ) nextChar=NULL;
+            else nextChar=utf8_firstchar(c+1);
 
-        prevChar=utf8_firstchar(str+prevPointer);
-        nextChar=utf8_firstchar(c+1);
+          if(prevChar != NULL ) {
 
-        if (strcmp(prevChar,nextChar) == 0 ) { 
+            if (nextChar != NULL) {
 
-          waddch(p->win,*c);
-          wbkgdset(p->win,p->color[2]);
-          waddstr(p->win,nextChar);
-          pointer+=strlen(nextChar);
-          wbkgdset(p->win,p->color[1]);
+              if (strcmp(prevChar,nextChar) == 0 ) { 
+
+                waddch(p->win,*c);
+                wbkgdset(p->win,p->color[2]);
+                waddstr(p->win,nextChar);
+                pointer+=strlen(nextChar);
+                wbkgdset(p->win,p->color[1]);
+
+              }
+
+            }
+
+
+            if ( strcmp(prevChar,"_") == 0 ) {
+
+              waddch(p->win,*c);
+              wbkgdset(p->win,p->color[3]);
+              waddstr(p->win,nextChar);
+              pointer+=strlen(nextChar);
+              wbkgdset(p->win,p->color[1]);
+
+            }
+
+          }
+
+          xfree(prevChar);
+          xfree(nextChar);
+
+        } else {
+
+          utf8Char=utf8_firstchar(c);
+          waddstr(p->win,utf8Char);
+          xfree(utf8Char);
 
         }
-        if ( *(c-1) == '_'  ) {
-
-          waddch(p->win,*c);
-          wbkgdset(p->win,p->color[3]);
-          waddstr(p->win,nextChar);
-          pointer+=strlen(nextChar);
-          wbkgdset(p->win,p->color[1]);
-
-        }
-
-        xfree(prevChar);
-        xfree(nextChar);
-
-      } else {
-
-        utf8Char=utf8_firstchar(c);
-        waddstr(p->win,utf8Char);
-        xfree(utf8Char);
-
-      }
 
       prevPointer=pointer;
       pointer=pointer+utf8_strsize(c);

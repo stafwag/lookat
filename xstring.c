@@ -457,10 +457,7 @@ unsigned utf8_strlen(char *str) {
       pointer=pointer+utf8_strsize(c);
 
       if (*c == 0x08 ) {
-        if ( (c+1) > (str+size) ) continue;
-        if ( (c-1) < str) continue;
-        if ( *(c-1) == *(c+1) ) --u;
-        if ( *(c-1) == '_'  ) --u;
+        if (u) --u;
       } else {
         ++u;
       }

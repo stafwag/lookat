@@ -380,7 +380,7 @@ void view_addstr(char *str) {
           if ( (c+1) > (str+size) ) nextChar=NULL;
             else nextChar=utf8_firstchar(c+1);
 
-          if(prevChar != NULL ) {
+          if (prevChar != NULL ) {
 
             if (nextChar != NULL) {
 

@@ -86,27 +86,27 @@ char txt_win2_menuhot[]="win2_menuhot";
 char txt_win2_menuhotsel[]="win2_menuhotsel";
 
 char *color_vars[] = { 
-  txt_view,       /* 0 */
+  txt_view,             /* 0 */
   txt_view_bold,        /* 1 */
   txt_view_italic,      /* 2 */
   txt_main_menu,        /* 3 */
-        txt_main_menusel,     /* 4 */
+  txt_main_menusel,     /* 4 */
   txt_main_menuhot,     /* 5 */
-  txt_main_menuhotsel,      /* 6 */
-        txt_status_bar,       /* 7 */
-  txt_win1,       /* 8 */
+  txt_main_menuhotsel,  /* 6 */
+  txt_status_bar,       /* 7 */
+  txt_win1,             /* 8 */
   txt_win1_edit,        /* 9 */
-        txt_win1_menu,        /* 10 */
+  txt_win1_menu,        /* 10 */
   txt_win1_menusel,     /* 11 */
   txt_win1_menuhot,     /* 12 */
-        txt_win1_menuhotsel,      /* 13 */
-        txt_win2,       /* 14 */
+  txt_win1_menuhotsel,  /* 13 */
+  txt_win2,             /* 14 */
   txt_win2_edit,        /* 15 */
   txt_win2_menu,        /* 16 */
   txt_win2_menusel,     /* 17 */
   txt_win2_menuhot,     /* 18 */
-        txt_win2_menuhotsel,      /* 19 */
-        txt_view_found,       /* 20 */
+  txt_win2_menuhotsel,  /* 19 */
+  txt_view_found,       /* 20 */
   NULL
 };
 
@@ -964,6 +964,7 @@ free_type(cc,brol);
 }
 
 void init_pullmenu_colors (MENU *m,chtype color1,chtype color2, chtype color3, chtype color4) {
+
   MENU **mp;
   int i,n;
 
@@ -986,66 +987,73 @@ void init_pullmenu_colors (MENU *m,chtype color1,chtype color2, chtype color3, c
       mp[i]->color4=color4; 
     }
   }
+
 }
 
 void init_colors (struct color *colors) {
 
-     int kleuren=30;
-     int i=1;
-     char **kleur_naam;
-     kleur=xcalloc(kleuren,sizeof(chtype));
-     kleur_naam=color_vars;
-     kleur[0]=COLOR_PAIR(0);
+  int kleuren=30;
+  int i=1;
+  char **kleur_naam;
+  kleur=xcalloc(kleuren,sizeof(chtype));
+  kleur_naam=color_vars;
+  kleur[0]=COLOR_PAIR(0);
 
-     while(*kleur_naam) {
-            if(i>kleuren) {
-              kleuren+=20;
-              kleur=xrealloc(kleur,kleuren*sizeof(chtype));
-             }
+  while(*kleur_naam) {
+
+    if (i>kleuren) {
+
+      kleuren+=20;
+      kleur=xrealloc(kleur,kleuren*sizeof(chtype));
+
+     }
+
      kleur[i]=get_color(*kleur_naam,colors);
      ++i;
      ++kleur_naam;
-     }
-     bv.color=kleur;
+   }
 
-     m_jn.color1=kleur[15];
-     m_jn.color2=kleur[18];
-     m_jn.color3=kleur[19];
-     m_jn.color4=kleur[20];
+   bv.color=kleur;
 
-     m_ok.color1=kleur[15];
-     m_ok.color2=kleur[18];
-     m_ok.color3=kleur[19];
-     m_ok.color4=kleur[20];
+   m_jn.color1=kleur[15];
+   m_jn.color2=kleur[18];
+   m_jn.color3=kleur[19];
+   m_jn.color4=kleur[20];
+
+   m_ok.color1=kleur[15];
+   m_ok.color2=kleur[18];
+   m_ok.color3=kleur[19];
+   m_ok.color4=kleur[20];
 
 }
 
 void set_main_colors() {
+
   wbkgdset(bv.win,kleur[2]);
-        wbkgdset(win2,kleur[8]);
-        wbkgdset(hm_win,kleur[4]);
-        init_pullmenu_colors(hm_menup,kleur[4],kleur[5],kleur[6],kleur[7]);
-        menu_print(hm_menup);
-        touchwin(win2);
-        touchwin(hm_menup->w);
+  wbkgdset(win2,kleur[8]);
+  wbkgdset(hm_win,kleur[4]);
+  init_pullmenu_colors(hm_menup,kleur[4],kleur[5],kleur[6],kleur[7]);
+  menu_print(hm_menup);
+  touchwin(win2);
+  touchwin(hm_menup->w);
   wrefresh(win2);
   wrefresh(hm_menup->w);
-        bv.y-=(LINES-2);
-        wbkgdset(bv.win,kleur[1]);
-        view_refresh();
+  bv.y-=(LINES-2);
+  wbkgdset(bv.win,kleur[1]);
+  view_refresh();
+
 }
 
-void refresh_setcolors_win(WINDOW *w) 
-{
+void refresh_setcolors_win(WINDOW *w) {
 
-   leaveok(w,TRUE);
-   curs_set(0);
-   keypad(w,TRUE);
-   nodelay(w,FALSE);
-   wbkgdset(w,kleur[9]);
-   werase(w);
-   box(w,0,0);
-   win_box(w,12,20,1,3);
+  leaveok(w,TRUE);
+  curs_set(0);
+  keypad(w,TRUE);
+  nodelay(w,FALSE);
+  wbkgdset(w,kleur[9]);
+  werase(w);
+  box(w,0,0);
+  win_box(w,12,20,1,3);
 
 }
 
@@ -1095,15 +1103,14 @@ void open_color_venster(MENU *setcolors_m, struct color *colors,int p) {
      cm.next=sub_cm_color;
      last_color=2;
 
-   }
-   else {
+   } else {
 
-      cm.txt=txt_cm_mono;
-      cm.place=pl_cm_mono;
-      cm.hkey=hkey_cv_mono;
-      cm.hplace=hplace_cv_mono;
-      cm.next=sub_cm_mono;
-      last_color=1;
+     cm.txt=txt_cm_mono;
+     cm.place=pl_cm_mono;
+     cm.hkey=hkey_cv_mono;
+     cm.hplace=hplace_cv_mono;
+     cm.next=sub_cm_mono;
+     last_color=1;
 
     }
   
@@ -1121,143 +1128,152 @@ void open_color_venster(MENU *setcolors_m, struct color *colors,int p) {
         
     if (color_mode==0) {
 
-  fg_m.sel=color_to_number(colors[p].fg);
-  bg_m.sel=color_to_number(colors[p].bg);
-  attr_m.sel=attr_to_number(colors[p].attr);
-  bg_m.txt=txt_kleuren;
-        fg_m.txt=txt_kleuren;
-        attr_m.txt=txt_attributen;
+      fg_m.sel=color_to_number(colors[p].fg);
+      bg_m.sel=color_to_number(colors[p].bg);
+      attr_m.sel=attr_to_number(colors[p].attr);
+      bg_m.txt=txt_kleuren;
+      fg_m.txt=txt_kleuren;
+      attr_m.txt=txt_attributen;
 
-     }
-     else {
+    } else {
 
-  fg_m.sel=attr_to_number(colors[p].fg);
-  bg_m.sel=attr_to_number(colors[p].bg);
-        bg_m.txt=txt_attributen;
-        fg_m.txt=txt_attributen;
-        attr_m.txt=NULL;
+      fg_m.sel=attr_to_number(colors[p].fg);
+      bg_m.sel=attr_to_number(colors[p].bg);
+      bg_m.txt=txt_attributen;
+      fg_m.txt=txt_attributen;
+      attr_m.txt=NULL;
   
-     }
+    }
 
-     bg_m.amount=number_of_strings(bg_m.txt);
-     bg_m.place=pl_sc;
-     bg_m.key=key_sub;
-     bg_m.hkey=NULL;
-     bg_m.hplace=NULL;
-     bg_m.parent=&cm;
-     bg_m.next=sub_NULL;
-     bg_m.call_open=open_fg;
-     bg_m.call_close=cm_close;
-     bg_m.l=10;
+    bg_m.amount=number_of_strings(bg_m.txt);
+    bg_m.place=pl_sc;
+    bg_m.key=key_sub;
+    bg_m.hkey=NULL;
+    bg_m.hplace=NULL;
+    bg_m.parent=&cm;
+    bg_m.next=sub_NULL;
+    bg_m.call_open=open_fg;
+    bg_m.call_close=cm_close;
+    bg_m.l=10;
 
-     fg_m.amount=number_of_strings(fg_m.txt);
-     fg_m.place=pl_sc;
-     fg_m.key=key_sub;
-     fg_m.hkey=NULL;
-     fg_m.hplace=NULL;
-     fg_m.parent=&cm;
-     fg_m.next=sub_NULL;
-     fg_m.call_open=open_fg;
-     fg_m.call_close=cm_close;
-     fg_m.l=10;
+    fg_m.amount=number_of_strings(fg_m.txt);
+    fg_m.place=pl_sc;
+    fg_m.key=key_sub;
+    fg_m.hkey=NULL;
+    fg_m.hplace=NULL;
+    fg_m.parent=&cm;
+    fg_m.next=sub_NULL;
+    fg_m.call_open=open_fg;
+    fg_m.call_close=cm_close;
+    fg_m.l=10;
 
-     attr_m.amount=number_of_strings(attr_m.txt);
-     attr_m.place=pl_sc;
-     attr_m.key=key_sub;
-     attr_m.hkey=NULL;
-     attr_m.hplace=NULL;
-     attr_m.parent=&cm;
-     attr_m.next=sub_NULL;
-     attr_m.call_open=open_fg;
-     attr_m.call_close=cm_close;
-     attr_m.l=10;
+    attr_m.amount=number_of_strings(attr_m.txt);
+    attr_m.place=pl_sc;
+    attr_m.key=key_sub;
+    attr_m.hkey=NULL;
+    attr_m.hplace=NULL;
+    attr_m.parent=&cm;
+    attr_m.next=sub_NULL;
+    attr_m.call_open=open_fg;
+    attr_m.call_close=cm_close;
+    attr_m.l=10;
 
-     init_pullmenu_colors(&cm,kleur[15],kleur[18],kleur[19],kleur[20]);
+    init_pullmenu_colors(&cm,kleur[15],kleur[18],kleur[19],kleur[20]);
 
-     for(;;) {
+    for(;;) {
 
-  char kar='A';
-  wbkgdset(cm.w,kleur[15]);
-  werase(cm.w);
-  box(cm.w,0,0);
+      char kar='A';
+      wbkgdset(cm.w,kleur[15]);
+      werase(cm.w);
+      box(cm.w,0,0);
 
-  win_box(cm.w,2,27,1,4);
-  win_box(cm.w,4,27,1,4);
-  if(!color_mode) win_box(cm.w,6,27,1,4);
-  win_box(cm.w,6,10,1,33);
+      win_box(cm.w,2,27,1,4);
+      win_box(cm.w,4,27,1,4);
+
+      if (!color_mode) win_box(cm.w,6,27,1,4);
+
+      win_box(cm.w,6,10,1,33);
         
-  wbkgdset(cm.w,kleur[15]);
-  mvwaddstr(cm.w,2,17,">");
-  mvwaddstr(cm.w,2,20,fg_m.txt[fg_m.sel]);
+      wbkgdset(cm.w,kleur[15]);
+      mvwaddstr(cm.w,2,17,">");
+      mvwaddstr(cm.w,2,20,fg_m.txt[fg_m.sel]);
 
-  mvwaddstr(cm.w,1,34," Example "); 
-  wbkgdset(cm.w,colors[p].ch);
+      mvwaddstr(cm.w,1,34," Example "); 
+      wbkgdset(cm.w,colors[p].ch);
 
-  for(y=1;y<6;y++) {
-     for(x=1;x<10;x++) 
-         mvwaddch(cm.w,y+1,x+33,kar++);
-  }
+      for (y=1;y<6;y++) {
 
-        wbkgdset(cm.w,kleur[15]);
-  mvwaddstr(cm.w,4,17,">");
-  mvwaddstr(cm.w,4,20,bg_m.txt[bg_m.sel]);
+        for(x=1;x<10;x++) 
+          mvwaddch(cm.w,y+1,x+33,kar++);
+      }
 
-  if(!color_mode) { 
+      wbkgdset(cm.w,kleur[15]);
+      mvwaddstr(cm.w,4,17,">");
+      mvwaddstr(cm.w,4,20,bg_m.txt[bg_m.sel]);
 
-      mvwaddstr(cm.w,6,17,">");
-      mvwaddstr(cm.w,6,20,txt_attributen[attr_m.sel]);
+      if (!color_mode) { 
 
-  }
+        mvwaddstr(cm.w,6,17,">");
+        mvwaddstr(cm.w,6,20,txt_attributen[attr_m.sel]);
 
-  wrefresh(cm.w);
-  menu_pull(&cm,0);
+      }
+
+      wrefresh(cm.w);
+      menu_pull(&cm,0);
   
-  if(cm.used==2) break; 
-        if(cm.sel>last_color) {
-      if(cm.sel==cancel) {
-    set_color(color_vars[p],
-          colors,
+      if (cm.used==2) break; 
+      if (cm.sel>last_color) {
+
+      if (cm.sel==cancel) {
+
+        set_color(color_vars[p],
+        colors,
         backup_color.fg,
         backup_color.bg,
         backup_color.attr,
         color_mode);
-       }
-       else {
-    if(!color_mode) {
-             set_color(color_vars[p],
-                 colors,number_to_color(fg_m.sel),
-           number_to_color(bg_m.sel),
-           number_to_attr(attr_m.sel),
-           color_mode);
-    }
-    else {
-              set_color(color_vars[p],
-            colors,number_to_attr(fg_m.sel),
-            number_to_attr(bg_m.sel),
-            0,
-            color_mode);
-    }
-        }
-  
-       init_colors(colors);
-       set_main_colors();
-             init_pullmenu_colors(&cm,kleur[15],kleur[18],kleur[19],kleur[20]);
-       refresh_setcolors_win(setcolors_m->w);
-             setcolors_m->next[0]->color1=setcolors_m->color1=kleur[11];
-             setcolors_m->next[0]->color2=setcolors_m->color2=kleur[12];
-             setcolors_m->next[0]->color3=setcolors_m->color3=kleur[13];
-             setcolors_m->next[0]->color4=setcolors_m->color4=kleur[14];
-             menu_print(&cm);
-             menu_print(setcolors_m);
-             menu_print(setcolors_m->next[0]);
-             touchwin(setcolors_m->w);
-             touchwin(cm.w);
-             wrefresh(setcolors_m->w);
 
-       if((cm.sel==ok)||(cm.sel==cancel)) break;
+      } else {
+
+        if(!color_mode) {
+
+          set_color(color_vars[p],
+          colors,number_to_color(fg_m.sel),
+          number_to_color(bg_m.sel),
+          number_to_attr(attr_m.sel),
+          color_mode);
+
+        } else {
+
+          set_color(color_vars[p],
+          colors,number_to_attr(fg_m.sel),
+          number_to_attr(bg_m.sel), 0, color_mode);
+
+        }
+
+      }
+  
+      init_colors(colors);
+      set_main_colors();
+      init_pullmenu_colors(&cm,kleur[15],kleur[18],kleur[19],kleur[20]);
+      refresh_setcolors_win(setcolors_m->w);
+      setcolors_m->next[0]->color1=setcolors_m->color1=kleur[11];
+      setcolors_m->next[0]->color2=setcolors_m->color2=kleur[12];
+      setcolors_m->next[0]->color3=setcolors_m->color3=kleur[13];
+      setcolors_m->next[0]->color4=setcolors_m->color4=kleur[14];
+      menu_print(&cm);
+      menu_print(setcolors_m);
+      menu_print(setcolors_m->next[0]);
+      touchwin(setcolors_m->w);
+      touchwin(cm.w);
+      wrefresh(setcolors_m->w);
+
+      if ((cm.sel==ok)||(cm.sel==cancel)) break;
+
+    }
 
   }
-     }
+
 }
 
 /* -------------------------------------------- */
@@ -1423,7 +1439,7 @@ return (fp);
 /* ---------------------------------------------------- */ 
 /* Hoofdprg ...           */
 /* ---------------------------------------------------- */ 
-int main(int arg1,char *arg2[])
+int main (int arg1,char *arg2[])
 {
 int i,c;
 int prev_lines=0;
@@ -1450,7 +1466,7 @@ s[0]=0;
  * utf-8
  */
 
-setlocale(LC_ALL, "en_US.UTF-8");
+setlocale(LC_ALL, "");
 
 {
 char *c;
@@ -1604,33 +1620,31 @@ start_color();
   set_color(txt_win2_menuhotsel,mono_array,A_NORMAL,A_BOLD,0,1);
   set_color(txt_view_found,mono_array,A_REVERSE,A_NORMAL,0,1);
     
-
-  
-  set_color(txt_view,color_array,COLOR_WHITE,COLOR_BLUE,A_BOLD,color_mode);
-  set_color(txt_view_bold,color_array,COLOR_YELLOW,COLOR_BLUE,A_BOLD,color_mode);
-  set_color(txt_view_italic,color_array,COLOR_RED,COLOR_BLUE,A_BOLD,color_mode);
-  set_color(txt_main_menu,color_array,COLOR_BLACK,COLOR_CYAN,A_NORMAL,color_mode);
-  set_color(txt_main_menusel,color_array,COLOR_WHITE,COLOR_BLACK,A_BOLD,color_mode);
-  set_color(txt_main_menuhot,color_array,COLOR_YELLOW,COLOR_CYAN,A_BOLD,color_mode);
-  set_color(txt_main_menuhotsel,color_array,COLOR_YELLOW,COLOR_BLACK,A_BOLD,color_mode);
-  set_color(txt_status_bar,color_array,COLOR_BLACK,COLOR_CYAN,A_NORMAL,color_mode);
-  set_color(txt_win1,color_array,COLOR_BLACK,COLOR_CYAN,A_NORMAL,color_mode);
+  set_color(txt_view,color_array,COLOR_WHITE,COLOR_BLACK,A_NORMAL,color_mode);
+  set_color(txt_view_bold,color_array,COLOR_WHITE,COLOR_BLACK,A_BOLD,color_mode);
+  set_color(txt_view_italic,color_array,COLOR_RED,COLOR_BLACK,A_BOLD,color_mode);
+  set_color(txt_main_menu,color_array,COLOR_WHITE,COLOR_BLUE,A_NORMAL,color_mode);
+  set_color(txt_main_menusel,color_array,COLOR_BLUE,COLOR_WHITE,A_NORMAL,color_mode);
+  set_color(txt_main_menuhot,color_array,COLOR_GREEN,COLOR_BLUE,A_BOLD,color_mode);
+  set_color(txt_main_menuhotsel,color_array,COLOR_GREEN,COLOR_WHITE,A_BOLD,color_mode);
+  set_color(txt_status_bar,color_array,COLOR_WHITE,COLOR_BLUE,A_NORMAL,color_mode);
+  set_color(txt_win1,color_array,COLOR_WHITE,COLOR_BLUE,A_NORMAL,color_mode);
   set_color(txt_win1_edit,color_array,COLOR_BLACK,COLOR_WHITE,A_NORMAL,color_mode);
-  set_color(txt_win1_menu,color_array,COLOR_BLACK,COLOR_CYAN,A_NORMAL,color_mode);
-  set_color(txt_win1_menusel,color_array,COLOR_WHITE,COLOR_BLACK,A_BOLD,color_mode);
-  set_color(txt_win1_menuhot,color_array,COLOR_YELLOW,COLOR_CYAN,A_BOLD,color_mode);
-  set_color(txt_win1_menuhotsel,color_array,COLOR_YELLOW,COLOR_BLACK,A_BOLD,color_mode);
-  set_color(txt_win2,color_array,COLOR_BLACK,COLOR_WHITE,A_NORMAL,color_mode);
-  set_color(txt_win2_edit,color_array,COLOR_BLACK,COLOR_CYAN,A_NORMAL,color_mode);
-  set_color(txt_win2_menu,color_array,COLOR_BLACK,COLOR_WHITE,A_NORMAL,color_mode);
-  set_color(txt_win2_menusel,color_array,COLOR_WHITE,COLOR_BLACK,A_BOLD,color_mode);
+  set_color(txt_win1_menu,color_array,COLOR_WHITE,COLOR_BLUE,A_NORMAL,color_mode);
+  set_color(txt_win1_menusel,color_array,COLOR_WHITE,COLOR_BLACK,A_NORMAL,color_mode);
+  set_color(txt_win1_menuhot,color_array,COLOR_GREEN,COLOR_BLUE,A_BOLD,color_mode);
+  set_color(txt_win1_menuhotsel,color_array,COLOR_GREEN,COLOR_BLACK,A_BOLD,color_mode);
+  set_color(txt_win2,color_array,COLOR_BLUE,COLOR_WHITE,A_NORMAL,color_mode);
+  set_color(txt_win2_edit,color_array,COLOR_WHITE,COLOR_BLACK,A_NORMAL,color_mode);
+  set_color(txt_win2_menu,color_array,COLOR_BLACK,COLOR_WHITE,A_BOLD,color_mode);
+  set_color(txt_win2_menusel,color_array,COLOR_WHITE,COLOR_BLUE,A_NORMAL,color_mode);
   set_color(txt_win2_menuhot,color_array,COLOR_YELLOW,COLOR_WHITE,A_BOLD,color_mode);
-  set_color(txt_win2_menuhotsel,color_array,COLOR_YELLOW,COLOR_BLACK,A_BOLD,color_mode);
-  set_color(txt_view_found,color_array,COLOR_BLACK,COLOR_CYAN,A_BOLD,color_mode);
+  set_color(txt_win2_menuhotsel,color_array,COLOR_YELLOW,COLOR_BLUE,A_BOLD,color_mode);
+  set_color(txt_view_found,color_array,COLOR_WHITE,COLOR_RED,A_BOLD,color_mode);
   
   if(!has_colors()) {
     colors=mono_array;
-        color_mode=1;
+    color_mode=1;
   }
   else {
     colors=color_array;
@@ -1642,6 +1656,7 @@ start_color();
   init_colors(colors);
   wbkgd(win1,kleur[1]);
 };
+
 if(fp!=NULL) fclose(fp);
 wbkgd(win2,kleur[8]);
 wbkgd(hm_win,kleur[4]);

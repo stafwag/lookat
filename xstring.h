@@ -37,7 +37,9 @@ char * replace_needles(char *txt, char *needles[][2]);
 char * cut_between(char *txt,char *head, char *tail);
 int strtoupper(char *str);
 int strtolower(char *str);
+#ifndef HAVE_STRCASESTR
 char *strcasestr(char *haystack, char *needle);
+#endif
 void rmchar(char *str,char rmc);
 void rmpos (char *c,unsigned i);
 void stripslahes (char *c);

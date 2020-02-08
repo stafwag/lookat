@@ -26,6 +26,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <string.h>
 #include "xstring.h"
 
 char * get_config(FILE *fp,char *var_name);

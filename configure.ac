@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT(lookat_bekijk,1.4.5pre,staf@wagemakers.be)
+AC_INIT(lookat_bekijk,2.0.0pre,staf@wagemakers.be)
 AC_CANONICAL_SYSTEM
 AC_CONFIG_SRCDIR(bekijk.c)
 AM_INIT_AUTOMAKE
@@ -9,6 +9,8 @@ AM_MAINTAINER_MODE([disable])
 
 
 AM_CONFIG_HEADER(config.h)
+
+AC_USE_SYSTEM_EXTENSIONS
 
 OS_NAME=$build_os
 

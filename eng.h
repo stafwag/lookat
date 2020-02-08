@@ -1,7 +1,7 @@
 /*
  *  eng.h
  *
- *  Copyright (C) 1997 - 2019  Staf Wagemakers Belgie/Belgium
+ *  Copyright (C) 1997 - 2020  Staf Wagemakers Belgie/Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ const char sel_hm		='h';
 const int sel_om                ='o';
 char *txt_help[]		= {
 "---------------------------------------------------------------------------",
-"lookat 1.4.5pre                             (GPL) 1997-2019 Belgie  Belgium",
+"lookat 2.0.0pre                             (GPL) 1997-2020 Belgie  Belgium",
 "                                                            Staf Wagemakers",
 "                                                  email: staf@wagemakers.be",
 " ",

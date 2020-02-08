@@ -1,7 +1,7 @@
 /*
- * bekijk.c 1.4.5pre
+ * bekijk.c
  *
- * Copyright (C) 1997, 1998, 2000, 2001, 2002, 2003, 2006, 2007, 2015, 2019  Staf Wagemakers Belgium
+ * Copyright (C) 1997, 1998, 2000, 2001, 2002, 2003, 2006, 2007, 2015, 2020  Staf Wagemakers Belgium
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

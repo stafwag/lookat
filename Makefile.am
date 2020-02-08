@@ -17,11 +17,12 @@ bekijk.o: bekijk.c
 
 sysconf_DATA=lookat.conf.default
 
-EXTRA_DIST = $(man_MANS) ${sysconf_DATA} LEESMIJ examples/blue_config.cfg
+EXTRA_DIST = $(man_MANS) ${sysconf_DATA} LEESMIJ examples/blue_and_black.cfg examples/cyan_and_blue.cfg
 
 install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(docdir)examples
-	$(INSTALL_DATA) $(srcdir)/examples/blue_config.cfg $(DESTDIR)$(docdir)examples/blue_config.cfg
+	$(INSTALL_DATA) $(srcdir)/examples/blue_and_black.cfg $(DESTDIR)$(docdir)examples/blue_and_black.cfg
+	$(INSTALL_DATA) $(srcdir)/examples/cyan_and_blue.cfg $(DESTDIR)$(docdir)examples/cyan_and_blue.cfg
 
 	@if test -f $(DESTDIR)$(CONFIGFILE); then \
 		echo ;\

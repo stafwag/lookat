@@ -520,3 +520,34 @@ unsigned utf8_strsize(char *c) {
 
 }
 
+/*
+ * returns a string with str1 to the left side
+ * str to the right size aligned to width
+ */
+
+char * right_align_2_strings(char * str1, char * str2, int width) {
+  char *ret=NULL;
+  int number_of_spaces=0;
+  int total_string_length=strlen(str1)+strlen(str2);
+
+  if (width < total_string_length) return NULL;
+
+  number_of_spaces=width-total_string_length;
+  if (number_of_spaces < 0) return NULL;
+
+  ret=xmalloc(strlen(str1)+strlen(str2)+number_of_spaces+1);
+  if (sprintf(ret,"%s%*c%s",str1,number_of_spaces,' ',str2) < 0) return NULL;
+  return ret;
+
+}
+
+/*
+ * return a string  n * c
+ */
+
+char * str_nchars(int n, char c) {
+  char *ret=xmalloc(c+1);
+  if (sprintf(ret,"%*c%s",n,c) < 0) return NULL;
+  return ret;
+}
+

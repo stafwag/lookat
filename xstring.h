@@ -52,3 +52,5 @@ int isbin(unsigned char c);
 unsigned utf8_strsize(char *c);
 char * utf8_firstchar(char *c);
 unsigned utf8_strlen(char *str);
+char * right_align_2_strings(char * str1, char * str2, int width);
+char * str_nchars(int n, char c);

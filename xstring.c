@@ -430,6 +430,23 @@ int copy_string_array_pointers (char **dest, char **src) {
 	return(0);
 }
 
+char ** combine_string_array_pointers( char **src1, char **src2) {
+
+  char ** dest;
+
+  int length_src1=number_of_strings(src1);
+  int length_src2=number_of_strings(src2);
+
+  if ( (length_src1<0) || (length_src2<0) ) return NULL;
+
+  dest=xcalloc(number_of_strings(src1)+number_of_strings(src2), sizeof(char *));
+  copy_string_array_pointers(dest,src1);
+  copy_string_array_pointers(dest+(length_src1-1),src2);
+
+  return dest;
+
+}
+
 /*
  * return 0 if c is \n or bacspace
  *          if c is no acscii

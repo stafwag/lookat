@@ -54,3 +54,4 @@ char * utf8_firstchar(char *c);
 unsigned utf8_strlen(char *str);
 char * right_align_2_strings(char * str1, char * str2, int width);
 char * str_nchars(int n, char c);
+char ** combine_string_array_pointers( char **src1, char **src2);

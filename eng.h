@@ -23,12 +23,25 @@ const char sel_bm		='f';
 const char sel_gm		='g';
 const char sel_zm		='s';
 const char sel_hm		='h';
-const int sel_om                ='o';
+const int sel_om    ='o';
+int help_width=75;
+char txt_prg_dates[]="1997-2020";
+char txt_gpl_short[]="(GPL)";
+char txt_help_prgname[] = "lookat";
+/*
+char txt_help_copyright[]= "(GPL) 1997-2020 Belgie  Belgium";
+*/
+char txt_belgie[]="Belgie  Belgium";
+char txt_author[]="Staf Wagemakers";
+char txt_author_email[]="Staf Wagemakers";
+/*
 char *txt_help[]		= {
 "---------------------------------------------------------------------------",
 "lookat 2.0.0pre                             (GPL) 1997-2020 Belgie  Belgium",
 "                                                            Staf Wagemakers",
 "                                                  email: staf@wagemakers.be",
+*/
+char *txt_help_body[]		= {
 " ",
 "How to start 'lookat'?",
 " ",
@@ -42,9 +55,10 @@ char *txt_help[]		= {
 "             ls | lookat",
 "- use 'lookat' as a manual page viewer : man -Plookat ls",
 " ",
-"Thank you for using this program!",
+"Thank you for using this program!",NULL };
+/*
 "--------------------------------------------------------------------------\n",NULL};
-								    
+*/
 int hkey_jn[]		={'y','n'};
 int hkey_typem[]	={'i','a','m','d','d'};
 int hkey_cv_color[]	={'f','b','a','o','t','c'};
@@ -133,11 +147,18 @@ char *txt_attributen[] = {"normal","bold","underline","reverse",
                           "standout",NULL};
 char txt_ondersheid_g[]	="[ ] Case sensitive";
 char txt_search_back[]  ="[ ] Search backwards";
+int over_width=54;
+char txt_gpl_2[]="GNU Public License 2";
+char txt_email[]="email: ";
+char txt_homepage[]="homepage";
+char txt_homepage_url[]="http://www.wagemakers.be";
+/*
 char *txt_over[]	={
 "Lookat version 1.4.5pre            GNU Public License",
 "Staf Wagemakers                   (1997-2015) Belgium","\n",
 "email:                             staf@wagemakers.be",
 "homepage:                    http://www.wagemakers.be","\n",NULL};
+*/
 char txt_bedank[]       ="Thank you for using this program!";
 char *txt_verder_zoeken_begin[]={"Top of document reached, continue from bottom?",NULL};
 char *txt_verder_zoeken_einde[]={"End of document reached, continue from beginning?",NULL};

@@ -22,13 +22,25 @@
 const int sel_bm		='b';
 const int sel_gm		='g';
 const int sel_zm		='z';
-const int sel_om                ='o';
+const int sel_om    ='o';
 const int sel_hm		='h';
+int help_width=75;
+char txt_prg_dates[]="1997-2020";
+char txt_gpl_short[]="(GPL)";
+char txt_help_prgname[] = "bekijk";
+char txt_belgie[]="Belgie  Belgium";
+char txt_help_copyright[]= "(GPL) 1997-2020 Belgie  Belgium";
+char txt_author[]="Staf Wagemakers";
+char txt_author_email[]="Staf Wagemakers";
+
+/*
 char  *txt_help[] = {
 "---------------------------------------------------------------------------",
 "bekijk 2.0.0pre                             (GPL) 1997-2020 Belgie  Belgium",
 "                                                            Staf Wagemakers",
 "                                                  email: staf@wagemakers.be",
+*/
+char *txt_help_body[]		= {
 " ",
 "Je kan 'bekijk' op de volgende manieren starten:",
 " "
@@ -43,8 +55,10 @@ char  *txt_help[] = {
 "              ls | bekijk",
 "- om man paginas te bekijken: man -Pbekijk ls",
 " ",
-"Bedankt voor het gebruik van dit programma!",
+"Bedankt voor het gebruik van dit programma!", NULL };
+/*
 "--------------------------------------------------------------------------\n",NULL};
+*/
 int hkey_ok[]		={'o'};
 int hkey_jn[]		={'j','n'};
 int hkey_typem[]	={'b','i','v','w','g'};
@@ -132,11 +146,18 @@ char *txt_attributen[] = {"normaal","dik","onderlijnd","reverse",
 
 char txt_ondersheid_g[]	="[ ] grootte & kleine letters  ";
 char txt_search_back[]  ="[ ] Achteruit zoeken";
+int over_width=54;
+char txt_gpl_2[]="GNU Public License 2";
+char txt_email[]="email: ";
+char txt_homepage[]="homepagina";
+char txt_homepage_url[]="http://www.wagemakers.be";
+/*
 char *txt_over[]	={
 "Bekijk versie 1.4.5pre             GNU Public License",
 "Staf Wagemakers                    (1997-2015) Belgie","\n",
 "email:                             staf@wagemakers.be",
 "homepagina:                  http://www.wagemakers.be","\n",NULL};
+*/
 char txt_bedank[]       ="Bedankt voor het gebruik van dit programma!";
 char *txt_verder_zoeken_begin[]={"Begin van het document bereikt, van 't einde verder zoeken?",NULL};
 char *txt_verder_zoeken_einde[]={"Einde van het document bereikt, van 't begin verder zoeken?",NULL};

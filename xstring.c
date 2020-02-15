@@ -559,12 +559,50 @@ char * right_align_2_strings(char * str1, char * str2, int width) {
 }
 
 /*
+ * combines 2 string
+ */
+char * combine_2_strings(char *str1, char *str2) {
+
+  char *ret=NULL;
+  if ( ( str1 == NULL ) || ( str2 ==NULL ) ) return NULL;
+
+  ret=xcalloc(strlen(str1)+strlen(str2), sizeof(char));
+  strcpy(ret,str1);
+  strcat(ret,str2);
+
+  return ret;
+
+}
+
+/*
+ * combines an array of strings
+ */
+char * combine_strings(char **strs) {
+
+  char *ret=xcalloc(1,sizeof(char));
+  char **cc=NULL;
+
+  for(cc=strs;*cc!=NULL;cc++) {
+
+    ret=xrealloc(ret,strlen(ret)+strlen(*cc)+1);
+    strcat(ret,*cc);
+
+  }
+
+  return(ret);
+
+}
+
+/*
  * return a string  n * c
  */
 
 char * str_nchars(int n, char c) {
-  char *ret=xmalloc(c+1);
-  if (sprintf(ret,"%*c%c",n,c) < 0) return NULL;
+  char *ret=xcalloc(n+1,sizeof(char));
+  int i=0;
+  for (i=0;i<n;i++) {
+    ret[i]=c;
+  }
   return ret;
 }
 

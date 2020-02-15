@@ -564,7 +564,7 @@ char * right_align_2_strings(char * str1, char * str2, int width) {
 
 char * str_nchars(int n, char c) {
   char *ret=xmalloc(c+1);
-  if (sprintf(ret,"%*c%s",n,c) < 0) return NULL;
+  if (sprintf(ret,"%*c%c",n,c) < 0) return NULL;
   return ret;
 }
 

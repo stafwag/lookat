@@ -1,21 +1,21 @@
 /*
- *  xstring.c  - Tired of writing these things over and over again -
+ * xstring.c  	- Tired of writing these things over and over again -
  *
- *  Copyright (C) 2001,2015,2020  Staf Wagemakers Belgie/Belgium
+ * Copyright (C) 2001,2015,2020  Staf Wagemakers Belgie/Belgium
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License along
- *  with this program; if not, write to the Free Software Foundation, Inc.,
- *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  */
 
@@ -27,6 +27,7 @@
 void cut_after_char (char *c,char ch)
 {
 if (c==NULL) return;
+if(strlen(c)==0) return;
 for(;*c!='\0';c++) {
    if (ch=='\0') {
       if (isspace(*c)) { 
@@ -42,7 +43,13 @@ for(;*c!='\0';c++) {
       }
    }
 }
-void cut_after_quote (char *c)
+
+/*
+ *
+ * replaces the first quote ('\"') with a '\0'
+ *
+ */
+void cut_after_quote (char *c) 
 {
 char *cp=c;
 
@@ -71,7 +78,6 @@ for(;*c!='\0';c++) {
 int get_quoted_item_size (char *c)
 {
 char *cc=c;
-
 for(;*c!='\0';c++) {
   if (*c=='\"') 
      {
@@ -141,7 +147,7 @@ free(cc);
 }
 
 /*
- * replaces a needle with a new string head & tail are added to needle
+ * replaces a needle with a new string head & tail are added to needle 
  */
 char * replace_headtail_needle(char *txt, char *needle1, char *replace,char *head,char *tail)
 {
@@ -180,7 +186,7 @@ char * replace_needle(char *txt, char *needle, char *replace)
  * replaces an array of head-tail needles
  * needles[0][0] = needle1 , needles[0][1] = value1 , ...
  */
-char * replace_headtail_needles(char *txt, char *needles[][2],char *head,char *tail)
+char * replace_headtail_needles(char *txt, char ***needles,char *head,char *tail)
 {
    int i=0;
    char *txt2,*ret;
@@ -203,13 +209,13 @@ char * replace_headtail_needles(char *txt, char *needles[][2],char *head,char *t
  * replaces an array of needles
  * needles[0][0] = needle1 , needles[0][1] = value1 , ...
  */
-char * replace_needles(char *txt, char *needles[][2])
+char * replace_needles(char *txt, char ***needles)
 {
    return(replace_headtail_needles(txt,needles,"",""));
 }
 
 /*
- * delete all animals with head and tail.
+ * kill all animals with head and tail.
  * !!!! txt be will freed !!!!!
  */
 char * real_cut_between(char *txt,char *head, char *tail) {
@@ -262,7 +268,7 @@ int strtolower(char *str) {
 }
 
 /*
- * convert str to upcase
+ * convert str to UPPERCASE
  */
 int strtoupper(char *str) {
    char *c;
@@ -277,7 +283,7 @@ int strtoupper(char *str) {
 
 #ifndef HAVE_STRCASESTR
 /*
- * like strcharstr but ignore case
+ * like strstr but ignore case
  * Please use strcasestr if you can
  */
 char * strcasestr(char *haystack, char *needle) {
@@ -305,7 +311,7 @@ char * strcasestr(char *haystack, char *needle) {
 #endif
 
 /*
- * removes all char rmc in str
+ * removes all rmc chars from string
  */
 void rmchar(char *str,char rmc) {
    char *c,*cc;
@@ -380,7 +386,7 @@ int is_var_yes(char *var)
 }
 
 /*
- * frees the memory of the array of strings.
+ * frees a NULL terminated string array
  */
 void free_string_array (char **array) {
 	char **ccp;
@@ -401,7 +407,7 @@ void free_string_array (char **array) {
 }
 
 /*
- * returns the number of string in array
+ * number of string in a NULL terminated string array
  */
 int number_of_strings (char **array) {
 	char **ccp;
@@ -444,6 +450,212 @@ char ** combine_string_array_pointers( char **src1, char **src2) {
   copy_string_array_pointers(dest+(length_src1-1),src2);
 
   return dest;
+
+}
+
+/*
+ *
+ * add item to a string pair
+ *
+ */
+char *** add_2_string_pair (char ***str_array,char *str1, char *str2) {
+
+	int n;
+	char ***ret;
+
+	if(str_array!=NULL) {
+
+		n=number_of_string_pairs(str_array);
+
+		ret=(char ***) xrealloc(str_array,(n+2)*sizeof(char **));
+		ret[n]=xmalloc(2*sizeof(char *));
+		ret[n+1]=xcalloc(2,sizeof(char *));
+		
+
+
+	}
+
+	else { 
+
+		ret=(char ***) xcalloc(2,sizeof(char **));
+		ret[0] = xcalloc(2,sizeof(char *));
+		ret[1] = xcalloc(2,sizeof(char *));
+
+		n = 0;
+
+	}
+
+	ret[n][0]=str1;
+	ret[n][1]=str2;
+
+	return(ret);
+
+
+}
+
+/*
+ *
+ * get the number of string pair array
+ *
+ */
+int number_of_string_pairs (char ***str_pair) {
+
+	char ***pt;
+	int ret=0;
+
+	if(str_pair==NULL) return(0);
+	
+	for(pt=str_pair;pt[0][0]!=NULL;pt++) ret++;
+
+	return(ret);
+
+}
+
+char * get_string_pair_item(char ***str_pair,char *item) {
+	char ***pt;
+	char *ret=NULL;
+
+	if(str_pair==NULL) return(NULL);
+
+	for(pt=str_pair;pt[0][0]!=NULL;pt++) {
+
+		if(!strcmp(pt[0][0],item)) {
+			ret=pt[0][1];
+			break;
+		}
+
+	}
+
+	return(ret);
+
+}
+
+int update_string_pair_item(char ***str_pair,char *item, char *value, int free_mode) {
+
+	char ***pt;
+	int ret=0;
+
+	if(str_pair==NULL) return(-1);
+	
+	for(pt=str_pair;pt[0][0]!=NULL;pt++) {
+
+		if(!strcmp(pt[0][0],item)) {
+			ret=1;
+
+			if(free_mode) xfree(pt[0][1]);
+
+			pt[0][1]=value;
+			break;
+		}
+
+	}
+
+	return(ret);
+
+
+}
+
+int delete_string_pair_item(char ***str_pair,char *item,int free_mode) {
+
+	char ***pt;
+	int ret=0;
+
+	if(str_pair==NULL) return(-1);
+	
+	for(pt=str_pair;pt[0][0]!=NULL;pt++) {
+
+		if(!strcmp(pt[0][0],item)) {
+
+			char ***pt2;
+
+			if(free_mode) {
+				xfree(pt[0][0]);
+				xfree(pt[0][1]);
+			}
+
+
+			for(pt2=pt;pt2[0][0]!=NULL;pt2++) {
+
+				pt2[0][0]=(pt2+1)[0][0];
+				pt2[0][1]=(pt2+1)[0][1];
+
+			}
+
+			ret=1;
+
+			break;
+		}
+
+	}
+
+	return(ret);
+
+}
+
+void free_string_pair (char ***str_pair) {
+
+	char ***pt;
+
+	if(str_pair==NULL) return;
+
+	for(pt=str_pair;pt[0][0]!=NULL;pt++) {
+		xfree(pt[0][0]);
+		xfree(pt[0][1]);
+		xfree(pt);
+		}
+
+	xfree(str_pair);
+
+}
+
+char * clone_string(char *str) {
+
+
+	char *ret=NULL;
+
+	if(str==NULL) return(ret);
+
+	ret = xmalloc(strlen(str)+1);
+	strcpy(ret,str);
+
+	return(ret);
+
+}
+
+void replace_char(char *str,char src,char dest) {
+
+        char *cp;
+
+        for(cp=str;*cp!=0;cp++) {
+
+                if (*cp == src) {
+
+                        *cp=dest;
+
+                }
+
+        }
+
+}
+
+char * null2str(char *str) {
+
+	if(str==NULL) return("null");
+	return(str);
+
+}
+
+int isstrdigit(char *str) {
+
+	char *cp;
+
+	for(cp=str;*cp!=0;cp++) {
+
+		if(!isdigit(*cp)) return(0);
+
+	}
+
+	return(1);
 
 }
 
@@ -506,7 +718,6 @@ char * utf8_firstchar(char *c) {
   return(str);
 
 }
-
 
 /*
  * calcuates the byte size for utf8 string
@@ -571,7 +782,6 @@ char * combine_2_strings(char *str1, char *str2) {
   strcat(ret,str2);
 
   return ret;
-
 }
 
 /*

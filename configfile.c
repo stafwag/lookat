@@ -299,7 +299,7 @@ return(real_get_config_array(fp,NULL,var_name,1));
  * 
  * parms[0][0] = variable name , parms[0][1] = value , ...
  */
-char * add_parms(char *txt,char *parms[][2]) {
+char * add_parms(char *txt,char ***parms) {
 char *ret,*c,*txt2;
 c=txt2=replace_headtail_needles(txt,parms,"%{","}");
 ret=cut_between(txt2,"%{","}");

@@ -1,7 +1,7 @@
 /*
  *  configfile.h
  *
- *  Copyright (C) 1999, 2001, 2006  Staf Wagemakers Belgie/Belgium
+ *  Copyright (C) 1999, 2001, 2006, 2020  Staf Wagemakers Belgie/Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@ char * get_global_config_item(FILE *fp,char *var_name);
 char ** get_global_config_array(FILE *fp,char *var_name);
 
 char * save_config(FILE *fp,char *var_name,char *value);
-char * add_parms (char *txt , char *parms[][2]);
+char * add_parms (char *txt , char ***parms);
 
 char * get_sg_item(FILE *fp,char *section_name,char *var_name);
 char * get_sg_config(FILE *fp,char *section_name,char *var_name);

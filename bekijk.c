@@ -1463,45 +1463,6 @@ char ***ccc;
 s[0]=0;
 
 /*
- * init vars
- */
-
-char *txt_help_line=str_nchars(help_width,'-');
-char *txt_prgname_version=combine_strings( (char *[]){txt_help_prgname," ",PACKAGE_VERSION,NULL});
-char *txt_help_copyright=combine_strings( (char *[]) {txt_gpl_short," ",txt_prg_dates," ",txt_belgie,NULL });
-char *txt_help_1st_line=right_align_2_strings(txt_prgname_version,txt_help_copyright,help_width);
-
-char *txt_help_2nd_line=right_align_2_strings("",txt_author,help_width);
-char *txt_help_3rd_line=right_align_2_strings("",txt_author_email,help_width);
-
-char *txt_help_head[] = {
-  txt_help_line,
-  txt_help_1st_line,
-  txt_help_2nd_line,
-  txt_help_3rd_line,
-  NULL
-};
-
-char *txt_help_footer[] = {
-  txt_help_line,
-  NULL
-};
-
-char **txt_help_body_footer=combine_string_array_pointers(txt_help_body,txt_help_footer);
-char **txt_help=combine_string_array_pointers(txt_help_head,txt_help_body_footer);
-
-char *txt_over[] = {
-  right_align_2_strings(txt_prgname_version,txt_gpl_2,over_width),
-  "\n",
-  right_align_2_strings(txt_author,txt_prg_dates,over_width),
-  right_align_2_strings(txt_email,txt_author_email,over_width),
-  right_align_2_strings(txt_homepage,txt_homepage_url,over_width),
-  "\n",
-  NULL
-};
-
-
-/*
  * utf-8
  */
 
@@ -1598,7 +1559,46 @@ else {
   if (arg1>=2) { 
   if (!strcmp(arg2[1],"--help")) {
     if(COLS) endwin();
+
+    /*
+     * create txt_help
+     */
+
+    char *txt_prgname_version=combine_strings( (char *[]){txt_help_prgname," ",PACKAGE_VERSION,NULL});
+    char *txt_help_line=str_nchars(help_width,'-');
+    char *txt_help_copyright=combine_strings( (char *[]) {txt_gpl_short," ",txt_prg_dates," ",txt_belgie,NULL });
+    char *txt_help_1st_line=right_align_2_strings(txt_prgname_version,txt_help_copyright,help_width);
+
+    char *txt_help_2nd_line=right_align_2_strings("",txt_author,help_width);
+    char *txt_help_3rd_line=right_align_2_strings("",txt_author_email,help_width);
+
+    char *txt_help_head[] = {
+      txt_help_line,
+      txt_help_1st_line,
+      txt_help_2nd_line,
+      txt_help_3rd_line,
+      NULL
+    };
+
+    char *txt_help_footer[] = {
+      txt_help_line,
+      NULL
+    };
+
+    char **txt_help_body_footer=combine_string_array_pointers(txt_help_body,txt_help_footer);
+    char **txt_help=combine_string_array_pointers(txt_help_head,txt_help_body_footer);
+
     print_strs(stderr,txt_help);
+
+    xfree(txt_prgname_version);
+    xfree(txt_help_line);
+    xfree(txt_help_copyright);
+    xfree(txt_help_1st_line);
+    xfree(txt_help_2nd_line);
+    xfree(txt_help_3rd_line);
+    xfree(txt_help_body_footer);
+    xfree(txt_help);
+
     exit(0);
    };
    if (chdir(arg2[1])==-1) {
@@ -1679,7 +1679,7 @@ start_color();
   set_color(txt_win2_menusel,color_array,COLOR_WHITE,COLOR_BLUE,A_NORMAL,color_mode);
   set_color(txt_win2_menuhot,color_array,COLOR_YELLOW,COLOR_WHITE,A_BOLD,color_mode);
   set_color(txt_win2_menuhotsel,color_array,COLOR_YELLOW,COLOR_BLUE,A_BOLD,color_mode);
-  set_color(txt_view_found,color_array,COLOR_WHITE,COLOR_RED,A_BOLD,color_mode);
+  set_color(txt_view_found,color_array,COLOR_WHITE,COLOR_GREEN,A_BOLD,color_mode);
   
   if(!has_colors()) {
     colors=mono_array;
@@ -1976,19 +1976,43 @@ do {
                 };
           break;
            case 4:   
-                      switch (sub_hm[i]->sel) {
-                  case 0: c='?';
+                switch (sub_hm[i]->sel) {
+                  case 0:
+                    c='?';
                     break;
-            case 1: 
-              open_okwin(22,60,&m_ok,txt_t,win1);
+                  case 1: 
+                    open_okwin(22,60,&m_ok,txt_t,win1);
+                    break;
+                  case 2:
+                    {
+                    char *txt_prgname_version=combine_strings( (char *[]){txt_help_prgname," ",PACKAGE_VERSION,NULL});
+                    char *txt_over_1=right_align_2_strings(txt_prgname_version,txt_gpl_2,over_width);
+                    char *txt_over_2=right_align_2_strings(txt_author,txt_prg_dates,over_width);
+                    char *txt_over_3=right_align_2_strings(txt_email,txt_author_email,over_width);
+                    char *txt_over_4=right_align_2_strings(txt_homepage,txt_homepage_url,over_width);
+                    char *txt_over[] = {
+                        txt_over_1,
+                        "\n",
+                        txt_over_2,
+                        txt_over_3,
+                        txt_over_4,
+                        "\n",
+                        NULL
+                    };
+                    open_animwin(12,60,&m_ok,txt_over,txt_bedank,win1,0);
+                    xfree(txt_prgname_version);
+                    xfree(txt_over_1);
+                    xfree(txt_over_2);
+                    xfree(txt_over_3);
+                    xfree(txt_over_4);
+                    }
+                    break;
+                 default:break;
+              }
               break;
-            case 2: open_animwin(12,60,&m_ok,txt_over,txt_bedank,win1,0);
-                    break;
-                  default:break;
-           }
-           break;
-        default: c=0;
-                       break;
+          default:
+              c=0;
+              break;
          }
     }
     }

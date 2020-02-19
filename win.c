@@ -678,11 +678,11 @@ int win_freopen(const char *pathname, const char *mode, FILE *stream, MENU *m, W
   char txt_stdout[]="stdout";
   char txt_stderr[]="stderr";
   char txt_unknown[]="unknown";
-  char **txt_err_array=xmalloc(4 *sizeof(char *));
 
   fp=freopen(pathname,mode,stream);
   if(fp==NULL) {
 
+     char **txt_err_array=xmalloc(4 *sizeof(char *));
      char * txt_err=xmalloc(100);
      char * txt_errno=xmalloc(100);
      char * txt_stream;

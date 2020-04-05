@@ -1,21 +1,21 @@
 /*
- *  configfile.c
+ * configfile.c
  *
- *  Copyright (C) 1999, 2001, 2006, 2007, 2020 Staf Wagemakers Belgie/Belgium
+ * Copyright (C) 1999, 2001, 2003, 2006, 2007, 2020 Staf Wagemakers Belgie/Belgium
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License along
- *  with this program; if not, write to the Free Software Foundation, Inc.,
- *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  */
 
@@ -103,7 +103,7 @@ else sect=1;
 while (fgets(s,BUFFER_LEN,fp)) {
   if(!(strrchr(s,'\n'))) {errno=E2BIG;return(NULL);} /* line too long */
   s[strlen(s)-1]='\0';
-  cut_rem (s);
+  cut_rem(s);
   if(mode==1) ss=only_global(s,&current_section,&global);
     else ss=s;
   if(ss==NULL) return (NULL);
@@ -147,7 +147,7 @@ if(current_section!=NULL) xfree(current_section);
 return(r);
 }
 
-/* 
+/*
  * get a section variable
  */
 char * get_section_config(FILE *fp,char *section_name,char *var_name)
@@ -168,6 +168,9 @@ char * get_config(FILE *fp,char *var_name)
 {
 return(get_section_config(fp,NULL,var_name));
 }
+/*
+ * mk_single_item
+ */
 void mk_single_item( char *c ) {
 if(c!=NULL) {
    if (c[0]=='\"') {
@@ -195,18 +198,19 @@ char *c;
 c=real_get_config(fp,section_name,var_name,mode);
 if(c!=NULL) {
 mk_single_item(c);
+
 xrealloc(c,strlen(c)+1); 
 }
 return(c);
 }
-/* 
+/*
  * get a section item
  */
 char * get_section_config_item(FILE *fp,char *section_name,char *var_name) 
 {
 return(real_get_config_item(fp,section_name,var_name,0));
 }
-/* 
+/*
  * get any item
  */
 char * get_config_item(FILE *fp,char *var_name) 
@@ -220,6 +224,9 @@ char * get_global_config_item(FILE *fp,char *var_name)
 {
 return(real_get_config_item(fp,NULL,var_name,1));
 }
+/*
+ * mk_array
+ */
 char ** mk_array(char *c) 
 {
 char *c2=NULL;
@@ -273,7 +280,7 @@ cc=mk_array(c);
 xfree(c);
 return(cc);
 }
-/* 
+/*
  * get a section config array
  */
 char ** get_section_config_array(FILE *fp,char *section_name,char *var_name)

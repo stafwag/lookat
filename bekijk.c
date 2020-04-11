@@ -1518,6 +1518,7 @@ if ((fp=get_config_file("r"))==NULL) bv.mode=0;
     bv.view_exec[tt]=NULL; 
   }
 }
+
 bv.file=NULL;
 bv.filename=NULL;
 bv.cmd=1;
@@ -1527,9 +1528,10 @@ bv.txt_f_open1=txt_f_open1;
 bv.txt_f_load=txt_f_laden;
 bv.txt_f_fseek=txt_f_fseek;
 bv.txt_f_freopen=txt_f_freopen;
+
 if (!(initscr())) {
    fprintf(stderr,"%s",txt_f_initscr);exit(1);
-   }
+}
 
 set_memerr(outofmemory);
 
@@ -1816,6 +1818,40 @@ zoek_str.m=0;
 zoek_str.count=0;
 zoek_str.mode=0;
 zoek_str.insert=1;
+
+
+/*
+ * Reinit hm_win and hm_menu
+ */
+
+wresize(hm_win,1,COLS);
+werase(hm_win);
+pl_hm[9]=COLS-strlen(txt_hm[3])-2;
+menu_print(&hm);
+touchwin(hm_win);
+wrefresh(hm_win);
+
+/* 
+ * Reinit win2
+ */
+
+wresize(win2,1,COLS);
+mvwin(win2,LINES-1,0);
+werase(win2);
+touchwin(win2);
+wrefresh(win2);
+
+/*
+ * Reinit & Refresh view
+ */
+
+wresize(win1,LINES-2,COLS);
+werase(win1);
+touchwin(win1);
+wrefresh(win1);
+
+bv.lines=LINES-2;
+bv.cols=COLS;
 
 if (arg1<2) { 
   do {
@@ -2108,9 +2144,9 @@ do {
 
           int current_y=view_gety()-1;
 
-            /*
-       * Reinit hm_win and hm_menu
-       */
+     /*
+      * Reinit hm_win and hm_menu
+      */
 
       wresize(hm_win,1,COLS);
       werase(hm_win);

@@ -103,7 +103,7 @@ void view_free() {
  * aanroep  :
  *
  * char filename[] = te lezen bestand
- * char **file      = ptr naar geh. pl.
+ * char **file     = ptr naar geh. pl.
  *
  * antwoord :
  * 0 = ok

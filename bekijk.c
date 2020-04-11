@@ -1463,6 +1463,17 @@ char ***ccc;
 s[0]=0;
 
 /*
+ * Basic menu init
+ */
+
+m_jn.txt=txt_jn;
+m_jn.hkey=hkey_jn;
+m_jn.hplace=hplace_jn;
+m_ok.txt=txt_ok;
+m_ok.hkey=hkey_ok;
+m_ok.hplace=hplace_ok;
+
+/*
  * utf-8
  */
 
@@ -1534,6 +1545,7 @@ bv.lines=LINES-2;
 bv.cols=COLS;
 bv.sx=bv.sy=0;
 view_par(&bv);
+
 if (!isatty(STDIN_FILENO)) {
    if (!isatty(STDOUT_FILENO)) {
       cp2stdout(stdin);
@@ -1706,12 +1718,7 @@ signal(SIGTERM,terminate);
 /* ------------------------------------------------------------------------- */
 /* START MENU INIT                   */
 /* ------------------------------------------------------------------------- */
-m_jn.txt=txt_jn;
-m_jn.hkey=hkey_jn;
-m_jn.hplace=hplace_jn;
-m_ok.txt=txt_ok;
-m_ok.hkey=hkey_ok;
-m_ok.hplace=hplace_ok;
+
 hm.sel=0;
 hm.used=0;
 hm.amount=5;

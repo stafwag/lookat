@@ -845,7 +845,6 @@ void free_type(char **cc,int a)
 int i;
 for (i=0;i<=a-1;i++) xfree(cc[i]);
 xfree(cc);
-*cc=NULL;
 }
 /* -------------------------------------------- */
 /* Funktie voor types...                        */

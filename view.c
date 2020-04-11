@@ -182,7 +182,6 @@ int view_load () {
     if (p->cmd==1) {
 
       if(win_freopen("/dev/tty","w",stderr,p->m_ok,p->win)) return(1);
-      return(1);
 
     }
 

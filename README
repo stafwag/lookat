@@ -12,9 +12,9 @@ DESCRIPTION
        "lookat"  (or  "bekijk" in the Dutch version) is a program to view Un*x
        text files and manual pages.
 
-       Under DOS I used list.com to view text  files. I  didn't  find  such  a
-       program  under  my favorite OS, GNU/Linux. The standard  Un*x utilities
-       ( more, less, view ...) weren't userfriendly enough. For this reason  I
+       Under DOS I used list.com to view text files. I didn't find such a pro-
+       gram  under  my  favorite  OS, GNU/Linux. The standard Un*x utilities (
+       more, less, view ...) weren't userfriendly enough. For  this  reason  I
        created "lookat".
 
 OPTIONS
@@ -64,6 +64,7 @@ USAGE
        After you have loaded a file, the following keys can be used:
 
        Keys:
+
                  <-, C-b         : move left / back
                  ->, C-f         : move right / forward
                  arrow up, C-p   : move up / previous line
@@ -77,7 +78,7 @@ USAGE
                  b,e,>           : go to the last line  (end of file)
                  g               : go to a line number
                  /,z,s,f         : search for a string
-                 F3, n, c, v     : continue search
+                 F3, n, c, v,   : continue search
                  F9              : menu
                  ALT+f           : file menu
                  ALT+g           : go menu
@@ -205,6 +206,7 @@ CONFIGURATION DIRECTIVES
 
               give notice on exit  on / off
 
+       .[extension] "external cmd"
 
               create a new type
 
@@ -283,7 +285,7 @@ THANKS TO ...
 
        Brian Callahan <bcallah@cvs.openbsd.org>
 
-	      openbsd patch, corrected English translation issues
+              openbsd patch, corrected English translation issues
 
        All Free software programmers (on any computer system)
 
@@ -294,22 +296,65 @@ LAST WORDS ...
        bug :-( you may let me know.
 
 AUTHOR
-       V1.4.4rc Staf Wagemakers
+       V2.0.1 Staf Wagemakers
 
        homepage : http://www.wagemakers.be
        email : staf@wagemakers.be
 
 COPYRIGHT
-       Copying and distribution of this file, with or without modification,
-       are permitted in any medium without royalty provided the copyright
-       notice and this notice are preserved.
+   Documentation
+       The documentation for Lookat is licensed under the terms of the FreeBSD
+       Documentation License.
 
-       This software is copyright  (c) 1997, 1998, 2000, 2001, 2002, 2003  
-       by  Staf  Wagemakers <staf@wagemakers.be>
+       The FreeBSD Documentation License
 
-       You are free to distribute this software under the  terms  of  the  GNU
-       General Public License
+       Copyright (c) 1997 - 2020 Staf Wagemakers
+
+       Redistribution and use in source (plaintext, HTML) and 'compiled' forms
+       (SGML, HTML, PDF, PostScript, RTF and so forth) with or without modifi-
+       cation, are permitted provided that the following conditions are met:
+
+       1. Redistributions of source code (plaintext,  HTML)  must  retain  the
+       above  copyright notice, this list of conditions and the following dis-
+       claimer.
+
+       2. Redistributions in compiled form (transformed to  other  DTDs,  con-
+       verted  to  PDF,  PostScript, RTF and other formats) must reproduce the
+       above copyright notice, this list of conditions and the following  dis-
+       claimer  in  the documentation and/or other materials provided with the
+       distribution.
+
+       THIS DOCUMENTATION IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED  WAR-
+       RANTIES,  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MER-
+       CHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE  DISCLAIMED.   IN
+       NO  EVENT  SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY DI-
+       RECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR  CONSEQUENTIAL  DAM-
+       AGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+       SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOW-
+       EVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+       LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING  IN  ANY
+       WAY OUT OF THE USE OF THIS DOCUMENTATION, EVEN IF ADVISED OF THE POSSI-
+       BILITY OF SUCH DAMAGE.
+
+   Software
+       Lookat (the software) is licensed under the terms of  the  GNU  General
+       Public License version 2 or later.
+
+       Copyright (c) 1997 - 2020 Staf Wagemakers.
+
+       This program is free software: you can redistribute it and/or modify it
+       under the terms of the GNU General Public License as published  by  the
+       Free  Software Foundation, either version 2 of the License, or (at your
+       option) any later version.
+
+       This program is distributed in the hope that it  will  be  useful,  but
+       WITHOUT  ANY  WARRANTY;  without  even  the  implied  warranty  of MER-
+       CHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU  General
+       Public License for more details.
+
+       You should have received a copy of the GNU General Public License along
+       with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 
-lookat 1.4.0                     April 2003                         LOOKAT(1)
+lookat 2.0.1                      April 2020                         LOOKAT(1)

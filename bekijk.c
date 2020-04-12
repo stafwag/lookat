@@ -901,63 +901,81 @@ werase(w);
 box(w,0,0);
 win_box(w,12,TYPE_WIDTH+3,1,3);
 m.txt=cc;
-do { 
-   if (brol<11) {
-     m.amount=brol;
-     wmove(w,brol+2,5);
-     wbkgdset(w,kleur[9]);
-     for(i=0;i<TYPE_WIDTH;i++) waddch(w,' ');
-     wrefresh(w);
-     }
-     else m.amount=11;
 
-menu_print(&mm);
-wrefresh(w);
-if(u>brol-1) u=brol-1;
-menu_print(&m);
-if(brol) i=scroll_menu(&m,brol,NULL,&u);
-  else i=2;
-mm.sel=0;
-switch (i) {
-   case 0 :  open_type_venster(txt_c_type,txt_typename,txt_typeval,m.sel,1);
-             touchwin(w);
-       wrefresh(w);
-             break;
-   case 1 :  mm.sel=4;
-             break;
-   case 2 :  do {
-             s=menu_key(&mm);
-             if ((s==2)&&(mm.sel==5)) break; 
-       } while(s<3);
-       if (s==5) mm.sel=4;
-       break; 
-   default:  break;
+do { 
+
+  if (brol<11) {
+    m.amount=brol;
+    wmove(w,brol+2,5);
+    wbkgdset(w,kleur[9]);
+    for(i=0;i<TYPE_WIDTH;i++) waddch(w,' ');
+    wrefresh(w);
+  }
+  else m.amount=11;
+
+  menu_print(&mm);
+  wrefresh(w);
+
+  if(u>brol-1) u=brol-1;
+
+  menu_print(&m);
+
+  if (brol) i=scroll_menu(&m,brol,NULL,&u);
+    else i=2;
+
+  mm.sel=0;
+
+  switch (i) {
+
+    case 0 :  open_type_venster(txt_c_type,txt_typename,txt_typeval,m.sel,1);
+              touchwin(w);
+              wrefresh(w);
+              break;
+    case 1 :  mm.sel=4;
+              break;
+    case 2 :  do {
+
+                s=menu_key(&mm);
+                if ((s==2)&&(mm.sel==5)) break; 
+
+              } while(s<3);
+
+              if (s==5) mm.sel=4;
+              break; 
+    default:  break;
+
+  }
+
+  if(i) {
+
+    switch(mm.sel) {
+      case 0 : open_type_venster(txt_n_type,txt_typename,txt_typeval,m.sel,0);
+               break;
+      case 1 : if (m.amount) open_type_venster(txt_n_type,txt_typename,txt_typeval,m.sel+1,0);
+                  else open_type_venster(txt_n_type,txt_typename,txt_typeval,m.sel,0);
+               break;
+      case 2 : if (brol) open_type_venster(txt_c_type,txt_typename,txt_typeval,m.sel,1);
+               break;
+      case 3 : if (brol) {
+                  delete_type(&m.sel);
+               }
+               break;
+      case 4 : break;
    }
-if(i) {
-switch(mm.sel) {
-   case 0 :  open_type_venster(txt_n_type,txt_typename,txt_typeval,m.sel,0);
-       break;
-   case 1 :  if (m.amount) open_type_venster(txt_n_type,txt_typename,txt_typeval,m.sel+1,0);
-                else open_type_venster(txt_n_type,txt_typename,txt_typeval,m.sel,0);
-       break;
-   case 2 :  if (brol) open_type_venster(txt_c_type,txt_typename,txt_typeval,m.sel,1);
-             break;
-   case 3 :  if (brol) {
-         delete_type(&m.sel);
-       }
-             break;
-   case 4 :  break;
-   }
-   }
+
+  }
+
   touchwin(w);
   wrefresh(w);
   m_selected=m.txt-cc;
   free_type(cc,brol);
   cc=view_exec_2_str(&brol);
-  if(m_selected>brol) m_selected=brol;
+
+  if (m_selected>brol) m_selected=brol;
   m.txt=cc+m_selected;
-  if((m_selected+m.amount)>brol) { --m.sel;--m.txt; };
-  } while ((mm.sel<4)||(mm.sel==5)); 
+  if ((m_selected+m.amount)>brol) { --m.sel;--m.txt; };
+
+} while ((mm.sel<4)||(mm.sel==5)); 
 delwin(w);
 free_type(cc,brol);
 }

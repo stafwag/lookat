@@ -180,37 +180,37 @@ void menu_pull (MENU *m,unsigned submenu) {
    	if (m->call_close!=NULL) m->call_close(m); 
 }
 
-/* --------------------------------------------	*/
-/* scroll_menu					*/
-/* MENU *m : menu para's			*/
-/*      m->key[0] : ga naar vorig item		*/
-/*      m->key[1] : ga naar volgend item	*/
-/*      m->key[2] : selektie van een item	*/
-/*      m->key[3] : ga naar vorig scherm	*/
-/*      m->key[4] : ga naar volgend scherm      */
-/*      m->key[5] : break			*/
-/*	m->key[6] : ekstra			*/
-/*					        */
-/*      De andere para's zijn hetzelfde als bij */
-/*      normaal menu gebruik ...		*/
-/*						*/
-/*      m->parent, m->next, ... worden niet	*/
-/*      gebruikt!				*/
-/*						*/
-/*unsigned g    : het echte aantal item		*/
-/*unsigned y,x,l: pl. + maks. lengte van waar   */ 
-/*                het huidige item ekstra 	*/
-/*		  getoond moet worden		*/
-/*	          Indien l=0 wordt het sel.     */
-/*                niet ekstra getoond           */
-/*						*/
-/*unsigned *u   : voorselektie + hulpvar.	*/
-/*						*/
-/*Geeft terug 0 : selektie			*/
-/*		  m->sel is het gesel. item	*/
-/*            1 : break-toets ingedrukt		*/
-/*            2 : ekstra-toets ingedrukt	*/
-/*----------------------------------------------*/
+/*
+ * scroll_menu
+ * MENU *m : menu para's
+ *      m->key[0] : ga naar vorig item
+ *      m->key[1] : ga naar volgend item
+ *      m->key[2] : selektie van een item
+ *      m->key[3] : ga naar vorig scherm
+ *      m->key[4] : ga naar volgend scherm
+ *      m->key[5] : break
+ *	m->key[6] : ekstra
+ *
+ *      De andere para's zijn hetzelfde als bij
+ *      normaal menu gebruik ...
+ *
+ *      m->parent, m->next, ... worden niet
+ *      gebruikt!
+ *
+ *unsigned g    : het echte aantal item
+ *unsigned y,x,l: pl. + maks. lengte van waar
+ *                het huidige item ekstra
+ *		            getoond moet worden
+ *	              Indien l=0 wordt het sel.
+ *                niet ekstra getoond 
+ *
+ *unsigned *u   : voorselektie + hulpvar.
+ *
+ *Geeft terug 0 : selektie
+ *		  m->sel is het gesel. item
+ *            1 : break-toets ingedrukt
+ *            2 : ekstra-toets ingedrukt
+ */
 int scroll_menu(MENU *m,unsigned g,void (*call_proc)(MENU *m),unsigned *u) {
 
 	int c;

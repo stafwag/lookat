@@ -1,7 +1,7 @@
 /*
  * xstring.c  	- Tired of writing these things over and over again -
  *
- * Copyright (C) 2001,2015,2020  Staf Wagemakers Belgie/Belgium
+ * Copyright (C) 2001, 2015, 2020  Staf Wagemakers Belgie/Belgium
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -390,17 +390,17 @@ int is_var_yes(char *var)
  */
 void free_string_array (char **array) {
 	char **ccp;
-	if(array==NULL) return;
+	if( array==NULL) return;
 	ccp=array;
-	for(;;) {
-	     if(ccp!=NULL) {
-		if(*ccp!=NULL) {
-	        xfree(*ccp);
-	        ccp++;
-		continue;
-		}
-	     }
-	     break;
+	for (;;) {
+	  if (ccp!=NULL) {
+		  if (*ccp!=NULL) {
+	       xfree(*ccp);
+	       ccp++;
+		     continue;
+		  }
+	  }
+	  break;
 	}
 
 	xfree(array);
@@ -815,4 +815,3 @@ char * str_nchars(int n, char c) {
   }
   return ret;
 }
-

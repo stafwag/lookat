@@ -66,4 +66,9 @@ void view_right();
 void view_left();
 char * view_charstr(char *c);
 unsigned view_charstr_size(char *c);
+int view_view_exec_size();
+void view_add_view_exec (int n,char *name, char *val);
+void view_rm_view_exec(int n);
+char **view_view_exec_2_string_array();
+char **view_view_exec_2_trimmed_string_array(int width);
 #endif

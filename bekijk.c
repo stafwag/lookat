@@ -637,28 +637,6 @@ void ga_lijn ()
 }
 
 /* -------------------------------------------- */
-/* Bijvoegen van een type ...                   */
-/* -------------------------------------------- */
-
-void add_type (int *n,char *name,char *val)
-{
-   int i,max;
-   i=0;
-   while(bv.view_exec[i]!=NULL) ++i;
-   max=i+1;
-   bv.view_exec=xrealloc(bv.view_exec,sizeof(char **)*(max+1));
-   bv.view_exec[max]=NULL; 
-   i=*n;
-   for (i=max;i>*n;i--) bv.view_exec[i]=bv.view_exec[i-1];
-
-   bv.view_exec[*n]=xmalloc(sizeof(char *)*2); 
-   bv.view_exec[*n][0]=xmalloc(strlen(name)+1);
-   strcpy(bv.view_exec[*n][0],name);
-   bv.view_exec[*n][1]=xmalloc(strlen(val)+1);
-   strcpy(bv.view_exec[*n][1],val);
-}
-
-/* -------------------------------------------- */
 /* char     *s = pointer naar string    */
 /* char *titel = pointer naar venster-titel */
 /* char *tekst = pointer naar info-tekst  */
@@ -671,6 +649,9 @@ void open_type_venster (char *titel,char *txt_typename,char *txt_typeval,int n,i
    WINDOW *w;
    MENU m;
    INPUT_STRING ip_name,ip_val;
+
+   if(n<0) n=0;
+
    char ***ccc;
    int brol;
    int toetsen[]={27,9,0};
@@ -757,33 +738,13 @@ void open_type_venster (char *titel,char *txt_typename,char *txt_typeval,int n,i
        c=xmalloc(strlen(ip_name.c)+2);
        strcpy(c,".");
        strcat(c,ip_name.c);
-       add_type(&t,c,ip_val.c);
+       view_add_view_exec(t,c,ip_val.c);
        xfree(c);
       }
    }
    xfree(ip_name.c);
    xfree(ip_val.c); 
    delwin(w); 
-}
-
-/* -------------------------------------------- */
-/* wissen van een type ...                      */
-/* -------------------------------------------- */
-
-void delete_type(unsigned *n)
-{
-int i;
-xfree(bv.view_exec[*n][1]);
-xfree(bv.view_exec[*n][0]);
-xfree(bv.view_exec[*n]); 
-i=*n+1;
-while(bv.view_exec[i]!=NULL) { 
-  bv.view_exec[i-1]=bv.view_exec[i];
-  i++;
-  }
-bv.view_exec[i-1]=NULL;
-
-bv.view_exec=xrealloc(bv.view_exec,(i+1)*sizeof(char **)); 
 }
 
 char **colors_2_str (struct color *colors,int *a) {
@@ -808,47 +769,19 @@ char **colors_2_str (struct color *colors,int *a) {
         return(ret);
 }
 
-/* -------------------------------------------- */
-/* bv.view_exec omzetten naar een string...     */
-/* -------------------------------------------- */
-char **view_exec_2_str(int *a)
+/*
+ * Converts bv.view_exec to strings array
+ * a let to set to the number of strings
+ */
+char **view_exec_2_strs(int *a)
 {
-char ***ccc,**cc;
-ccc=bv.view_exec;
-cc=(char **) xmalloc(sizeof(char*));
-*a=0;
-while(*ccc) {
-   int l1,l0;
-   int n;
-   l0=strlen(ccc[0][0]);
-   l1=strlen(ccc[0][1]);
-   if (l0>((TYPE_WIDTH/2)-1)) l0=(TYPE_WIDTH/2)-1; 
-   if (l1>((TYPE_WIDTH/2)-1)) l1=(TYPE_WIDTH/2)-1; 
-   cc[*a]=(char *)xmalloc(TYPE_WIDTH+1);
-   strncpy(cc[*a],ccc[0][0],l0);
-   cc[*a][l0]='\0';
-   for(n=0;n<(TYPE_WIDTH-l0-l1);n++) strcat(cc[*a]," ");
-   strncat(cc[*a],ccc[0][1],l1);
-   cc[*a][TYPE_WIDTH]='\0'; 
-   ++ccc;
-   ++*a;
-   cc=(char **)xrealloc(cc,sizeof(char*)*(*a+1));
+  char **ret=view_view_exec_2_trimmed_string_array(TYPE_WIDTH);
+  *a=number_of_strings(ret);
+  return(ret);
 }
-return(cc);
-}
-/* -------------------------------------------- */
-/* type geheugen terug vrijgeven                */
-/* -------------------------------------------- */
-
-void free_type(char **cc,int a)
-{
-int i;
-for (i=0;i<=a-1;i++) xfree(cc[i]);
-xfree(cc);
-}
-/* -------------------------------------------- */
-/* Funktie voor types...                        */
-/* -------------------------------------------- */
+/*
+ * Manage the types...
+ */
 void set_types ()
 {
 MENU m,mm;
@@ -858,16 +791,17 @@ int key_mm[]={0,9,'\n',' ',27,'\n'};
 unsigned pl_m[]={2,5,3,5,4,5,5,5,6,5,7,5,8,5,9,5,10,5,11,5,12,5,13,5,14,5};
 unsigned pl_mm[]={15,1,15,1,15,1,15,1,15,1,2,5};
 int m_selected=0;
-int s,i,brol=0;
+int s,i,numberOfTypes=0;
 char **cc=NULL;
-unsigned u=0;
+unsigned selectedType=0;
+
 i=(TYPE_WIDTH+11-strlen(txt_typem[0])-strlen(txt_typem[1])-strlen(txt_typem[2])-strlen(txt_typem[3])-strlen(txt_typem[4]))/6;
 pl_mm[1]=1+i;
 pl_mm[3]=pl_mm[1]+i+strlen(txt_typem[0]);
 pl_mm[5]=pl_mm[3]+i+strlen(txt_typem[1]);
 pl_mm[7]=pl_mm[5]+i+strlen(txt_typem[2]);
 pl_mm[9]=pl_mm[7]+i+strlen(txt_typem[3]);
-cc=view_exec_2_str(&brol);
+
 m.color1=kleur[11];
 m.color2=kleur[12];
 m.color3=kleur[13];
@@ -900,40 +834,72 @@ wbkgdset(w,kleur[9]);
 werase(w);
 box(w,0,0);
 win_box(w,12,TYPE_WIDTH+3,1,3);
-m.txt=cc;
 
+  cc=view_exec_2_strs(&numberOfTypes);
+  m.txt=cc;
+
+/*
+ * get the string array of the types.
+ */
 do { 
 
-  if (brol<11) {
-    m.amount=brol;
-    wmove(w,brol+2,5);
+  if (numberOfTypes<11) {
+    m.amount=numberOfTypes;
+    wmove(w,numberOfTypes+2,5);
     wbkgdset(w,kleur[9]);
     for(i=0;i<TYPE_WIDTH;i++) waddch(w,' ');
     wrefresh(w);
   }
   else m.amount=11;
 
+  /* 
+   * show the main menu
+   */
   menu_print(&mm);
   wrefresh(w);
 
-  if(u>brol-1) u=brol-1;
+  /*
+   * selectedType boundaries
+   */
+  if(numberOfTypes<=1) {
+    selectedType=0;
+  } else {
+    if(selectedType>numberOfTypes-1) selectedType=numberOfTypes-1;
+  }
+
+  /*
+   * show the types
+   */
 
   menu_print(&m);
 
-  if (brol) i=scroll_menu(&m,brol,NULL,&u);
+  if (numberOfTypes) i=scroll_menu(&m,numberOfTypes,NULL,&selectedType);
     else i=2;
 
   mm.sel=0;
 
   switch (i) {
 
-    case 0 :  open_type_venster(txt_c_type,txt_typename,txt_typeval,m.sel,1);
+    case 0 :
+              /*
+               * type is selected open edit window
+               */
+              open_type_venster(txt_c_type,txt_typename,txt_typeval,m.sel,1);
               touchwin(w);
               wrefresh(w);
               break;
-    case 1 :  mm.sel=4;
+    case 1 :
+              /*
+              * break (ESC pressed)
+              * set main menu selection to [ Done ]
+              */
+              mm.sel=4;
               break;
-    case 2 :  do {
+    case 2 :
+              /*
+               * extra key pressed [ Cancel ]
+               */
+              do {
 
                 s=menu_key(&mm);
                 if ((s==2)&&(mm.sel==5)) break; 
@@ -949,35 +915,65 @@ do {
   if(i) {
 
     switch(mm.sel) {
-      case 0 : open_type_venster(txt_n_type,txt_typename,txt_typeval,m.sel,0);
+      case 0 :
+              /*
+               * [ Insert ]
+               */
+               open_type_venster(txt_n_type,txt_typename,txt_typeval,m.sel,0);
                break;
-      case 1 : if (m.amount) open_type_venster(txt_n_type,txt_typename,txt_typeval,m.sel+1,0);
+      case 1 :
+               /*
+                * [ Add ]
+                */
+               if (m.amount) open_type_venster(txt_n_type,txt_typename,txt_typeval,m.sel+1,0);
                   else open_type_venster(txt_n_type,txt_typename,txt_typeval,m.sel,0);
                break;
-      case 2 : if (brol) open_type_venster(txt_c_type,txt_typename,txt_typeval,m.sel,1);
+      case 2 :
+               /*
+                * [ Modify ]
+                */
+               if (numberOfTypes) open_type_venster(txt_c_type,txt_typename,txt_typeval,m.sel,1);
                break;
-      case 3 : if (brol) {
-                  delete_type(&m.sel);
+      case 3 :
+               /*
+                * [ Delete ]
+                */
+               if (numberOfTypes) {
+                  view_rm_view_exec(m.sel);
                }
                break;
-      case 4 : break;
-   }
+      case 4 :
+               /*
+                * [ Done ]
+                */
+               break;
+      }
 
   }
 
   touchwin(w);
   wrefresh(w);
-  m_selected=m.txt-cc;
-  free_type(cc,brol);
-  cc=view_exec_2_str(&brol);
 
-  if (m_selected>brol) m_selected=brol;
+  m_selected=m.txt-cc;
+
+  /*
+   * dump old array, and get the new one from execType
+   */
+
+  free_string_array(cc);
+  cc=view_exec_2_strs(&numberOfTypes);
+  m.txt=cc;
+
+  if (m_selected>numberOfTypes) m_selected=numberOfTypes;
   m.txt=cc+m_selected;
-  if ((m_selected+m.amount)>brol) { --m.sel;--m.txt; };
+
+  if(m.txt>cc) {
+    if ((m_selected+m.amount)>numberOfTypes) { --m.sel;--m.txt; };
+  }
 
 } while ((mm.sel<4)||(mm.sel==5)); 
 delwin(w);
-free_type(cc,brol);
+free_string_array(cc);
 }
 
 void init_pullmenu_colors (MENU *m,chtype color1,chtype color2, chtype color3, chtype color4) {
@@ -1496,45 +1492,52 @@ m_ok.hplace=hplace_ok;
 
 setlocale(LC_ALL, "");
 
+/*
+ * Parse the config
+ */
 {
+
 char *c;
 char **type=NULL;
 int tt=0;
 bv.view_exec=xmalloc(sizeof(char ***)); 
 *bv.view_exec=NULL;
+
 if ((fp=get_config_file("r"))==NULL) bv.mode=0;
-  else {
-    c=lookat_get_config(fp,"cursor");
-    if (c!=NULL) {
-       if (!strcmp(c,"on")) {txt_om1[1]='X';bv.mode=1;}
-       else bv.mode=0;
-       xfree(c);
-       }
-    c=lookat_get_config(fp,"give_notice");
+else {
+  c=lookat_get_config(fp,"cursor");
 
-    if (c!=NULL) {
-       if (!strcmp(c,"off")) txt_om2[1]=' ';
-       xfree(c);
-       }
-
-
-    if(fp!=NULL) rewind(fp);
-
-    while ((type=lookat_get_next_config(fp))!=NULL) {
-          if(type[0][0]=='.') {
-      bv.view_exec=xrealloc(bv.view_exec,sizeof(char ***)*(tt+1));
-      bv.view_exec[tt]=type;
-      ++tt;
-          }
-    else {
-
-    free_string_array(type);
-
-    }
-    } 
-    bv.view_exec=xrealloc(bv.view_exec,sizeof(char ***)*(tt+1));
-    bv.view_exec[tt]=NULL; 
+  if (c!=NULL) {
+    if (!strcmp(c,"on")) {txt_om1[1]='X';bv.mode=1;}
+    else bv.mode=0;
+    xfree(c);
   }
+  c=lookat_get_config(fp,"give_notice");
+
+  if (c!=NULL) {
+    if (!strcmp(c,"off")) txt_om2[1]=' ';
+    xfree(c);
+   }
+
+   if(fp!=NULL) rewind(fp);
+
+   while ((type=lookat_get_next_config(fp))!=NULL) {
+
+     if (type[0][0]=='.') {
+       bv.view_exec=xrealloc(bv.view_exec,sizeof(char ***)*(tt+1));
+       bv.view_exec[tt]=type;
+       ++tt;
+     }
+     else {
+       free_string_array(type);
+     }
+
+   }
+
+   bv.view_exec=xrealloc(bv.view_exec,sizeof(char ***)*(tt+1));
+   bv.view_exec[tt]=NULL; 
+  }
+
 }
 
 bv.file=NULL;

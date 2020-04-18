@@ -28,6 +28,148 @@ if (par!=NULL) p=par;
 }
 
 /*
+ * view_view_exec_size
+ *
+ * returns the size of view_exec array
+ */
+int view_view_exec_size() {
+
+  int size=0;
+
+  if (p->view_exec==NULL) return(0);
+  while (p->view_exec[size]!=NULL) ++size;
+
+  return(size);
+
+}
+
+/*
+ * view_add_view_exec
+ */
+void view_add_view_exec (int n,char *name, char *val) {
+
+  int i=0;
+  int size=view_view_exec_size();
+  int nextSize=size+1;
+
+  if (n>size) n=size;
+
+  p->view_exec=xrealloc(p->view_exec,sizeof(char **)*(nextSize+1));
+  p->view_exec[nextSize]=NULL;
+
+  for(i=size;i>n;i--) p->view_exec[i]=p->view_exec[i-1];
+
+  p->view_exec[n]=xcalloc(2,sizeof(char *));
+  p->view_exec[n][0]=xmalloc(strlen(name)+1);
+  strcpy(p->view_exec[n][0],name);
+  p->view_exec[n][1]=xmalloc(strlen(val)+1);
+  strcpy(p->view_exec[n][1],val);
+
+}
+
+/*
+ * removes a view_exec
+ */
+void view_rm_view_exec(int n) {
+
+  int i=0;
+  int size=view_view_exec_size();
+  int nextSize=size-1;
+
+  if(p->view_exec==NULL) return;
+  if(size==0) return;
+
+  if (n>size) n=size-1;
+  if (n<0) n=0;
+
+  /*
+   * free the allocated type
+   */
+  xfree(p->view_exec[n][1]);
+  xfree(p->view_exec[n][0]);
+
+  /*
+   * move everythin in view_exec array up.
+   */
+  i=n+1;
+  while(p->view_exec[i]!=NULL) { 
+    p->view_exec[i-1]=p->view_exec[i];
+    i++;
+  }
+
+  p->view_exec[nextSize]=NULL;
+  p->view_exec=xrealloc(p->view_exec,sizeof(char **)*(nextSize+1));
+
+}
+
+/*
+ * converts the view_exec array to a string array
+ */
+char **view_view_exec_2_string_array() {
+
+  int size=view_view_exec_size();
+  int i=0;
+  char **ret=xcalloc(size+1,sizeof(char **));
+
+  for(i=0;i<size;i++) {
+
+    ret[i]=xmalloc(strlen(p->view_exec[i][0])+strlen(p->view_exec[i][1])+2);
+    strcpy(ret[i],p->view_exec[i][0]);
+
+    strcat(ret[i],"\t");
+    strcat(ret[i],p->view_exec[i][1]);
+
+  }
+
+  return(ret);
+
+}
+
+/*
+ * converts the view_exec array to a trimmed
+ * array string
+ */
+char **view_view_exec_2_trimmed_string_array(int width) {
+
+  int size=view_view_exec_size();
+  int i=0;
+
+  if(width<4) width=4;
+  int strWidth=width/2-1;
+
+  if(strWidth<1) strWidth=1;
+
+  char **ret=xcalloc(size+1,sizeof(char **));
+
+  for(i=0;i<size;i++) {
+
+    int nameLen,valueLen,betweenLen;
+    char *name=p->view_exec[i][0];
+    char *value=p->view_exec[i][1];
+    char *between;
+
+    nameLen=strlen(name);
+    valueLen=strlen(value);
+
+    if(nameLen>strWidth) nameLen=strWidth;
+    if(valueLen>strWidth)  valueLen=strWidth;
+    betweenLen=width-nameLen-valueLen;
+    between=str_nchars(betweenLen,' ');
+
+    ret[i]=xmalloc(strlen(name)+strlen(between)+strlen(value)+1);
+
+    strcpy(ret[i],name);
+    strcat(ret[i],between);
+    xfree(between);
+    strcat(ret[i],value);
+
+  }
+
+  return(ret);
+
+}
+
+/*
  * get the currect y position
  */
 unsigned long view_gety() {
@@ -126,25 +268,29 @@ int view_load () {
 
   if (p->filename!=NULL) {
 
-    while(*ccc) {
+    if(ccc) {
 
-      if (strlen(p->filename)>strlen(ccc[0][0])) { 
-        s=p->filename+strlen(p->filename)-strlen(ccc[0][0]);
-      } else {
-        s=p->filename;
+      while(*ccc) {
+
+        if (strlen(p->filename)>strlen(ccc[0][0])) { 
+          s=p->filename+strlen(p->filename)-strlen(ccc[0][0]);
+        } else {
+          s=p->filename;
+        }
+
+        if (!strcmp(s,ccc[0][0])) {  
+
+          gzip=(char *)xmalloc(strlen(ccc[0][1])+strlen(p->filename)+2);
+          strcpy(gzip,ccc[0][1]);
+          strcat(gzip," ");
+          strcat(gzip,p->filename);
+          break;
+
+        }
+
+        ++ccc;
+
       }
-
-      if (!strcmp(s,ccc[0][0])) {  
-
-        gzip=(char *)xmalloc(strlen(ccc[0][1])+strlen(p->filename)+2);
-        strcpy(gzip,ccc[0][1]);
-        strcat(gzip," ");
-        strcat(gzip,p->filename);
-        break;
-
-      }
-
-      ++ccc;
 
     }
 

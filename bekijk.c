@@ -1884,6 +1884,7 @@ if (arg1<2) {
       };
     } while (bv.file==NULL);
 };
+
 bv.y=0;view_refresh();
 touchwin(win1);
 touchwin(win2);
@@ -1894,6 +1895,8 @@ if (bekijk_freopen("/dev/null","w",stderr,win1)) {
   endwin();
   exit(1);
 }
+
+int firstStart=1;
 
 do {
 do {
@@ -1907,22 +1910,27 @@ do {
            }
    werase(win2);
    mvwprintw(win2,0,0,"%s %4d / %4d  %s %4d %s %ld",
-  txt_lijn,view_gety(),bv.y_max,txt_kol,view_getx(),txt_Grootte,bv.size);
+   txt_lijn,view_gety(),bv.y_max,txt_kol,view_getx(),txt_Grootte,bv.size);
    mvwprintw(win2,0,COLS-strlen(bv.filename)-3,"%s",bv.filename);
    touchwin(win1);
    touchwin(win2);
    wrefresh(win2);
    wrefresh(win1);
 
-   if ( prev_cols != COLS && prev_lines != LINES ) {
-
-      c='r';
-
+   /*
+    * redraw the screen at first start or when het window gets resized
+    */
+   if(firstStart) {
+     c='r';
+     firstStart=0;
+   } else {
+      if ( prev_cols != COLS && prev_lines != LINES ) {
+        c='r';
+      } else {
+        c=wgetch(win1);
+      }
    }
-   else {
-      c=wgetch(win1);
 
-   }
    if ((c==KEY_F(9))||(c==27)) {
       int m_sel=0;
       if (c==27) {
@@ -2161,13 +2169,14 @@ do {
     case KEY_RESIZE:
     case 12       :
     case 'R'      : 
-    case 'r'      : {
+    case 'r'      :
+      {
 
-          int current_y=view_gety()-1;
+      int current_y=view_gety()-1;
 
-     /*
-      * Reinit hm_win and hm_menu
-      */
+      /*
+       * Reinit hm_win and hm_menu
+       */
 
       wresize(hm_win,1,COLS);
       werase(hm_win);

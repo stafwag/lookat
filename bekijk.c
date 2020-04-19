@@ -362,6 +362,7 @@ int open_zoek_venster (char *titel,char *tekst)
    zoek_str.xp=22;
    zoek_str.key=toetsen;
    wbkgd(w,kleur[15]);
+   werase(w);
    box(w,0,0);
    echo();
    leaveok(w,FALSE);
@@ -675,6 +676,7 @@ void open_type_venster (char *titel,char *txt_typename,char *txt_typeval,int n,i
    ip_val.w=ip_name.w=w;
    ip_name.yp=2;ip_val.yp=4;
    ip_val.xp=ip_name.xp=17;
+
    if (mode!=0) { 
      ip_name.c=(char *) xmalloc(strlen(ccc[n][0]));
      strcpy(ip_name.c,ccc[n][0]+1);
@@ -682,15 +684,17 @@ void open_type_venster (char *titel,char *txt_typename,char *txt_typeval,int n,i
      strcpy(ip_val.c,ccc[n][1]);
    }
    else ip_name.c=ip_val.c=NULL;
+
    ip_val.n=ip_name.n=29;
    ip_val.m=ip_name.m=0;
    ip_val.count=ip_name.count=0;
    ip_val.mode=ip_name.mode=0;
    ip_val.insert=ip_name.insert=1;
    ip_val.ox=ip_name.ox=0;
-
    ip_val.key=ip_name.key=toetsen;
+
    wbkgd(w,kleur[15]);
+   werase(w);
    box(w,0,0);
    echo();
    leaveok(w,FALSE);
@@ -701,14 +705,21 @@ void open_type_venster (char *titel,char *txt_typename,char *txt_typeval,int n,i
    wmove (w,2,16);
    waddch(w,'.');
    wbkgdset(w,kleur[16]);
+
    for (brol=0;brol<=ip_name.n;brol++) waddch(w,' ');
    wmove (w,4,17);
    for (brol=0;brol<=ip_val.n;brol++) waddch(w,' ');
    input_show_string(&ip_val);
+   touchwin(w);
+   wrefresh(w);
+
    do {
      menu_print(&m);
      m.sel=0;
      wbkgdset(w,kleur[16]);
+     touchwin(w);
+     wrefresh(w);
+
      if (brol!=1) brol=input(&ip_name);
        else brol=2;
      leaveok(w,TRUE);
@@ -1874,6 +1885,17 @@ wrefresh(win1);
 bv.lines=LINES-2;
 bv.cols=COLS;
 
+/*
+ * refresh curscr
+ */
+
+wrefresh(curscr);
+
+if (bekijk_freopen("/dev/null","w",stderr,win1)) {
+  endwin();
+  exit(1);
+}
+
 if (arg1<2) { 
   do {
     if ( bekijk_open_best(1) > 1 ) {
@@ -1891,10 +1913,6 @@ touchwin(win2);
 wrefresh(win1);
 wrefresh(win2);
 
-if (bekijk_freopen("/dev/null","w",stderr,win1)) {
-  endwin();
-  exit(1);
-}
 
 int firstStart=1;
 

@@ -1,3 +1,10 @@
+Lookat / Bekijk 2.0.1			( ?? ??? 2020)
+ - BUGFIX: corrected screen refresh code.  To handle non-utf8 terminals
+ 	 correctly.
+ - BUGFIX: ensure that menus are initialized before using them.
+ - BUGFIX: corrected type menu handling.
+ - BUGFIX: failed to open type enabled extentions from the commandline.
+
 Lookat / Bekijk 2.0.0			( 01 Mar 2020)
  - utf8 support
  - default color scheme has been updated

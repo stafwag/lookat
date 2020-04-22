@@ -79,7 +79,7 @@ void view_rm_view_exec(int n) {
   if(p->view_exec==NULL) return;
   if(size==0) return;
 
-  if (n>size) n=size-1;
+  if (n>size-1) n=size-1;
   if (n<0) n=0;
 
   /*

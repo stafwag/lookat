@@ -1,4 +1,4 @@
-Lookat / Bekijk 2.0.1			( ?? ??? 2020)
+Lookat / Bekijk 2.0.1			( 23 Apr 2020)
  - BUGFIX: corrected screen refresh code.  To handle non-utf8 terminals
  	 correctly.
  - BUGFIX: ensure that menus are initialized before using them.

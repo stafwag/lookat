@@ -2225,6 +2225,7 @@ do {
       view_refresh();
 
       view_sety(current_y);
+      view_recal_xmax();
 
       view_refresh();
 

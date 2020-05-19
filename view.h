@@ -71,4 +71,5 @@ void view_add_view_exec (int n,char *name, char *val);
 void view_rm_view_exec(int n);
 char **view_view_exec_2_string_array();
 char **view_view_exec_2_trimmed_string_array(int width);
+void view_recal_xmax();
 #endif

@@ -28,6 +28,25 @@ if (par!=NULL) p=par;
 }
 
 /*
+ * recalculate x_max
+ */
+void view_recal_xmax() {
+
+  unsigned y;
+  p->x_max=0;
+
+  for(y=0;y<p->y_max;y++) {
+
+    if (utf8_strlen(p->file[y])>p->x_max) p->x_max=utf8_strlen(p->file[y]); 
+
+  }
+
+  if (p->x_max>p->cols) p->x_max-=p->cols; 
+    else p->x_max=0;
+
+}
+
+/*
  * view_view_exec_size
  *
  * returns the size of view_exec array

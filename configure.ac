@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT(lookat_bekijk,2.0.1,staf@wagemakers.be)
+AC_INIT(lookat_bekijk,2.0.2pre,staf@wagemakers.be)
 AC_CANONICAL_SYSTEM
 AC_CONFIG_SRCDIR(bekijk.c)
 AM_INIT_AUTOMAKE

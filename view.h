@@ -26,24 +26,34 @@
 #include "win.h"
 #include "getline.h"
 #define TAB 9
-typedef struct 
-{
-ssize_t y,y_max,size;
-ssize_t x,x_max;
-char    mode;
-char    **file;
-char    *filename;
-char    load,cmd;
-char    *txt_f_open2,*txt_f_open1,*txt_f_load;
-char    *txt_f_fseek;
-char    *txt_f_freopen;
-char    ***view_exec;
-MENU    *m_ok;
-WINDOW  *win;
-chtype  *color;
-int     cols,lines;
-int     sx,sy;
+
+typedef struct {
+  ssize_t y;
+  ssize_t y_max;
+  ssize_t size;
+  ssize_t x;
+  ssize_t x_max;
+  ssize_t width;
+  char    mode;
+  char    **file;
+  char    *filename;
+  char    load;
+  char    cmd;
+  char    *txt_f_open2;
+  char    *txt_f_open1;
+  char    *txt_f_load;
+  char    *txt_f_fseek;
+  char    *txt_f_freopen;
+  char    ***view_exec;
+  MENU    *m_ok;
+  WINDOW  *win;
+  chtype  *color;
+  int     cols;
+  int     lines;
+  int     sx;
+  int     sy;
 } VIEW_PAR;
+
 VIEW_PAR *view_par (VIEW_PAR *par);
 void view_free();
 void view_free_file();

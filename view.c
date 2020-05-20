@@ -32,14 +32,7 @@ if (par!=NULL) p=par;
  */
 void view_recal_xmax() {
 
-  unsigned y;
-  p->x_max=0;
-
-  for(y=0;y<p->y_max;y++) {
-
-    if (utf8_strlen(p->file[y])>p->x_max) p->x_max=utf8_strlen(p->file[y]); 
-
-  }
+  p->x_max=p->width;
 
   if (p->x_max>p->cols) p->x_max-=p->cols; 
     else p->x_max=0;
@@ -375,7 +368,7 @@ int view_load () {
 
   if (p->load) view_free_file();
 
-  p->y=p->sy=0;p->sx=p->x=0;p->x_max=0;p->y_max=0;
+  p->y=p->sy=0;p->sx=p->x=0;p->x_max=0;p->y_max=0;p->width=0;
 
   if (p->cmd<2) {
 
@@ -451,7 +444,7 @@ int view_load () {
 
         } 
 
-        if ( (utf8_strlen(p->file[p->y_max])>p->x_max) && (p->x!=-1) ) p->x_max=utf8_strlen(p->file[p->y_max]); 
+        if ( (utf8_strlen(p->file[p->y_max])>p->width) && (p->x!=-1) ) p->width=utf8_strlen(p->file[p->y_max]); 
         ++p->y_max;
 
       }
@@ -462,8 +455,7 @@ int view_load () {
   if (is_gz) pclose(fp);
   p->load=1;
 
-  if (p->x_max>p->cols) p->x_max-=p->cols; 
-    else p->x_max=0;
+  view_recal_xmax();
 
   p->x=p->y=0;
   return(0);

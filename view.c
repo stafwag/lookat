@@ -1,7 +1,8 @@
 /*
  *  view.c
  *
- *  Copyright (C) 1997, 1998, 2000, 2003, 2004, 2006, 2007, 2019, 2020 Staf Wagemakers Belgium
+ *  Copyright (C) 1997, 1998, 2000, 2003, 2004, 2006, 2007, 2019, 2020, 2022
+ *  Staf Wagemakers Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -524,17 +525,22 @@ void view_addstr(char *str) {
 
   c=str;
 
+  /* always start with the normal color */
+  wbkgdset(p->win,p->color[1]);
+
   while (*c) {
 
       if ((lx>p->cols-1)&&*c!=0x08) break; 
 
-        if (*c == 0x08 ) {
+      switch(*c) {
 
+        case 0x8:
+          /* backspace handeling */
           --lx;
 
           prevChar=utf8_firstchar(str+prevPointer);
           if ( (c+1) > (str+size) ) nextChar=NULL;
-            else nextChar=utf8_firstchar(c+1);
+          else nextChar=utf8_firstchar(c+1);
 
           if (prevChar != NULL ) {
 
@@ -552,8 +558,7 @@ void view_addstr(char *str) {
 
             }
 
-
-            if ( strcmp(prevChar,"_") == 0 ) {
+            if (strcmp(prevChar,"_") == 0 ) {
 
               waddch(p->win,*c);
               wbkgdset(p->win,p->color[3]);
@@ -567,14 +572,69 @@ void view_addstr(char *str) {
 
           xfree(prevChar);
           xfree(nextChar);
+          break;
 
-        } else {
+        case '\033':
+
+          c++;
+
+          if (*c == '[' ) {
+
+            int ansiNumber=0;
+            int ansiNumberSize=0;
+            char *ansiNumberStr=NULL;
+            char *ansiStartPointer=c+1;
+
+            while(*c++) {
+              pointer++;
+              ansiNumberSize++;
+
+              if(*c=='m') {
+                ansiNumberStr=xcalloc(ansiNumberSize,sizeof(char));
+                strncpy(ansiNumberStr,ansiStartPointer,ansiNumberSize-1);
+
+                if(isstrdigit(ansiNumberStr)) {
+                  ansiNumber=atoi(ansiNumberStr);
+
+                  switch(ansiNumber) {
+                    case 0:
+                      /* normal color */
+                      wbkgdset(p->win,p->color[1]);
+                      break;
+                    case 1:
+                      /* bold color */
+                      wbkgdset(p->win,p->color[2]);
+                      break;
+                    default:
+                      /* italic color */
+                      wbkgdset(p->win,p->color[3]);
+                  }
+
+                } else {
+                    /* might be an ivalid ansi code, reset to normal */
+                    wbkgdset(p->win,p->color[1]);
+                }
+
+                pointer++;
+                break;
+              }
+
+            }
+
+            xfree(ansiNumberStr);
+
+
+          }
+
+          break;
+
+        default:
 
           utf8Char=utf8_firstchar(c);
           waddstr(p->win,utf8Char);
           xfree(utf8Char);
 
-        }
+      } /* switch (*c) */
 
       prevPointer=pointer;
       pointer=pointer+utf8_strsize(c);

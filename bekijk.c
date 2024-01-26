@@ -67,6 +67,7 @@ char txt_view[]="view";
 char txt_view_found[]="view_found";
 char txt_view_bold[]="view_bold";
 char txt_view_italic[]="view_italic";
+char txt_view_underline[]="view_underline";
 char txt_main_menu[]="main_menu";
 char txt_main_menuhot[]="main_menuhot";
 char txt_main_menusel[]="main_menusel";
@@ -89,6 +90,7 @@ char *color_vars[] = {
   txt_view,             /* 0 */
   txt_view_bold,        /* 1 */
   txt_view_italic,      /* 2 */
+  txt_view_underline,   /* 2 */
   txt_main_menu,        /* 3 */
   txt_main_menusel,     /* 4 */
   txt_main_menuhot,     /* 5 */
@@ -272,7 +274,12 @@ int open_best(int mode)
 {
    char *vb;
    int (*ends)(WINDOW *)=NULL;
-   chtype kl[4]={kleur[9],kleur[10],kleur[11],kleur[12]};
+   chtype kl[4]={
+     get_color(txt_win1,colors),
+     get_color(txt_win1_edit,colors),
+     get_color(txt_win1_menu,colors),
+     get_color(txt_win1_menusel,colors)
+   };
    vb=bv.filename;
    if(mode) ends=&exit_lookat;
 
@@ -322,15 +329,15 @@ int bekijk_open_best(int mode) {
 }
 
 /* -------------------------------------------- */
-/* Openen van het zoek venster      */
-/*            */
-/* char     *s = pointer naar string    */
-/* char *titel = pointer naar venster-titel */
-/* char *tekst = pointer naar info-tekst  */
-/*            */
-/* Geeft terug 0 -> geen onderscheid G & k  */
-/*             1 -> ondersheid G & k    */
-/*         2 -> break     */
+/* Openen van het zoek venster                  */
+/*                                              */
+/* char     *s = pointer naar string            */
+/* char *titel = pointer naar venster-titel     */
+/* char *tekst = pointer naar info-tekst        */
+/*                                              */
+/* Geeft terug 0 -> geen onderscheid G & k      */
+/*             1 -> ondersheid G & k            */
+/*             2 -> break                       */
 /*             bit 1 -> set onderscheid G&K     */
 /*             bit 2 -> set backwards           */
 /*             3     -> break                   */ 
@@ -349,10 +356,10 @@ int open_zoek_venster (char *titel,char *tekst)
    m.l=0;
    m.txt=txt_m_zoek;
    m.place=pl_ok;
-   m.color1=kleur[15];
-   m.color2=kleur[18];
-   m.color3=kleur[19];
-   m.color4=kleur[20];
+   m.color1=get_color(txt_win2,colors);
+   m.color2=get_color(txt_win2_menusel,colors);
+   m.color3=get_color(txt_win2_menuhot,colors);
+   m.color4=get_color(txt_win2_menuhotsel,colors);
    m.sel=m.used=0;
    m.key=key_m;
    m.hkey=hkey_zoek;
@@ -361,7 +368,7 @@ int open_zoek_venster (char *titel,char *tekst)
    zoek_str.yp=2;
    zoek_str.xp=22;
    zoek_str.key=toetsen;
-   wbkgd(w,kleur[15]);
+   wbkgd(w,get_color(txt_win2,colors));
    werase(w);
    box(w,0,0);
    echo();
@@ -372,12 +379,12 @@ int open_zoek_venster (char *titel,char *tekst)
    mvwaddstr(w,4,6,txt_ondersheid_g);
    mvwaddstr(w,4,25,txt_search_back);
    wmove (w,2,22);
-   wbkgdset(w,kleur[16]);
+   wbkgdset(w,get_color(txt_win2_edit,colors));
    for (brol=0;brol<=32;brol++) waddch(w,' ');
    m.sel=0;
    do {
      menu_print(&m);
-     wbkgdset(w,kleur[16]);
+     wbkgdset(w,get_color(txt_win2_edit,colors));
 
      if (brol!=1) brol=input(&zoek_str);
        else brol=2;
@@ -453,9 +460,9 @@ void print_zoek (char *c,char *cp,char *sp,char *rp,unsigned i)
   view_refresh();
   zoek_offset++;
   wmove (bv.win,bv.sy,bv.sx);
-  wbkgdset(bv.win,kleur[21]);
+  wbkgdset(bv.win,get_color(txt_view_found,colors));
   view_addstr(sp);
-  wbkgdset(bv.win,kleur[1]);
+  wbkgdset(bv.win,get_color(txt_view,colors));
   wmove (bv.win,bv.sy,bv.sx);
   wrefresh(bv.win);
   xfree(rp);
@@ -621,11 +628,11 @@ void ga_lijn ()
    m.txt=txt_ok_anu;
    m.hkey=hkey_ok_anu;
    m.hplace=hplace_ok_anu;
-   m.color1=kleur[15];
-   m.color2=kleur[18];
-   m.color3=kleur[19];
-   m.color4=kleur[20];
-   brol=open_inputwin(7,60,&m,kleur[16],&s,txt,1,win1);
+   m.color1=get_color(txt_win2,colors);
+   m.color2=get_color(txt_win2_menusel,colors);
+   m.color3=get_color(txt_win2_menuhot,colors);
+   m.color4=get_color(txt_win2_menuhotsel,colors);
+   brol=open_inputwin(7,60,&m,get_color(txt_win2_edit,colors),&s,txt,1,win1);
    curs_set(0);
    if (strlen(s.c)&&!brol) {
       sscanf(s.c,"%lu",&y);
@@ -665,10 +672,10 @@ void open_type_venster (char *titel,char *txt_typename,char *txt_typeval,int n,i
    m.l=0;
    m.txt=txt_m_type;
    m.place=pl_ok;
-   m.color1=kleur[17];
-   m.color2=kleur[18];
-   m.color3=kleur[19];
-   m.color4=kleur[20];
+   m.color1=get_color(txt_win2_menu,colors);
+   m.color2=get_color(txt_win2_menusel,colors);
+   m.color3=get_color(txt_win2_menuhot,colors);
+   m.color4=get_color(txt_win2_menuhotsel,colors);
    m.sel=m.used=0;
    m.key=key_m;
    m.hkey=hkey_type;
@@ -693,7 +700,7 @@ void open_type_venster (char *titel,char *txt_typename,char *txt_typeval,int n,i
    ip_val.ox=ip_name.ox=0;
    ip_val.key=ip_name.key=toetsen;
 
-   wbkgd(w,kleur[15]);
+   wbkgd(w,get_color(txt_win2,colors));
    werase(w);
    box(w,0,0);
    echo();
@@ -704,7 +711,7 @@ void open_type_venster (char *titel,char *txt_typename,char *txt_typeval,int n,i
    mvwaddstr(w,4,2,txt_typeval);
    wmove (w,2,16);
    waddch(w,'.');
-   wbkgdset(w,kleur[16]);
+   wbkgdset(w,get_color(txt_win2_edit,colors));
 
    for (brol=0;brol<=ip_name.n;brol++) waddch(w,' ');
    wmove (w,4,17);
@@ -716,7 +723,7 @@ void open_type_venster (char *titel,char *txt_typename,char *txt_typeval,int n,i
    do {
      menu_print(&m);
      m.sel=0;
-     wbkgdset(w,kleur[16]);
+     wbkgdset(w,get_color(txt_win2_edit,colors));
      touchwin(w);
      wrefresh(w);
 
@@ -813,9 +820,9 @@ pl_mm[5]=pl_mm[3]+i+strlen(txt_typem[1]);
 pl_mm[7]=pl_mm[5]+i+strlen(txt_typem[2]);
 pl_mm[9]=pl_mm[7]+i+strlen(txt_typem[3]);
 
-m.color1=kleur[11];
-m.color2=kleur[12];
-m.color3=kleur[13];
+m.color1=get_color(txt_win1_menu,colors);
+m.color2=get_color(txt_win1_menusel,colors);
+m.color3=get_color(txt_win1_menuhot,colors);
 m.place=pl_m;
 m.key=key_m;
 m.l=TYPE_WIDTH;
@@ -829,10 +836,10 @@ mm.l=0;
 mm.place=pl_mm;
 mm.sel=mm.used=0;
 mm.txt=txt_typem;
-mm.color1=kleur[11];
-mm.color2=kleur[12];
-mm.color3=kleur[13];
-mm.color4=kleur[14];
+mm.color1=get_color(txt_win1_menu,colors);
+mm.color2=get_color(txt_win1_menusel,colors);
+mm.color3=get_color(txt_win1_menuhot,colors);
+mm.color4=get_color(txt_win1_menuhotsel,colors);
 mm.hkey=hkey_typem;
 mm.hplace=hplace_typem;
 mm.amount=6;
@@ -841,7 +848,7 @@ leaveok(w,TRUE);
 curs_set(0);
 keypad(w,TRUE);
 nodelay(w,FALSE);
-wbkgdset(w,kleur[9]);
+wbkgdset(w,get_color(txt_win1,colors));
 werase(w);
 box(w,0,0);
 win_box(w,12,TYPE_WIDTH+3,1,3);
@@ -857,7 +864,7 @@ do {
   if (numberOfTypes<11) {
     m.amount=numberOfTypes;
     wmove(w,numberOfTypes+2,5);
-    wbkgdset(w,kleur[9]);
+    wbkgdset(w,get_color(txt_win1,colors));
     for(i=0;i<TYPE_WIDTH;i++) waddch(w,' ');
     wrefresh(w);
   }
@@ -1039,31 +1046,31 @@ void init_colors (struct color *colors) {
 
    bv.color=kleur;
 
-   m_jn.color1=kleur[15];
-   m_jn.color2=kleur[18];
-   m_jn.color3=kleur[19];
-   m_jn.color4=kleur[20];
+   m_jn.color1=get_color(txt_win2,colors);
+   m_jn.color2=get_color(txt_win2_menusel,colors);
+   m_jn.color3=get_color(txt_win2_menuhot,colors);
+   m_jn.color4=get_color(txt_win2_menuhotsel,colors);
 
-   m_ok.color1=kleur[15];
-   m_ok.color2=kleur[18];
-   m_ok.color3=kleur[19];
-   m_ok.color4=kleur[20];
+   m_ok.color1=get_color(txt_win2,colors);
+   m_ok.color2=get_color(txt_win2_menusel,colors);
+   m_ok.color3=get_color(txt_win2_menuhot,colors);
+   m_ok.color4=get_color(txt_win2_menuhotsel,colors);
 
 }
 
 void set_main_colors() {
 
-  wbkgdset(bv.win,kleur[2]);
-  wbkgdset(win2,kleur[8]);
-  wbkgdset(hm_win,kleur[4]);
-  init_pullmenu_colors(hm_menup,kleur[4],kleur[5],kleur[6],kleur[7]);
+  wbkgdset(bv.win,get_color(txt_view_bold,colors));
+  wbkgdset(win2,get_color(txt_status_bar,colors));
+  wbkgdset(hm_win,get_color(txt_main_menu,colors));
+  init_pullmenu_colors(hm_menup,get_color(txt_main_menu,colors),get_color(txt_main_menusel,colors),get_color(txt_main_menuhot,colors),get_color(txt_main_menuhotsel,colors));
   menu_print(hm_menup);
   touchwin(win2);
   touchwin(hm_menup->w);
   wrefresh(win2);
   wrefresh(hm_menup->w);
   bv.y-=(LINES-2);
-  wbkgdset(bv.win,kleur[1]);
+  wbkgdset(bv.win,get_color(txt_view,colors));
   view_refresh();
 
 }
@@ -1074,7 +1081,7 @@ void refresh_setcolors_win(WINDOW *w) {
   curs_set(0);
   keypad(w,TRUE);
   nodelay(w,FALSE);
-  wbkgdset(w,kleur[9]);
+  wbkgdset(w,get_color(txt_win1,colors));
   werase(w);
   box(w,0,0);
   win_box(w,12,20,1,3);
@@ -1108,7 +1115,7 @@ void open_color_venster(MENU *setcolors_m, struct color *colors,int p) {
   curs_set(0);
   keypad(cm.w,TRUE);
   nodelay(cm.w,FALSE);
-  wbkgdset(cm.w,kleur[15]);
+  wbkgdset(cm.w,get_color(txt_win2,colors));
   werase(cm.w);
   box(cm.w,0,0);
   wrefresh(cm.w);
@@ -1202,12 +1209,12 @@ void open_color_venster(MENU *setcolors_m, struct color *colors,int p) {
     attr_m.call_close=cm_close;
     attr_m.l=10;
 
-    init_pullmenu_colors(&cm,kleur[15],kleur[18],kleur[19],kleur[20]);
+    init_pullmenu_colors(&cm,get_color(txt_win2,colors),get_color(txt_win2_menusel,colors),get_color(txt_win2_menuhot,colors),get_color(txt_win2_menuhotsel,colors));
 
     for(;;) {
 
       char kar='A';
-      wbkgdset(cm.w,kleur[15]);
+      wbkgdset(cm.w,get_color(txt_win2,colors));
       werase(cm.w);
       box(cm.w,0,0);
 
@@ -1218,7 +1225,7 @@ void open_color_venster(MENU *setcolors_m, struct color *colors,int p) {
 
       win_box(cm.w,6,10,1,33);
         
-      wbkgdset(cm.w,kleur[15]);
+      wbkgdset(cm.w,get_color(txt_win2,colors));
       mvwaddstr(cm.w,2,17,">");
       mvwaddstr(cm.w,2,20,fg_m.txt[fg_m.sel]);
 
@@ -1231,7 +1238,7 @@ void open_color_venster(MENU *setcolors_m, struct color *colors,int p) {
           mvwaddch(cm.w,y+1,x+33,kar++);
       }
 
-      wbkgdset(cm.w,kleur[15]);
+      wbkgdset(cm.w,get_color(txt_win2,colors));
       mvwaddstr(cm.w,4,17,">");
       mvwaddstr(cm.w,4,20,bg_m.txt[bg_m.sel]);
 
@@ -1279,12 +1286,12 @@ void open_color_venster(MENU *setcolors_m, struct color *colors,int p) {
   
       init_colors(colors);
       set_main_colors();
-      init_pullmenu_colors(&cm,kleur[15],kleur[18],kleur[19],kleur[20]);
+      init_pullmenu_colors(&cm,get_color(txt_win2,colors),get_color(txt_win2_menusel,colors),get_color(txt_win2_menuhot,colors),get_color(txt_win2_menuhotsel,colors));
       refresh_setcolors_win(setcolors_m->w);
-      setcolors_m->next[0]->color1=setcolors_m->color1=kleur[11];
-      setcolors_m->next[0]->color2=setcolors_m->color2=kleur[12];
-      setcolors_m->next[0]->color3=setcolors_m->color3=kleur[13];
-      setcolors_m->next[0]->color4=setcolors_m->color4=kleur[14];
+      setcolors_m->next[0]->color1=setcolors_m->color1=get_color(txt_win1_menu,colors);
+      setcolors_m->next[0]->color2=setcolors_m->color2=get_color(txt_win1_menusel,colors);
+      setcolors_m->next[0]->color3=setcolors_m->color3=get_color(txt_win1_menuhot,colors);
+      setcolors_m->next[0]->color4=setcolors_m->color4=get_color(txt_win1_menuhotsel,colors);
       menu_print(&cm);
       menu_print(setcolors_m);
       menu_print(setcolors_m->next[0]);
@@ -1322,9 +1329,9 @@ void set_colors ()
    cp_color_array(backup_colors,colors);
    cc=colors_2_str(colors,&brol);
 
-   m.color1=kleur[11];
-   m.color2=kleur[12];
-   m.color3=kleur[13];
+   m.color1=get_color(txt_win1_menu,colors);
+   m.color2=get_color(txt_win1_menusel,colors);
+   m.color3=get_color(txt_win1_menuhot,colors);
    m.place=pl_m;
    m.key=key_m;
    m.l=18;
@@ -1345,10 +1352,10 @@ void set_colors ()
 
    copy_string_array_pointers(mm.txt,txt_colorm);
 
-   mm.color1=kleur[11];
-   mm.color2=kleur[12];
-   mm.color3=kleur[13];
-   mm.color4=kleur[14];
+   mm.color1=get_color(txt_win1_menu,colors);
+   mm.color2=get_color(txt_win1_menusel,colors);
+   mm.color3=get_color(txt_win1_menuhot,colors);
+   mm.color4=get_color(txt_win1_menuhotsel,colors);
    mm.hkey=hkey_colorm;
    mm.hplace=hplace_colorm;
    mm.key=key_mm;
@@ -1362,7 +1369,7 @@ void set_colors ()
       if (brol<11) {
         m.amount=brol;
         wmove(w,brol+2,5);
-        wbkgdset(w,kleur[9]);
+        wbkgdset(w,get_color(txt_win1,colors));
         for(i=0;i<TYPE_WIDTH;i++) waddch(w,' ');
         wrefresh(w);
       }
@@ -1685,6 +1692,7 @@ start_color();
   set_color(txt_view,mono_array,A_NORMAL,A_NORMAL,0,1);
   set_color(txt_view_bold,mono_array,A_BOLD,A_NORMAL,0,1);
   set_color(txt_view_italic,mono_array,A_BOLD,A_NORMAL,0,1);
+  set_color(txt_view_underline,mono_array,A_UNDERLINE,A_NORMAL,0,1);
   set_color(txt_main_menu,mono_array,A_REVERSE,A_NORMAL,0,1);
   set_color(txt_main_menusel,mono_array,A_NORMAL,A_NORMAL,0,1);
   set_color(txt_main_menuhot,mono_array,A_REVERSE,A_BOLD,0,1);
@@ -1707,6 +1715,7 @@ start_color();
   set_color(txt_view,color_array,COLOR_WHITE,COLOR_BLACK,A_NORMAL,color_mode);
   set_color(txt_view_bold,color_array,COLOR_WHITE,COLOR_BLACK,A_BOLD,color_mode);
   set_color(txt_view_italic,color_array,COLOR_RED,COLOR_BLACK,A_BOLD,color_mode);
+  set_color(txt_view_underline,color_array,A_UNDERLINE,A_NORMAL,0,1);
   set_color(txt_main_menu,color_array,COLOR_WHITE,COLOR_BLUE,A_NORMAL,color_mode);
   set_color(txt_main_menusel,color_array,COLOR_BLUE,COLOR_WHITE,A_NORMAL,color_mode);
   set_color(txt_main_menuhot,color_array,COLOR_GREEN,COLOR_BLUE,A_BOLD,color_mode);
@@ -1738,12 +1747,12 @@ start_color();
   if (fp!=NULL) rewind(fp);
   read_config_colors(fp,colors,color_mode);
   init_colors(colors);
-  wbkgd(win1,kleur[1]);
+  wbkgd(win1,get_color(txt_view,colors));
 };
 
 if(fp!=NULL) fclose(fp);
-wbkgd(win2,kleur[8]);
-wbkgd(hm_win,kleur[4]);
+wbkgd(win2,get_color(txt_status_bar,colors));
+wbkgd(hm_win,get_color(txt_main_menu,colors));
 signal(SIGINT,SIG_IGN);
 signal(SIGTERM,terminate);
 
@@ -1763,7 +1772,7 @@ hm.next=sub_hm;
 hm.parent=NULL;
 hm.call_open=NULL;
 hm.call_close=NULL;
-init_pullmenu_colors(&hm,kleur[4],kleur[5],kleur[6],kleur[7]);
+init_pullmenu_colors(&hm,get_color(txt_main_menu,colors),get_color(txt_main_menusel,colors),get_color(txt_main_menuhot,colors),get_color(txt_main_menuhotsel,colors));
 hm_menup=&hm;
 bm.sel=gm.sel=zm.sel=om.sel=hlpm.sel=0;
 bm.place=pl_bm;

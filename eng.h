@@ -1,7 +1,7 @@
 /*
  *  eng.h
  *
- *  Copyright (C) 1997 - 2022  Staf Wagemakers Belgie/Belgium
+ *  Copyright (C) 1997 - 2024  Staf Wagemakers Belgie/Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -132,7 +132,7 @@ char *txt_cm_mono[]	={"Foreground",
 char *txt_kleuren[] 	= {"black","red","green","yellow","blue",
 		           "magenta","cyan", "white",NULL};
 char *txt_attributen[] = {"normal","bold","underline","reverse",
-                          "standout",NULL};
+                          "standout","blink",NULL};
 char txt_ondersheid_g[]	="[ ] Case sensitive";
 char txt_search_back[]  ="[ ] Search backwards";
 int over_width=54;

@@ -1,7 +1,7 @@
 /*
  * bekijk.c
  *
- * Copyright (C) 1997, 1998, 2000, 2001, 2002, 2003, 2006, 2007, 2015, 2020  Staf Wagemakers Belgium
+ * Copyright (C) 1997 - 2024  Staf Wagemakers Belgium
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -68,6 +68,8 @@ char txt_view_found[]="view_found";
 char txt_view_bold[]="view_bold";
 char txt_view_italic[]="view_italic";
 char txt_view_underline[]="view_underline";
+char txt_view_blink[]="view_blink";
+char txt_view_reverse[]="view_reverse";
 char txt_main_menu[]="main_menu";
 char txt_main_menuhot[]="main_menuhot";
 char txt_main_menusel[]="main_menusel";
@@ -90,25 +92,27 @@ char *color_vars[] = {
   txt_view,             /* 0 */
   txt_view_bold,        /* 1 */
   txt_view_italic,      /* 2 */
-  txt_view_underline,   /* 2 */
-  txt_main_menu,        /* 3 */
-  txt_main_menusel,     /* 4 */
-  txt_main_menuhot,     /* 5 */
-  txt_main_menuhotsel,  /* 6 */
-  txt_status_bar,       /* 7 */
-  txt_win1,             /* 8 */
-  txt_win1_edit,        /* 9 */
-  txt_win1_menu,        /* 10 */
-  txt_win1_menusel,     /* 11 */
-  txt_win1_menuhot,     /* 12 */
-  txt_win1_menuhotsel,  /* 13 */
-  txt_win2,             /* 14 */
-  txt_win2_edit,        /* 15 */
-  txt_win2_menu,        /* 16 */
-  txt_win2_menusel,     /* 17 */
-  txt_win2_menuhot,     /* 18 */
-  txt_win2_menuhotsel,  /* 19 */
-  txt_view_found,       /* 20 */
+  txt_view_underline,   /* 3 */
+  txt_view_blink,       /* 4 */
+  txt_view_reverse,       /* 4 */
+  txt_main_menu,        /* 5 */
+  txt_main_menusel,     /* 6 */
+  txt_main_menuhot,     /* 7 */
+  txt_main_menuhotsel,  /* 8 */
+  txt_status_bar,       /* 9 */
+  txt_win1,             /* 10 */
+  txt_win1_edit,        /* 11 */
+  txt_win1_menu,        /* 12 */
+  txt_win1_menusel,     /* 13 */
+  txt_win1_menuhot,     /* 14 */
+  txt_win1_menuhotsel,  /* 15 */
+  txt_win2,             /* 16 */
+  txt_win2_edit,        /* 17 */
+  txt_win2_menu,        /* 18 */
+  txt_win2_menusel,     /* 19 */
+  txt_win2_menuhot,     /* 20 */
+  txt_win2_menuhotsel,  /* 21 */
+  txt_view_found,       /* 22 */
   NULL
 };
 
@@ -1693,6 +1697,8 @@ start_color();
   set_color(txt_view_bold,mono_array,A_BOLD,A_NORMAL,0,1);
   set_color(txt_view_italic,mono_array,A_BOLD,A_NORMAL,0,1);
   set_color(txt_view_underline,mono_array,A_UNDERLINE,A_NORMAL,0,1);
+  set_color(txt_view_blink,mono_array,A_BLINK,A_NORMAL,0,1);
+  set_color(txt_view_reverse,mono_array,A_REVERSE,A_NORMAL,0,1);
   set_color(txt_main_menu,mono_array,A_REVERSE,A_NORMAL,0,1);
   set_color(txt_main_menusel,mono_array,A_NORMAL,A_NORMAL,0,1);
   set_color(txt_main_menuhot,mono_array,A_REVERSE,A_BOLD,0,1);
@@ -1715,7 +1721,9 @@ start_color();
   set_color(txt_view,color_array,COLOR_WHITE,COLOR_BLACK,A_NORMAL,color_mode);
   set_color(txt_view_bold,color_array,COLOR_WHITE,COLOR_BLACK,A_BOLD,color_mode);
   set_color(txt_view_italic,color_array,COLOR_RED,COLOR_BLACK,A_BOLD,color_mode);
-  set_color(txt_view_underline,color_array,A_UNDERLINE,A_NORMAL,0,1);
+  set_color(txt_view_underline,color_array,COLOR_WHITE,COLOR_BLACK,A_UNDERLINE,color_mode);
+  set_color(txt_view_blink,color_array,COLOR_WHITE,COLOR_BLACK,A_BLINK,color_mode);
+  set_color(txt_view_reverse,color_array,COLOR_WHITE,COLOR_BLACK,A_REVERSE,color_mode);
   set_color(txt_main_menu,color_array,COLOR_WHITE,COLOR_BLUE,A_NORMAL,color_mode);
   set_color(txt_main_menusel,color_array,COLOR_BLUE,COLOR_WHITE,A_NORMAL,color_mode);
   set_color(txt_main_menuhot,color_array,COLOR_GREEN,COLOR_BLUE,A_BOLD,color_mode);
@@ -2045,7 +2053,7 @@ do {
           case 3:  set_colors();
              break;
                 case 4:  if ((fp=get_config_file("w"))==NULL) {
-                   #ifdef _NED
+             #ifdef _NED
               open_okwin(7,40,&m_ok,txt_f_writecfg,win1);touchwin(win1);wrefresh(win1);
              #endif
              #ifdef _ENG

@@ -1,7 +1,7 @@
 /*
  *  ned.h
  *
- *  Copyright (C) 1997 - 2022   Staf Wagemakers Belgium
+ *  Copyright (C) 1997 - 2024   Staf Wagemakers Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -133,7 +133,7 @@ char *txt_cm_mono[]     ={"Voorgrond  ",
 char *txt_kleuren[]     = {"zwart","rood","groen","geel","blauw",
 	                           "magenta","cyan", "wit",NULL};
 char *txt_attributen[] = {"normaal","dik","onderlijnd","reverse",
-	                          "standout",NULL};
+	                          "standout","knipperen",NULL};
 
 char txt_ondersheid_g[]	="[ ] grootte & kleine letters  ";
 char txt_search_back[]  ="[ ] Achteruit zoeken";

@@ -1,7 +1,7 @@
 /*
  * color.c
  *
- * Copyright (C) 2003, 2007, 2022 Staf Wagemakers Belgie/Belgium
+ * Copyright (C) 2003, 2007, 2022, 2024 Staf Wagemakers Belgie/Belgium
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,8 +25,8 @@ chtype color_ch[]={ COLOR_BLACK,COLOR_RED,COLOR_GREEN,COLOR_YELLOW,
 	            COLOR_BLUE,COLOR_MAGENTA,COLOR_CYAN,COLOR_WHITE };
 char *color_names[] = {"black","red","green","yellow","blue",
 	               "magenta","cyan", "white",NULL };
-chtype attribute_ch[] = {A_NORMAL,A_BOLD,A_UNDERLINE,A_REVERSE,A_STANDOUT};
-char *attribute_names[] = {"normal","bold","underline","reverse","standout",NULL};
+chtype attribute_ch[] = {A_NORMAL,A_BOLD,A_UNDERLINE,A_REVERSE,A_STANDOUT,A_BLINK};
+char *attribute_names[] = {"normal","bold","underline","reverse","standout","blink",NULL};
 
 struct color * new_color_table ( char **color_vars ) {
 

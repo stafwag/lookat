@@ -3,7 +3,7 @@
  * color.h
  * 
  *
- * Copyright (C) 2003, 2006 Staf Wagemakers Belgie/Belgium
+ * Copyright (C) 2003, 2006, 2024 Staf Wagemakers Belgie/Belgium
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,6 +23,8 @@
 
 #ifndef __COLOR_H
 #define __COLOR_H
+
+#define ANSI_SGR_PARAMS 107
 
 #include "common.h"
 #include "xstring.h"
@@ -54,5 +56,3 @@ void cp_color_array(struct color *color1_array,struct color *color2_array);
 void reinit_color_table (struct color *colors,int mode);
 
 #endif
-
-

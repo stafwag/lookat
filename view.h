@@ -1,7 +1,7 @@
 /*
  *  view.h
  *
- *  Copyright (C) 1997, 1998, 2006, 2020 Staf Wagemakers Belgie/Belgium
+ *  Copyright (C) 1997, 1998, 2006, 2020, 2024 Staf Wagemakers Belgie/Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@
 #include "common.h"
 #include "xstring.h"
 #include "win.h"
+#include "color.h"
 #include "getline.h"
 #define TAB 9
 
@@ -47,7 +48,7 @@ typedef struct {
   char    ***view_exec;
   MENU    *m_ok;
   WINDOW  *win;
-  chtype  *color;
+  chtype  *ansi_colors;
   int     cols;
   int     lines;
   int     sx;

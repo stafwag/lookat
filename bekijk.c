@@ -1,7 +1,7 @@
 /*
  * bekijk.c
  *
- * Copyright (C) 1997 - 2024  Staf Wagemakers Belgium
+ * Copyright (C) 1997, 1998, 2000, 2001, 2002, 2003, 2006, 2007, 2015, 2020  Staf Wagemakers Belgium
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@
 #define TAB 9
 #define TYPE_WIDTH 59
 #include "common.h"
+#include "color.h"
 #include"ncurses_h.h"
 #include <signal.h>
 #include <errno.h>
@@ -58,7 +59,7 @@ MENU *hm_menup;
 INPUT_STRING zoek_str;
 char s[10]={'\0'};    /* String voor de te-zoeken-tekst     */
 char *ss=NULL;
-chtype *kleur;    /* Array voor het bewaren van de kleuren    */
+chtype ansi_colors[ANSI_SGR_PARAMS+1];    /* Array with the ansi colors */
 int  color_mode;
 struct color *colors;
 struct color *color_array;
@@ -1027,38 +1028,39 @@ void init_pullmenu_colors (MENU *m,chtype color1,chtype color2, chtype color3, c
 
 void init_colors (struct color *colors) {
 
-  int kleuren=30;
-  int i=1;
-  char **kleur_naam;
-  kleur=xcalloc(kleuren,sizeof(chtype));
-  kleur_naam=color_vars;
-  kleur[0]=COLOR_PAIR(0);
+  int i=0;
 
-  while(*kleur_naam) {
+  /* Initialize the ansi color table, use the normal color by default */
 
-    if (i>kleuren) {
+  for(i=0;i<=ANSI_SGR_PARAMS;i++) ansi_colors[i]=get_color(txt_view,colors);
 
-      kleuren+=20;
-      kleur=xrealloc(kleur,kleuren*sizeof(chtype));
+  /*
+   * Implement the ansi colors see https://en.wikipedia.org/wiki/ANSI_escape_code
+   * Only the basic colors (bold, italic, underline, etc. Are supported for now
+   */
 
-     }
+  ansi_colors[0]=get_color(txt_view,colors);
+  ansi_colors[1]=get_color(txt_view_bold,colors);
+  ansi_colors[2]=get_color(txt_view_bold,colors);
+  ansi_colors[3]=get_color(txt_view_italic,colors);
+  ansi_colors[4]=get_color(txt_view_underline,colors);
+  ansi_colors[5]=get_color(txt_view_blink,colors);
+  ansi_colors[6]=get_color(txt_view_blink,colors);
+  ansi_colors[7]=get_color(txt_view_reverse,colors);
 
-     kleur[i]=get_color(*kleur_naam,colors);
-     ++i;
-     ++kleur_naam;
-   }
+  bv.ansi_colors=ansi_colors;
 
-   bv.color=kleur;
+  /* Initialize menu colors */
 
-   m_jn.color1=get_color(txt_win2,colors);
-   m_jn.color2=get_color(txt_win2_menusel,colors);
-   m_jn.color3=get_color(txt_win2_menuhot,colors);
-   m_jn.color4=get_color(txt_win2_menuhotsel,colors);
+  m_jn.color1=get_color(txt_win2,colors);
+  m_jn.color2=get_color(txt_win2_menusel,colors);
+  m_jn.color3=get_color(txt_win2_menuhot,colors);
+  m_jn.color4=get_color(txt_win2_menuhotsel,colors);
 
-   m_ok.color1=get_color(txt_win2,colors);
-   m_ok.color2=get_color(txt_win2_menusel,colors);
-   m_ok.color3=get_color(txt_win2_menuhot,colors);
-   m_ok.color4=get_color(txt_win2_menuhotsel,colors);
+  m_ok.color1=get_color(txt_win2,colors);
+  m_ok.color2=get_color(txt_win2_menusel,colors);
+  m_ok.color3=get_color(txt_win2_menuhot,colors);
+  m_ok.color4=get_color(txt_win2_menuhotsel,colors);
 
 }
 
@@ -1841,7 +1843,6 @@ for (i=0;i<hlpm.amount;i++)
 /* ------------------------------------------------------------------------- */
 
 bv.m_ok=&m_ok;
-/* bv.color=kleur; */
 bv.win=win1;
 menu_print(&hm);
 meta(win1,TRUE);

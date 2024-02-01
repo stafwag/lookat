@@ -1,7 +1,7 @@
 /*
  *  view.c
  *
- *  Copyright (C) 1997, 1998, 2000, 2003, 2004, 2006, 2007, 2019, 2020, 2022
+ *  Copyright (C) 1997, 1998, 2000, 2003, 2004, 2006, 2007, 2019, 2020, 2022, 2024
  *  Staf Wagemakers Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -526,7 +526,7 @@ void view_addstr(char *str) {
   c=str;
 
   /* always start with the normal color */
-  wbkgdset(p->win,p->color[1]);
+  wbkgdset(p->win,p->ansi_colors[0]);
 
   while (*c) {
 
@@ -549,10 +549,11 @@ void view_addstr(char *str) {
               if (strcmp(prevChar,nextChar) == 0 ) { 
 
                 waddch(p->win,*c);
-                wbkgdset(p->win,p->color[2]);
+                /* bold */
+                wbkgdset(p->win,p->ansi_colors[1]);
                 waddstr(p->win,nextChar);
                 pointer+=strlen(nextChar);
-                wbkgdset(p->win,p->color[1]);
+                wbkgdset(p->win,p->ansi_colors[0]);
 
               }
 
@@ -561,10 +562,11 @@ void view_addstr(char *str) {
             if (strcmp(prevChar,"_") == 0 ) {
 
               waddch(p->win,*c);
-              wbkgdset(p->win,p->color[3]);
+              /* italic */
+              wbkgdset(p->win,p->ansi_colors[2]);
               waddstr(p->win,nextChar);
               pointer+=strlen(nextChar);
-              wbkgdset(p->win,p->color[1]);
+              wbkgdset(p->win,p->ansi_colors[0]);
 
             }
 
@@ -575,6 +577,7 @@ void view_addstr(char *str) {
           break;
 
         case '\033':
+          /* ANSI SGR color handeling */
 
           c++;
 
@@ -594,25 +597,15 @@ void view_addstr(char *str) {
                 strncpy(ansiNumberStr,ansiStartPointer,ansiNumberSize-1);
 
                 if(isstrdigit(ansiNumberStr)) {
+                  chtype ansi_color;
                   ansiNumber=atoi(ansiNumberStr);
 
-                  switch(ansiNumber) {
-                    case 0:
-                      /* normal color */
-                      wbkgdset(p->win,p->color[1]);
-                      break;
-                    case 1:
-                      /* bold color */
-                      wbkgdset(p->win,p->color[2]);
-                      break;
-                    default:
-                      /* italic color */
-                      wbkgdset(p->win,p->color[3]);
-                  }
+                  if(ansiNumber > ANSI_SGR_PARAMS) wbkgdset(p->win,p->ansi_colors[0]);
+                    else wbkgdset(p->win,p->ansi_colors[ansiNumber]);
 
                 } else {
                     /* might be an ivalid ansi code, reset to normal */
-                    wbkgdset(p->win,p->color[1]);
+                    wbkgdset(p->win,p->ansi_colors[0]);
                 }
 
                 pointer++;
@@ -622,7 +615,6 @@ void view_addstr(char *str) {
             }
 
             xfree(ansiNumberStr);
-
 
           }
 

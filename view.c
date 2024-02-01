@@ -526,7 +526,7 @@ void view_addstr(char *str) {
   c=str;
 
   /* always start with the normal color */
-  wbkgdset(p->win,p->ansi_colors[0]);
+  /* wbkgdset(p->win,p->ansi_colors[0]); */
 
   while (*c) {
 

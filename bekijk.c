@@ -217,7 +217,7 @@ void open_om (MENU *m)
 void open_hlpm (MENU *m)
 {
    m->w=open_win(5,m->l+2,1,COLS-m->l-2);
-   m_open(m,win1);   
+   m_open(m,win1);
 }
 
 /* ----------------------------------------- */
@@ -1626,48 +1626,51 @@ FILE * get_config_file (const char *opentype) {
 
 }
 
+/*
+ * usage function
+ */
 void usage() {
 
-      if (COLS) endwin();
+  if (COLS) endwin();
 
-       /*
-        * create txt_help
-        */
+  /*
+   * create txt_help
+   */
 
-        char *txt_prgname_version=combine_strings( (char *[]){txt_help_prgname," ",PACKAGE_VERSION,NULL});
-        char *txt_help_line=str_nchars(help_width,'-');
-        char *txt_help_copyright=combine_strings( (char *[]) {txt_gpl_short," ",txt_prg_dates," ",txt_belgie,NULL });
-        char *txt_help_1st_line=right_align_2_strings(txt_prgname_version,txt_help_copyright,help_width);
+   char *txt_prgname_version=combine_strings( (char *[]){txt_help_prgname," ",PACKAGE_VERSION,NULL});
+   char *txt_help_line=str_nchars(help_width,'-');
+   char *txt_help_copyright=combine_strings( (char *[]) {txt_gpl_short," ",txt_prg_dates," ",txt_belgie,NULL });
+   char *txt_help_1st_line=right_align_2_strings(txt_prgname_version,txt_help_copyright,help_width);
 
-        char *txt_help_2nd_line=right_align_2_strings("",txt_author,help_width);
-        char *txt_help_3rd_line=right_align_2_strings("",txt_author_email,help_width);
+   char *txt_help_2nd_line=right_align_2_strings("",txt_author,help_width);
+   char *txt_help_3rd_line=right_align_2_strings("",txt_author_email,help_width);
 
-        char *txt_help_head[] = {
-          txt_help_line,
-          txt_help_1st_line,
-          txt_help_2nd_line,
-          txt_help_3rd_line,
-          NULL
-        };
+   char *txt_help_head[] = {
+      txt_help_line,
+      txt_help_1st_line,
+      txt_help_2nd_line,
+      txt_help_3rd_line,
+      NULL
+   };
 
-        char *txt_help_footer[] = {
-          txt_help_line,
-          NULL
-        };
+   char *txt_help_footer[] = {
+      txt_help_line,
+      NULL
+   };
 
-        char **txt_help_body_footer=combine_string_array_pointers(txt_help_body,txt_help_footer);
-        char **txt_help=combine_string_array_pointers(txt_help_head,txt_help_body_footer);
+   char **txt_help_body_footer=combine_string_array_pointers(txt_help_body,txt_help_footer);
+   char **txt_help=combine_string_array_pointers(txt_help_head,txt_help_body_footer);
 
-        print_strs(stderr,txt_help);
+   print_strs(stderr,txt_help);
 
-        xfree(txt_prgname_version);
-        xfree(txt_help_line);
-        xfree(txt_help_copyright);
-        xfree(txt_help_1st_line);
-        xfree(txt_help_2nd_line);
-        xfree(txt_help_3rd_line);
-        xfree(txt_help_body_footer);
-        xfree(txt_help);
+   xfree(txt_prgname_version);
+   xfree(txt_help_line);
+   xfree(txt_help_copyright);
+   xfree(txt_help_1st_line);
+   xfree(txt_help_2nd_line);
+   xfree(txt_help_3rd_line);
+   xfree(txt_help_body_footer);
+   xfree(txt_help);
 
 }
 /* ---------------------------------------------------- */ 
@@ -1697,7 +1700,119 @@ FILE *fp;
 char ***ccc;
 s[0]=0;
 
-char *prgname;
+char *prgname=NULL;
+char *arg_filename=NULL;
+int hlpflag=0;
+int rawflag=0;
+int arg_errors=0;
+int verboseflag=0;
+/* flag to open the file window, open it by default */
+int open_filewin_flag=1;
+
+/*
+ * Based on CGIpaf changepass.c code
+ *
+ * argument handling, not using get long opts as this not supported on older Un!x systems
+ * We parse the arguments first as it might be not required to do
+ * anything-else in case of the error or when the user provide the help argument
+ */
+
+prgname=basename(argv[0]);     /* set prgname to the real program name */
+
+if (argn>1) {                  /* we've arguments */
+
+	 int i;
+	 char *longargs[]={"help","raw","verbose",NULL};
+
+	 /*
+	  * convert long opts to shorts opt
+	  */
+
+	 for (i=1;i<argn;i++) {
+
+	   char *shortarg=NULL;
+
+		 if (strncmp("--",argv[i],2)==0) {
+
+			 char **ccp;
+			 int found=0;
+
+			 for (ccp=longargs;*ccp!=NULL;++ccp) {
+
+					if (!strcmp(argv[i]+2,*ccp)) {
+			   	
+						shortarg=xmalloc(3*sizeof(char));
+						shortarg[0]=0;
+						strncat(shortarg,(argv[i]+1),2);
+						argv[i]=shortarg;
+						found=1;
+						break;
+
+					}
+
+				}
+
+				if (!found) {
+					 fprintf(stderr,"%s: Unkown argument %s\n",prgname,argv[i]);
+           arg_errors=1;
+				   hlpflag=1;
+           exit(1);
+				}
+     } 
+
+   }
+
+   if (!hlpflag) {
+
+	    while ((i = getopt(argn, argv, "hrv")) != -1) {
+
+			    switch (i) {
+
+		   		  case 'h':
+						  hlpflag=1;
+						  break;
+		   		  case 'r':
+						  rawflag=1;
+              display_raw=1;
+						  break;
+		   		  case 'v':
+						  verboseflag=1;
+						  break;
+            default:
+						  hlpflag=1;
+              arg_errors=1;
+					    fprintf(stderr,"%s: Unkown argument\n",prgname);
+						  break;
+		   	  }
+	    }
+
+      if (optind < argn) {
+
+        arg_filename=argv[optind];
+
+      }
+
+		}
+
+    if (verboseflag) {
+
+        fprintf(stderr,"\n hlpflag %d \n",hlpflag);
+        fprintf(stderr,"rawflag %d \n",rawflag);
+        fprintf(stderr,"verboseflag %d \n",verboseflag);
+        if (arg_filename != NULL ) fprintf(stderr,"arg_filename %s \n",arg_filename);
+          else  fprintf(stderr,"arg_filename not specified\n",arg_filename);
+    }
+
+    if (hlpflag || arg_errors) {
+      usage();
+
+      if (arg_errors) exit(1);
+
+      exit(0);
+
+    }
+
+}
 
 /*
  * Basic menu init
@@ -1792,70 +1907,47 @@ bv.cols=COLS;
 bv.sx=bv.sy=0;
 view_par(&bv);
 
-/*
- * Based on CGIpaf changepass.c code
- */
-
-prgname=basename(argv[0]);              /* set prgname to the real program name */
-
-
-
+/* Detect if we're reading from stdin */
 if (!isatty(STDIN_FILENO)) {
 
-   if (!isatty(STDOUT_FILENO)) {
+  /* just print the file when not on a terminal */
+  if (!isatty(STDOUT_FILENO)) {
+
       cp2stdout(stdin);
       fclose(stdin);
       fclose(stdout);
       wexit(0);
-      }
-   bv.cmd=2;
-   bv.filename=(char *)xmalloc(strlen("STDIN"));
-   strcpy(bv.filename,"STDIN");
-   if(bekijk_view_load()) {
-     endwin();
-     fprintf(stdout,"Sorry view_load() failed");
-     exit(1);
-   };
-   if (bekijk_freopen("/dev/tty","r",stdin,win1)) {
-     endwin();
-     exit(1);
-   };
-   argn=2;
 
   }
-  else {
 
-  /*
-   * argument handling, not using get long opts as this not supported on older Un!x systems
-   * still need to find the better way
-   */
+  bv.cmd=2;
 
-  if (argn>=2) { 
+  bv.filename=(char *)xmalloc(strlen("STDIN")+1);
+  strcpy(bv.filename,"STDIN");
 
-    char *arg_filename=argv[1];
+  if (bekijk_view_load()) {
 
-    if (!strcmp(argv[1],"--help")) {
+      endwin();
+      fprintf(stdout,"Sorry view_load() failed");
+      exit(1);
 
-        usage();
-        exit(0);
-      };
+  };
 
-      if (!strcmp(argv[1],"--raw")) {
+  if (bekijk_freopen("/dev/tty","r",stdin,win1)) {
 
-          if (COLS) endwin();
+     endwin();
+     exit(1);
 
-          fputs("raw view enabled",stderr);
-          display_raw=1;
+  };
 
-          if (argn<3) {
-            fputs("Error a filename is required for with --raw",stderr);
-            exit(1);
-          }
+  /* Don't open the file selection window as we're readin the content for stdin */
+  open_filewin_flag=0;
 
-          arg_filename=argv[2];
+} else {
 
-      }
+  if (arg_filename!=NULL) { 
 
+      /* check if arg_filename is a directory */
       if (chdir(arg_filename)==-1) {
 
         bv.filename=(char *)xmalloc(strlen(arg_filename)+1);
@@ -1863,7 +1955,7 @@ if (!isatty(STDIN_FILENO)) {
 
         if (isatty(STDOUT_FILENO)) {
 
-          if(bekijk_view_load()) {
+          if (bekijk_view_load()) {
             wexit(1);
           }
 
@@ -1880,8 +1972,8 @@ if (!isatty(STDIN_FILENO)) {
           wexit(0);
 
         }
-      } else argn=1;
-    }
+      }
+  }
 }
 
 if (!isatty(STDOUT_FILENO)) wexit(1);
@@ -2123,7 +2215,7 @@ if (bekijk_freopen("/dev/null","w",stderr,win1)) {
   exit(1);
 }
 
-if (argn<2) { 
+if (open_filewin_flag) { 
 
   do {
     if ( bekijk_open_best(1) > 1 ) {

@@ -28,6 +28,19 @@ if (par!=NULL) p=par;
   return (p);
 }
 
+int view_set_raw(int raw) {
+
+  p->raw=raw;   
+  return(p->raw);
+
+}
+
+int view_get_raw(int raw) {
+
+  return(p->raw);
+
+}
+
 /*
  * recalculate x_max
  */
@@ -371,6 +384,9 @@ int view_load () {
 
   p->y=p->sy=0;p->sx=p->x=0;p->x_max=0;p->y_max=0;p->width=0;
 
+  /* Disable raw view by default */
+  p->raw=0;
+
   if (p->cmd<2) {
 
     if (fseek(fp,0,SEEK_END)) {
@@ -532,6 +548,18 @@ void view_addstr(char *str) {
 
       if ((lx>p->cols-1)&&*c!=0x08) break; 
 
+/*
+      p->raw=1;
+*/
+
+      if (p->raw) {
+
+          utf8Char=utf8_firstchar(c);
+          waddstr(p->win,utf8Char);
+          xfree(utf8Char);
+
+      } else {
+
       switch(*c) {
 
         case 0x8:
@@ -625,6 +653,8 @@ void view_addstr(char *str) {
           utf8Char=utf8_firstchar(c);
           waddstr(p->win,utf8Char);
           xfree(utf8Char);
+
+        }
 
       } /* switch (*c) */
 

@@ -53,6 +53,7 @@ typedef struct {
   int     lines;
   int     sx;
   int     sy;
+  int     raw;
 } VIEW_PAR;
 
 VIEW_PAR *view_par (VIEW_PAR *par);
@@ -83,4 +84,6 @@ void view_rm_view_exec(int n);
 char **view_view_exec_2_string_array();
 char **view_view_exec_2_trimmed_string_array(int width);
 void view_recal_xmax();
+int view_set_raw(int raw);
+int view_get_raw(int raw);
 #endif

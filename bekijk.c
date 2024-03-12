@@ -1626,10 +1626,54 @@ FILE * get_config_file (const char *opentype) {
 
 }
 
+void usage() {
+
+      if (COLS) endwin();
+
+       /*
+        * create txt_help
+        */
+
+        char *txt_prgname_version=combine_strings( (char *[]){txt_help_prgname," ",PACKAGE_VERSION,NULL});
+        char *txt_help_line=str_nchars(help_width,'-');
+        char *txt_help_copyright=combine_strings( (char *[]) {txt_gpl_short," ",txt_prg_dates," ",txt_belgie,NULL });
+        char *txt_help_1st_line=right_align_2_strings(txt_prgname_version,txt_help_copyright,help_width);
+
+        char *txt_help_2nd_line=right_align_2_strings("",txt_author,help_width);
+        char *txt_help_3rd_line=right_align_2_strings("",txt_author_email,help_width);
+
+        char *txt_help_head[] = {
+          txt_help_line,
+          txt_help_1st_line,
+          txt_help_2nd_line,
+          txt_help_3rd_line,
+          NULL
+        };
+
+        char *txt_help_footer[] = {
+          txt_help_line,
+          NULL
+        };
+
+        char **txt_help_body_footer=combine_string_array_pointers(txt_help_body,txt_help_footer);
+        char **txt_help=combine_string_array_pointers(txt_help_head,txt_help_body_footer);
+
+        print_strs(stderr,txt_help);
+
+        xfree(txt_prgname_version);
+        xfree(txt_help_line);
+        xfree(txt_help_copyright);
+        xfree(txt_help_1st_line);
+        xfree(txt_help_2nd_line);
+        xfree(txt_help_3rd_line);
+        xfree(txt_help_body_footer);
+        xfree(txt_help);
+
+}
 /* ---------------------------------------------------- */ 
 /* Hoofdprg ...           */
 /* ---------------------------------------------------- */ 
-int main (int argc,char **argv)
+int main (int argn,char **argv)
 {
 
 int i,c;
@@ -1652,6 +1696,8 @@ MENU *sub_NULL[]={NULL,NULL,NULL,NULL,NULL,NULL};
 FILE *fp;
 char ***ccc;
 s[0]=0;
+
+char *prgname;
 
 /*
  * Basic menu init
@@ -1746,6 +1792,14 @@ bv.cols=COLS;
 bv.sx=bv.sy=0;
 view_par(&bv);
 
+/*
+ * Based on CGIpaf changepass.c code
+ */
+
+prgname=basename(argv[0]);              /* set prgname to the real program name */
+
+
+
 if (!isatty(STDIN_FILENO)) {
 
    if (!isatty(STDOUT_FILENO)) {
@@ -1766,7 +1820,7 @@ if (!isatty(STDIN_FILENO)) {
      endwin();
      exit(1);
    };
-   argc=2;
+   argn=2;
 
   }
   else {
@@ -1776,53 +1830,13 @@ if (!isatty(STDIN_FILENO)) {
    * still need to find the better way
    */
 
-  if (argc>=2) { 
+  if (argn>=2) { 
 
     char *arg_filename=argv[1];
 
     if (!strcmp(argv[1],"--help")) {
 
-      if (COLS) endwin();
-
-       /*
-        * create txt_help
-        */
-
-        char *txt_prgname_version=combine_strings( (char *[]){txt_help_prgname," ",PACKAGE_VERSION,NULL});
-        char *txt_help_line=str_nchars(help_width,'-');
-        char *txt_help_copyright=combine_strings( (char *[]) {txt_gpl_short," ",txt_prg_dates," ",txt_belgie,NULL });
-        char *txt_help_1st_line=right_align_2_strings(txt_prgname_version,txt_help_copyright,help_width);
-
-        char *txt_help_2nd_line=right_align_2_strings("",txt_author,help_width);
-        char *txt_help_3rd_line=right_align_2_strings("",txt_author_email,help_width);
-
-        char *txt_help_head[] = {
-          txt_help_line,
-          txt_help_1st_line,
-          txt_help_2nd_line,
-          txt_help_3rd_line,
-          NULL
-        };
-
-        char *txt_help_footer[] = {
-          txt_help_line,
-          NULL
-        };
-
-        char **txt_help_body_footer=combine_string_array_pointers(txt_help_body,txt_help_footer);
-        char **txt_help=combine_string_array_pointers(txt_help_head,txt_help_body_footer);
-
-        print_strs(stderr,txt_help);
-
-        xfree(txt_prgname_version);
-        xfree(txt_help_line);
-        xfree(txt_help_copyright);
-        xfree(txt_help_1st_line);
-        xfree(txt_help_2nd_line);
-        xfree(txt_help_3rd_line);
-        xfree(txt_help_body_footer);
-        xfree(txt_help);
-
+        usage();
         exit(0);
       };
 
@@ -1833,7 +1847,7 @@ if (!isatty(STDIN_FILENO)) {
           fputs("raw view enabled",stderr);
           display_raw=1;
 
-          if (argc<3) {
+          if (argn<3) {
             fputs("Error a filename is required for with --raw",stderr);
             exit(1);
           }
@@ -1866,7 +1880,7 @@ if (!isatty(STDIN_FILENO)) {
           wexit(0);
 
         }
-      } else argc=1;
+      } else argn=1;
     }
 }
 
@@ -2109,7 +2123,7 @@ if (bekijk_freopen("/dev/null","w",stderr,win1)) {
   exit(1);
 }
 
-if (argc<2) { 
+if (argn<2) { 
 
   do {
     if ( bekijk_open_best(1) > 1 ) {

@@ -1706,8 +1706,8 @@ int hlpflag=0;
 int rawflag=0;
 int arg_errors=0;
 int verboseflag=0;
-/* flag to open the file window, open it by default */
-int open_filewin_flag=1;
+/* flag to open the file window, don't open it by default */
+int open_filewin_flag=0;
 
 /*
  * Based on CGIpaf changepass.c code
@@ -1796,7 +1796,7 @@ if (argn>1) {                  /* we've arguments */
 
     if (verboseflag) {
 
-        fprintf(stderr,"\n hlpflag %d \n",hlpflag);
+        fprintf(stderr,"\nhlpflag %d \n",hlpflag);
         fprintf(stderr,"rawflag %d \n",rawflag);
         fprintf(stderr,"verboseflag %d \n",verboseflag);
         if (arg_filename != NULL ) fprintf(stderr,"arg_filename %s \n",arg_filename);
@@ -1940,9 +1940,6 @@ if (!isatty(STDIN_FILENO)) {
 
   };
 
-  /* Don't open the file selection window as we're readin the content for stdin */
-  open_filewin_flag=0;
-
 } else {
 
   if (arg_filename!=NULL) { 
@@ -1973,6 +1970,13 @@ if (!isatty(STDIN_FILENO)) {
 
         }
       }
+  } else {
+
+    /*
+     * we only open the file selection window if if there is no filename argument
+     * and we don't read from stdin
+     */
+    open_filewin_flag=1;
   }
 }
 

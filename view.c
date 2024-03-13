@@ -548,14 +548,9 @@ void view_addstr(char *str) {
 
       if ((lx>p->cols-1)&&*c!=0x08) break; 
 
-/*
-      p->raw=1;
-*/
-
       if (p->raw) {
 
-          utf8Char=utf8_firstchar(c);
-          waddstr(p->win,utf8Char);
+          waddch(p->win,*c);
           xfree(utf8Char);
 
       } else {

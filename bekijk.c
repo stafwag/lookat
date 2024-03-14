@@ -1,7 +1,7 @@
 /*
  * bekijk.c
  *
- * Copyright (C) 1997, 1998, 2000, 2001, 2002, 2003, 2006, 2007, 2015, 2020  Staf Wagemakers Belgium
+ * Copyright (C) 1997, 1998, 2000, 2001, 2002, 2003, 2006, 2007, 2015, 2020, 2024  Staf Wagemakers Belgium
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,6 +28,7 @@
 #include <errno.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <libgen.h>
 
 #if TIME_WITH_SYS_TIME
 #include <sys/time.h>
@@ -1717,7 +1718,7 @@ int open_filewin_flag=0;
  * anything-else in case of the error or when the user provide the help argument
  */
 
-prgname=basename(argv[0]);     /* set prgname to the real program name */
+ prgname=basename(argv[0]);    /* set prgname to the real program name */
 
 if (argn>1) {                  /* we've arguments */
 
@@ -1800,7 +1801,7 @@ if (argn>1) {                  /* we've arguments */
         fprintf(stderr,"rawflag %d \n",rawflag);
         fprintf(stderr,"verboseflag %d \n",verboseflag);
         if (arg_filename != NULL ) fprintf(stderr,"arg_filename %s \n",arg_filename);
-          else  fprintf(stderr,"arg_filename not specified\n",arg_filename);
+          else  fprintf(stderr,"arg_filename not specified\n");
     }
 
     if (hlpflag || arg_errors) {

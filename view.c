@@ -461,7 +461,7 @@ int view_load () {
 
         } 
 
-        if ( (utf8_strlen(p->file[p->y_max])>p->width) && (p->x!=-1) ) p->width=utf8_strlen(p->file[p->y_max]); 
+        if ( (ansi_utf8_strlen(p->file[p->y_max])>p->width) && (p->x!=-1) ) p->width=ansi_utf8_strlen(p->file[p->y_max]); 
         ++p->y_max;
 
       }
@@ -496,7 +496,7 @@ void view_addline (int yp,unsigned long r) {
 
   if (r>=p->y_max) return;
 
-  if (utf8_strlen(p->file[r])>p->x) {
+  if (ansi_utf8_strlen(p->file[r])>p->x) {
 
     if (p->y<=p->y_max) {
 
@@ -504,7 +504,7 @@ void view_addline (int yp,unsigned long r) {
         str_end=str_start + strlen(str_start);
         c=str_start;
 
-        lx=utf8_strlen(str_start);
+        lx=ansi_utf8_strlen(str_start);
 
         if (p->x) {
 
@@ -627,7 +627,7 @@ void view_addstr(char *str) {
                     else wbkgdset(p->win,p->ansi_colors[ansiNumber]);
 
                 } else {
-                    /* might be an ivalid ansi code, reset to normal */
+                    /* might be an invalid ansi code, reset to normal */
                     wbkgdset(p->win,p->ansi_colors[0]);
                 }
 
@@ -827,7 +827,7 @@ void view_right() {
 
    } else {
 
-      if (p->x+p->sx<utf8_strlen(p->file[p->sy+p->y-p->lines])-1) {
+      if (p->x+p->sx<ansi_utf8_strlen(p->file[p->sy+p->y-p->lines])-1) {
 
         if (++p->sx>=p->cols) {
 

@@ -700,6 +700,61 @@ unsigned utf8_strlen(char *str) {
 }
 
 /*
+ * calculate the char length of an ansi utf8 string
+ */
+unsigned ansi_utf8_strlen(char *str) {
+
+  unsigned u=0;
+  unsigned size=strlen(str);
+  unsigned pointer=0; 
+  char *c;
+  c=str;
+
+  while (*c) {
+
+      pointer=pointer+utf8_strsize(c);
+
+      switch(*c) {
+
+        case 0x08:
+
+          if (u) --u;
+          break;
+
+        case '\033':
+
+          c++;
+
+          if (*c == '[' ) {
+
+            while(*c++) {
+              pointer++;
+
+              if(*c=='m') {
+
+                break;
+
+              }
+             
+            } 
+
+          }
+          break;
+
+        default: 
+
+              ++u;
+      } /* switch */
+
+      if(pointer>size) return u;
+      c=str+pointer;
+
+  }
+
+  return u;
+}
+
+/*
  * returns a string with the first utf8 char
  */
 char * utf8_firstchar(char *c) {

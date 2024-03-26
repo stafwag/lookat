@@ -494,7 +494,7 @@ void print_zoek (char *beginOfLinePt,char *foundPt,char *searchStr,char *lineStr
 
   offsetStr=xcalloc(zoek_offset+1,sizeof(char));
   strncpy(offsetStr,beginOfLinePt,zoek_offset);
-  zoek_offset_utf8=utf8_strlen(offsetStr);
+  zoek_offset_utf8=ansi_utf8_strlen(offsetStr);
   xfree(offsetStr);
 
   /* Set the offset */
@@ -2673,13 +2673,13 @@ do {
 
         bv.y-=(LINES-2);
 
-        if (!bv.mode) bv.x=utf8_strlen(bv.file[bv.y]);
-        else bv.x=utf8_strlen(bv.file[bv.y+bv.sy]);
+        if (!bv.mode) bv.x=ansi_utf8_strlen(bv.file[bv.y]);
+        else bv.x=ansi_utf8_strlen(bv.file[bv.y+bv.sy]);
 
         if (bv.x<COLS) bv.x=0;
         else bv.x-=COLS;
 
-        bv.sx=utf8_strlen(bv.file[bv.y+bv.sy])-bv.x-1;
+        bv.sx=ansi_utf8_strlen(bv.file[bv.y+bv.sy])-bv.x-1;
         view_refresh();
 
         break;

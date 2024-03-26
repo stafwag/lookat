@@ -61,6 +61,7 @@ void replace_char(char *str,char src,char dest);
 char * null2str(char *str);
 char * utf8_firstchar(char *c);
 unsigned utf8_strlen(char *str);
+unsigned ansi_utf8_strlen(char *str);
 char * right_align_2_strings(char * str1, char * str2, int width);
 char * str_nchars(int n, char c);
 char ** combine_string_array_pointers( char **src1, char **src2);

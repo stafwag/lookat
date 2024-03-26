@@ -120,7 +120,7 @@ char *color_vars[] = {
 
 char free_vb=0;
 unsigned brol,zoek_offset=0;
-unsigned long zoek_y;
+unsigned long zoek_y=0;
 int  zoek_mode;     /* Ondersheid tussen G & k ?????      */
 MENU m_ok,m_jn;
 VIEW_PAR bv;
@@ -474,26 +474,42 @@ void str_toupper (char *c) {
 /* -------------------------------------------- */
 /* Print de gevonden tekst in de juiste kleur */
 /* -------------------------------------------- */
-void print_zoek (char *c,char *cp,char *sp,char *rp,unsigned i)
+void print_zoek (char *beginOfLinePt,char *foundPt,char *searchStr,char *lineStr,unsigned line)
 {
-  int brol;
-  brol=cp-c;
-  cp=rp+brol;
-  strncpy(sp,cp,strlen(zoek_str.c));
-  zoek_y=i;
-  zoek_offset=cp-rp;
-  view_setx(zoek_offset);
+  int i;
+  /* zoek_offset is search_offset in bytes, zoek_offset_utf8 is the search offset in utf8 */
+  unsigned zoek_offset_utf8=0;
+  /* temporary string to the calculate the search offset in utf8 */
+  char *offsetStr=NULL;
 
-  if ((bv.sx+strlen(sp))>bv.cols) { 
+  i=foundPt-beginOfLinePt;
+  foundPt=lineStr+i;
+  strncpy(searchStr,foundPt,strlen(zoek_str.c));
+  zoek_y=line;
+  zoek_offset=foundPt-lineStr;
 
-     bv.x+=bv.sx+strlen(sp)-bv.cols;
-     bv.sx-=bv.sx+strlen(sp)-bv.cols;
+  /*
+   * calculate the offset in utf8 chars
+   */
+
+  offsetStr=xcalloc(zoek_offset+1,sizeof(char));
+  strncpy(offsetStr,beginOfLinePt,zoek_offset);
+  zoek_offset_utf8=utf8_strlen(offsetStr);
+  xfree(offsetStr);
+
+  /* Set the offset */
+  view_setx(zoek_offset_utf8);
+
+  if ((bv.sx+strlen(searchStr))>bv.cols) { 
+
+     bv.x+=bv.sx+strlen(searchStr)-bv.cols;
+     bv.sx-=bv.sx+strlen(searchStr)-bv.cols;
 
   }
 
-  if (((bv.x+bv.cols)>strlen(c))&&(strlen(c)>bv.cols)) {
+  if (((bv.x+bv.cols)>strlen(beginOfLinePt))&&(strlen(beginOfLinePt)>bv.cols)) {
 
-     bv.x=strlen(c)-bv.cols;
+     bv.x=strlen(beginOfLinePt)-bv.cols;
      bv.sx=zoek_offset-bv.x;
   } 
 
@@ -502,11 +518,11 @@ void print_zoek (char *c,char *cp,char *sp,char *rp,unsigned i)
   zoek_offset++;
   wmove (bv.win,bv.sy,bv.sx);
   wbkgdset(bv.win,get_color(txt_view_found,colors));
-  view_addstr(sp);
+  view_addstr(searchStr);
   wbkgdset(bv.win,get_color(txt_view,colors));
   wmove (bv.win,bv.sy,bv.sx);
   wrefresh(bv.win);
-  xfree(rp);
+  xfree(lineStr);
 }
 
 /* -------------------------------------------- */
@@ -519,164 +535,166 @@ void print_zoek (char *c,char *cp,char *sp,char *rp,unsigned i)
 /* -------------------------------------------- */
 void zoek(unsigned long start,int mode) {
 
-   char *cp,*rp;
-   char *c;
-   char *sp;
-   int add,e=0;
+   char *foundPointer;
+   char *lineStr;
+   char *linePointerCase;
+   char *searchPointer;
+   int add;
+   int continueSearch=0;
    int i;
    unsigned l;
    int end;
 
    do {
 
-      l=0;
-      sp=NULL;
-      c=NULL;
+     l=0;
+     searchPointer=NULL;
+     linePointerCase=NULL;
 
-      if (zoek_y!=start) zoek_offset=0;
+     if (zoek_y!=start) zoek_offset=0;
 
-      if (view_par(NULL)->mode) {
+     if (view_par(NULL)->mode) {
 
-          getyx(bv.win,bv.sy,bv.sx);
-          zoek_offset=view_getx();
-      };
+       getyx(bv.win,bv.sy,bv.sx);
+       zoek_offset=view_getx();
 
-      if (txt_m_zoek[1]==txt_spacie) { 
+     };
 
-          end=bv.y_max;
-          add=1;
+     if (txt_m_zoek[1]==txt_spacie) { 
 
-          if ((start==0)&&(view_getx()==1)) e=1; 
+        end=bv.y_max;
+        add=1;
 
-       }
-       else {
+        if ((start==0)&&(view_getx()==1)) continueSearch=1; 
 
-         if ((start==0)&&(view_getx()==1)) e=0; 
+     } else {
 
-         end=-1;
-         add=-1;
+        if ((start==0)&&(view_getx()==1)) continueSearch=0;
 
-       }
+        end=-1;
+        add=-1;
 
-       for (i=start;i!=end;i+=add) {
+     }
 
-          if (i!=start) zoek_offset=0;
+     for (i=start;i!=end;i+=add) {
+
+       if (i!=start) zoek_offset=0;
   
-          if (add==-1) if(i<0) { 
+       if (add==-1) if(i<0) { 
 
-            cp=NULL;
-            i=0;
-            break;
+          foundPointer=NULL;
+          i=0;
+          break;
 
-          }
+       }
    
-          rp=view_getstr(i);
-          c=xrealloc(c,strlen(rp)+1);
-          sp=xrealloc(sp,strlen(zoek_str.c)+1);
-          strcpy(c,rp);
-          strcpy(sp,zoek_str.c);
+       lineStr=view_getstr(i);
+       linePointerCase=xrealloc(linePointerCase,strlen(lineStr)+1);
+       searchPointer=xrealloc(searchPointer,strlen(zoek_str.c)+1);
+       strcpy(linePointerCase,lineStr);
+       strcpy(searchPointer,zoek_str.c);
   
-          if (txt_m_zoek[0]==txt_spacie) {
+       if (txt_m_zoek[0]==txt_spacie) {
 
-            str_toupper(sp);
-            str_toupper(c);
+          str_toupper(searchPointer);
+          str_toupper(linePointerCase);
 
-          };
+       };
 
-          wrefresh(win2);
+       wrefresh(win2);
   
-          if (add==-1) {
+       if (add==-1) {
 
-            char *cz,*cp2=NULL;
-            cp=NULL;
+         char *cz,*cp2=NULL;
+         foundPointer=NULL;
 
-            if(zoek_offset) c[zoek_offset-1]='\0';
+         if(zoek_offset) linePointerCase[zoek_offset-1]='\0';
 
-            cz=c;
+         cz=linePointerCase;
 
-            for (;;) {
+         for (;;) {
 
-              cp2=strstr(cz,sp);
+            cp2=strstr(cz,searchPointer);
 
-              if (cp2!=NULL) { 
+            if (cp2!=NULL) { 
 
-                cz+=strlen(sp);
-                cp=cp2;
+                cz+=strlen(searchPointer);
+                foundPointer=cp2;
 
-              } else break;
+            } else break;
 
-             }; 
-
-            } else {
-
-              cp=strstr(c+zoek_offset+l,sp);
-
-            }
-
-  
-          if (cp!=NULL) break;
-
-            zoek_offset=0;
-            xfree(rp);
-
-        } /* for */
-
-        if (c!=NULL) {   
-
-          if (cp!=NULL) {
-
-            print_zoek(c,cp,sp,rp,i);
-            e=0; 
-
-          } else {
-
-              if (!e) {
-
-                char **verder;
-
-                if (add==-1) verder=txt_verder_zoeken_begin;
-                  else verder=txt_verder_zoeken_einde;
-
-                e=open_ynwin(6,55,&m_jn,verder,win1);
-
-               if (e) {
-
-                  if (add==-1) {
-
-                      bv.x=bv.sx=0;
-                      start=bv.y_max-1;
-                      wmove(bv.win,bv.sy,bv.sx);
-
-                    } else {
-
-                      bv.x=bv.sx=start=0;wmove(bv.win,bv.sy,bv.sx);
-
-                     }
-
-                }
-              }
-              else { 
-
-                 e=0;
-                 open_okwin(6,40,&m_ok,txt_t_nt_gevonden,win1);
-              }  
-          }
+         }; 
 
        } else {
 
-            e=0;
-            mvwprintw(win2,0,0,"   Internal Error!!!!!! Press a key to continue... ");
-            wrefresh(win2);
-            getchar();
+         foundPointer=strstr(linePointerCase+zoek_offset+l,searchPointer);
 
        }
+  
+       if (foundPointer!=NULL) break;
 
-       xfree(c);
-       xfree(sp);
-       touchwin(win1);
-       wrefresh(win1);
+       zoek_offset=0;
+       xfree(lineStr);
 
-   } while (e);
+     } /* for */
+
+     if (linePointerCase!=NULL) {   
+
+        if (foundPointer!=NULL) {
+
+           print_zoek(linePointerCase,foundPointer,searchPointer,lineStr,i);
+           continueSearch=0; 
+
+        } else {
+
+           if (!continueSearch) {
+
+              char **verder;
+
+              if (add==-1) verder=txt_verder_zoeken_begin;
+              else verder=txt_verder_zoeken_einde;
+
+              continueSearch=open_ynwin(6,55,&m_jn,verder,win1);
+
+              if (continueSearch) {
+
+                 if (add==-1) {
+
+                    bv.x=bv.sx=0;
+                    start=bv.y_max-1;
+                    wmove(bv.win,bv.sy,bv.sx);
+
+                 } else {
+
+                     bv.x=bv.sx=start=0;wmove(bv.win,bv.sy,bv.sx);
+
+                 }
+
+              }
+           }
+           else { 
+
+              continueSearch=0;
+              open_okwin(6,40,&m_ok,txt_t_nt_gevonden,win1);
+
+           }  
+        }
+
+     } else {
+
+        continueSearch=0;
+        mvwprintw(win2,0,0,"   Internal Error!!!!!! Press a key to continue... ");
+        wrefresh(win2);
+        getchar();
+
+     }
+
+     xfree(linePointerCase);
+     xfree(searchPointer);
+     touchwin(win1);
+     wrefresh(win1);
+
+   } while (continueSearch);
 }
 
 /* -------------------------------------------- */
@@ -1718,7 +1736,7 @@ int open_filewin_flag=0;
  * anything-else in case of the error or when the user provide the help argument
  */
 
- prgname=basename(argv[0]);    /* set prgname to the real program name */
+prgname=basename(argv[0]);     /* set prgname to the real program name */
 
 if (argn>1) {                  /* we've arguments */
 

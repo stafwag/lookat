@@ -57,5 +57,3 @@ getdelim PARAMS ((char **_lineptr, size_t *_n, int _delimiter, FILE *_stream));
 # endif
 
 #endif /* not GETLINE_H_ */
-
-

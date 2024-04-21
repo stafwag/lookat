@@ -1,7 +1,7 @@
 /*
  *  win.c
  *
- *  Copyright (C) 1997, 2000, 2001, 2006, 2007, 2019  Staf Wagemakers Belgie/Belgium
+ *  Copyright (C) 1997, 2000, 2001, 2006, 2007, 2019, 2024 Staf Wagemakers Belgie/Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -322,7 +322,7 @@ input_show_string(&str);
  * bestandsnaam
  * NULL -> fout
  */
-char * open_filewin(WINDOW *win2,char **txt,chtype *kleur,WINDOW *win1,int (*ends)())
+char * open_filewin(WINDOW *win2,char **txt,chtype *kleur,WINDOW *win1,int (*ends)(WINDOW *))
 {
 MENU dm,bm,fm;			/* menus 		*/
 WINDOW *w;			/* my windows 		*/

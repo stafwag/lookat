@@ -1176,6 +1176,8 @@ void init_colors (struct color *colors) {
   ansi_colors[6]=get_color(txt_view_blink,colors);
   ansi_colors[7]=get_color(txt_view_reverse,colors);
 
+  ansi_colors[32]=get_color(txt_view_bold,colors);
+
   bv.ansi_colors=ansi_colors;
 
   /* Initialize menu colors */
@@ -1988,6 +1990,11 @@ if (!isatty(STDIN_FILENO)) {
           wexit(0);
 
         }
+      } else {
+          /*
+           * open the file selection window if the file argument is a directory
+           */
+          open_filewin_flag=1;
       }
   } else {
 
@@ -1996,7 +2003,14 @@ if (!isatty(STDIN_FILENO)) {
      * and we don't read from stdin
      */
     open_filewin_flag=1;
+
   }
+}
+
+if (verboseflag) {
+
+   fprintf(stderr,"\nopen_filewin_flag = \"%d\" \n",open_filewin_flag);
+
 }
 
 if (!isatty(STDOUT_FILENO)) wexit(1);

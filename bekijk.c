@@ -1965,37 +1965,52 @@ if (!isatty(STDIN_FILENO)) {
 
   if (arg_filename!=NULL) { 
 
+      struct stat file_stats;
+
+      if (stat(arg_filename, &file_stats) == -1) {
+        fprintf(stderr,"Sorry, stat(%s) failed\n",arg_filename); 
+        wexit(1);
+      }
+
       /* check if arg_filename is a directory */
-      if (chdir(arg_filename)==-1) {
+      switch(file_stats.st_mode & S_IFMT) {
 
-        bv.filename=(char *)xmalloc(strlen(arg_filename)+1);
-        strcpy(bv.filename,arg_filename);
-
-        if (isatty(STDOUT_FILENO)) {
-
-          if (bekijk_view_load()) {
-            wexit(1);
-          }
-
-        }
-        else {
-
-          FILE *fp;
-          if ((fp=fopen(bv.filename,"r"))==NULL) {
-            fprintf(stderr,"%s %s %s",txt_f_open1,bv.filename,txt_f_open2); 
-            fclose(stdout);
-            wexit(1);
-          }
-          cp2stdout(fp);
-          wexit(0);
-
-        }
-      } else {
+        case S_IFDIR:
           /*
            * open the file selection window if the file argument is a directory
            */
           open_filewin_flag=1;
-      }
+          break;
+
+        default:
+          bv.filename=(char *)xmalloc(strlen(arg_filename)+1);
+          strcpy(bv.filename,arg_filename);
+
+          if (isatty(STDOUT_FILENO)) {
+
+            if (bekijk_view_load()) {
+              wexit(1);
+            }
+
+          }
+          else {
+
+            FILE *fp;
+
+            if ((fp=fopen(bv.filename,"r"))==NULL) {
+
+              fprintf(stderr,"%s %s %s",txt_f_open1,bv.filename,txt_f_open2); 
+              fclose(stdout);
+              wexit(1);
+
+            }
+
+            cp2stdout(fp);
+            wexit(0);
+
+          }
+
+      } /* switch */
   } else {
 
     /*

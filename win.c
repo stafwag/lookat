@@ -1,7 +1,7 @@
 /*
  *  win.c
  *
- *  Copyright (C) 1997, 2000, 2001, 2006, 2007, 2019, 2024 Staf Wagemakers Belgie/Belgium
+ *  Copyright (C) 1997, 2000, 2001, 2006, 2007, 2019, 2024, 2025 Staf Wagemakers Belgie/Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -78,7 +78,7 @@ mvwaddch(w,yp+y,xp+x,ACS_LRCORNER);
 WINDOW * open_win(int yy,int xx,int y,int x)
 {
 WINDOW *w;
-if (!(w=newwin(yy,xx,y,x))) { 
+if (!(w=newwin(yy,xx,y,x))) {
    endwin();
    fprintf(stderr,"Failed to create ncurses windows");
    exit(1);
@@ -122,12 +122,12 @@ if (m != NULL ) wbkgdset(w,m->color1);
 
 werase(w);
 i=0;
-while (txt[i]!=NULL) mvwaddstr(w,2+i,3,txt[i++]); 
+while (txt[i]!=NULL) mvwaddstr(w,2+i,3,txt[i++]);
 box(w,0,0);
 touchwin(w);
 wrefresh(w);
 
-if (m!=NULL) { 
+if (m!=NULL) {
   pl_ok[0]=yy-2;
   pl_ok[1]=xx/2-strlen(m->txt[0])/2;
   m->w=w;
@@ -192,7 +192,7 @@ do {
  do i=menu_key(m); while(i<3);
  if (++s>1) s=0;
  } while (i==4);
-wrefresh(w); 
+wrefresh(w);
 delwin(w);
 if (win1!=NULL) touchwin(win1);
 if (i==6)  return(0);
@@ -233,7 +233,7 @@ m->key=key_m;
 wbkgdset(w,m->color1);
 werase(w);
 i=0;
-while (txt[i]!=NULL) mvwaddstr(w,2+i,3,txt[i++]); 
+while (txt[i]!=NULL) mvwaddstr(w,2+i,3,txt[i++]);
 getyx(w,yp,xp);
 box(w,0,0);
 do {
@@ -242,7 +242,7 @@ do {
    for (t=0;t<strlen(animtxt);t++) {
        for (xp=getmaxx(w)-4;xp>(2+t);xp--) {
 	   mvwaddch(w,yp,xp,animtxt[t]);
-           mvwaddch(w,yp,xp+1,' '); 
+           mvwaddch(w,yp,xp+1,' ');
            wrefresh(w);
 	 {
 	/* Initialize the file descriptor set. */
@@ -258,7 +258,7 @@ do {
        timeout.tv_sec=3;
        select (FD_SETSIZE,&set,NULL,NULL,&timeout);
     if (!mode) break;
-    for (xp=0;xp<strlen(animtxt);xp++) mvwaddch(w,yp,xp+3,' '); 
+    for (xp=0;xp<strlen(animtxt);xp++) mvwaddch(w,yp,xp+3,' ');
     wrefresh(w);
     i=menu_key(m);
 } while(!i);
@@ -278,7 +278,7 @@ touchwin(win1);
 leaveok(m->w,TRUE);
 curs_set(0);
 keypad(m->w,TRUE);
-nodelay(m->w,FALSE); 
+nodelay(m->w,FALSE);
 wbkgdset (m->w,m->color1);
 werase(m->w);
 box(m->w,0,0);
@@ -361,7 +361,7 @@ str.mode=0;
 str.insert=TRUE;
 str.ox=str.count=0;
 
-if (win2!=NULL) { 
+if (win2!=NULL) {
 	werase(win2);
         mvwaddstr(win2,0,0,txt[0]);
         wrefresh(win2);
@@ -397,7 +397,7 @@ str.w=w;
 leaveok(w,TRUE);
 curs_set(0);
 keypad(w,TRUE);
-nodelay(w,FALSE); 
+nodelay(w,FALSE);
 wbkgdset(w,kleur[0]);
 sub=0;
 
@@ -421,10 +421,10 @@ do {
   do {
   
    int size=100;
-   txt_wd=(char *) xrealloc(txt_wd,size); 
+   txt_wd=(char *) xrealloc(txt_wd,size);
    fout=0;
    
-   if (getcwd(txt_wd,size)==NULL) { 
+   if (getcwd(txt_wd,size)==NULL) {
       fout=1;
       
       if ((errno=EACCES)) {
@@ -438,7 +438,7 @@ do {
 
    size*=2;
 
-  } while (fout); 
+  } while (fout);
 
   bu=du=bm.sel=dm.sel=0;
   txt_path=xrealloc(txt_path,strlen(txt_path)+strlen(txt_slash)+1);
@@ -462,10 +462,10 @@ do {
   wbkgdset(w,kleur[0]);
   werase(w);
   wattrset(w,kleur[0]);
-  win_box(w,14,32,5,2); 
+  win_box(w,14,32,5,2);
   win_box(w,14,32,5,35);
-  box(w,0,0); 
-  wattroff(w,kleur[0]); 
+  box(w,0,0);
+  wattroff(w,kleur[0]);
   mvwaddstr(w,2,1,txt[3]);
   mvwaddstr(w,3,1,txt[4]);
   wbkgdset(w,kleur[3]);
@@ -473,7 +473,7 @@ do {
   wmove(w,3,22);
   whline(w,' ',45);
   wattroff(w,kleur[3]);
-  wbkgdset(w,kleur[0]); 
+  wbkgdset(w,kleur[0]);
   mvwaddnstr(w,2,23,txt_wd,44);
   mvwaddstr(w,0,2,txt[5]);
   mvwaddstr(w,5,4,txt[6]);
@@ -512,7 +512,7 @@ do {
 
                 if (data->files) {
 	             str.c=(char *) xmalloc(strlen(data->file[bm.sel])+1);
-                     strcpy(str.c,data->file[bm.sel]); 
+                     strcpy(str.c,data->file[bm.sel]);
 	        }
 	        else str.c=NULL;
 	    
@@ -526,8 +526,8 @@ do {
 		    		   int l=0;
 		    		   i=0;
 
-		    		   while(txt_f[i]!=NULL) { 
-                         	      if (strlen(txt_f[i])>l) 
+		    		   while(txt_f[i]!=NULL) {
+                         	      if (strlen(txt_f[i])>l)
 					     l=strlen(txt_f[i]);
 			 		  i++;
 			 	   };
@@ -536,7 +536,7 @@ do {
 		    		   i=2;
 		    		   sub=1;
 		                 }
-		    	         else { 
+		    	         else {
                       		    if (S_ISDIR(stat_buf.st_mode)) sub=1;
 			 	       else sub=0;
 	 	      		    i=0;
@@ -554,7 +554,7 @@ do {
     if ((i==1)||(i==3)) {
 	if(ends==NULL) break;
 	if(ends(w)) break;
-    } 
+    }
  
     if (i==2) ++sub;
    
@@ -562,7 +562,7 @@ do {
 
   if (i) break;
 
-  if (sub) { 
+  if (sub) {
     if (form_input) s=str.c;
        else s=data->dir[dm.sel];
     txt_path=(char *) xrealloc(txt_path,strlen(s)+1);
@@ -585,7 +585,7 @@ xfree(str.c);
 
 if (data!=NULL) get_dir_free(data);
 
-xfree(txt_wd); 
+xfree(txt_wd);
 delwin(w);
 
 if (win1!=NULL) {
@@ -656,7 +656,7 @@ do {
   curs_set(0);
   if (!brol)   return(0);
   if (brol!=2) return(1);
-  do { 
+  do {
     brol=menu_key(m);
     if ((brol==2)&&(m->sel==0)) break;
    } while(brol<3);
@@ -667,7 +667,7 @@ if (!m->sel) return(0);
 return (1);
 }
 
-/* 
+/*
  * freopen wrapper with error handling.
  * An error window will be displayed if freopen fails
  */
@@ -687,7 +687,7 @@ int win_freopen(const char *pathname, const char *mode, FILE *stream, MENU *m, W
      char * txt_errno=xmalloc(100);
      char * txt_stream;
 
-     if (stream == stdin) { 
+     if (stream == stdin) {
          txt_stream=txt_stdin;
      } else if ( stream == stdout) {
         txt_stream=txt_stdout;

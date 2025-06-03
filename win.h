@@ -1,7 +1,7 @@
 /*
  *  win.h
  *
- *  Copyright (C) 1997, 1998, 2001, 2006, 2015, 2019  Staf Wagemakers Belgie/Belgium
+ *  Copyright (C) 1997, 1998, 2001, 2006, 2015, 2019, 2025  Staf Wagemakers Belgie/Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -59,7 +59,7 @@ WINDOW * open_cwin(int yy,int xx);
 void open_okwin(int yy,int xx,MENU *m,char **txt,WINDOW *win1);
 void open_animwin(int yy,int xx,MENU *m,char **txt,char *animtxt,WINDOW *win1,char mode);
 void m_open(MENU *m,WINDOW *win1);
-char *open_filewin(WINDOW *win2,char **txt,chtype *kleur,WINDOW *win1,int (*ends)());
+char *open_filewin(WINDOW *win2,char **txt,chtype *kleur,WINDOW *win1,int (*ends)(WINDOW *));
 int open_inputwin (int yy,int xx,MENU *m,chtype kleur,INPUT_STRING *read_str,char **txt,char mode,WINDOW *win1);
 void wexit(int i);
 int open_ynwin (int yy,int xx,MENU *m,char **txt,WINDOW *win1);

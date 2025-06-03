@@ -1,7 +1,7 @@
 /*
  * bekijk.c
  *
- * Copyright (C) 1997, 1998, 2000, 2001, 2002, 2003, 2006, 2007, 2015, 2020, 2024  Staf Wagemakers Belgium
+ * Copyright (C) 1997, 1998, 2000, 2001, 2002, 2003, 2006, 2007, 2015, 2020, 2024, 2025  Staf Wagemakers Belgium
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,6 +26,7 @@
 #include"ncurses_h.h"
 #include <signal.h>
 #include <errno.h>
+#include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <libgen.h>
@@ -495,6 +496,7 @@ void print_zoek (char *beginOfLinePt,char *foundPt,char *searchStr,char *lineStr
   offsetStr=xcalloc(zoek_offset+1,sizeof(char));
   strncpy(offsetStr,beginOfLinePt,zoek_offset);
   zoek_offset_utf8=ansi_utf8_strlen(offsetStr);
+
   xfree(offsetStr);
 
   /* Set the offset */
@@ -539,11 +541,14 @@ void zoek(unsigned long start,int mode) {
    char *lineStr;
    char *linePointerCase;
    char *searchPointer;
+   
    int add;
    int continueSearch=0;
    int i;
    unsigned l;
    int end;
+
+   int ignoreCaseFlag=0;
 
    do {
 
@@ -596,8 +601,7 @@ void zoek(unsigned long start,int mode) {
   
        if (txt_m_zoek[0]==txt_spacie) {
 
-          str_toupper(searchPointer);
-          str_toupper(linePointerCase);
+         ignoreCaseFlag=1;
 
        };
 
@@ -614,7 +618,8 @@ void zoek(unsigned long start,int mode) {
 
          for (;;) {
 
-            cp2=strstr(cz,searchPointer);
+           if (ignoreCaseFlag) cp2=strcasestr(cz,searchPointer);
+            else cp2=strstr(cz,searchPointer);
 
             if (cp2!=NULL) { 
 
@@ -627,7 +632,8 @@ void zoek(unsigned long start,int mode) {
 
        } else {
 
-         foundPointer=strstr(linePointerCase+zoek_offset+l,searchPointer);
+           if (ignoreCaseFlag) foundPointer=strcasestr(linePointerCase+zoek_offset+l,searchPointer);
+            else foundPointer=strstr(linePointerCase+zoek_offset+l,searchPointer);
 
        }
   
@@ -1968,8 +1974,11 @@ if (!isatty(STDIN_FILENO)) {
       struct stat file_stats;
 
       if (stat(arg_filename, &file_stats) == -1) {
-        fprintf(stderr,"Sorry, stat(%s) failed\n",arg_filename); 
-        wexit(1);
+
+        endwin();
+        fprintf(stderr,"%s %s stat(): %s %s",txt_f_open1,arg_filename,strerror(errno),txt_f_open2); 
+        exit(1);
+
       }
 
       /* check if arg_filename is a directory */
@@ -1999,9 +2008,10 @@ if (!isatty(STDIN_FILENO)) {
 
             if ((fp=fopen(bv.filename,"r"))==NULL) {
 
-              fprintf(stderr,"%s %s %s",txt_f_open1,bv.filename,txt_f_open2); 
+              endwin();
+              fprintf(stderr,"%s %s: %s %s",txt_f_open1,bv.filename,strerror(errno),txt_f_open2); 
               fclose(stdout);
-              wexit(1);
+              exit(1);
 
             }
 

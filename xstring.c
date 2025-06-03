@@ -1,7 +1,7 @@
 /*
  * xstring.c  	- Tired of writing these things over and over again -
  *
- * Copyright (C) 2001, 2015, 2020  Staf Wagemakers Belgie/Belgium
+ * Copyright (C) 2001, 2015, 2020, 2025 Staf Wagemakers Belgie/Belgium
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -731,7 +731,7 @@ unsigned ansi_utf8_strlen(char *str) {
               pointer++;
 
               if(*c=='m') {
-
+                pointer++;
                 break;
 
               }
@@ -741,9 +741,10 @@ unsigned ansi_utf8_strlen(char *str) {
           }
           break;
 
-        default: 
+        default:
 
-              ++u;
+          ++u;
+          break;
       } /* switch */
 
       if(pointer>size) return u;

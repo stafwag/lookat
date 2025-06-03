@@ -1,7 +1,7 @@
 /*
  *  view.c
  *
- *  Copyright (C) 1997, 1998, 2000, 2003, 2004, 2006, 2007, 2019, 2020, 2022, 2024
+ *  Copyright (C) 1997, 1998, 2000, 2003, 2004, 2006, 2007, 2019, 2020, 2022, 2024, 2025
  *  Staf Wagemakers Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -30,7 +30,7 @@ if (par!=NULL) p=par;
 
 int view_set_raw(int raw) {
 
-  p->raw=raw;   
+  p->raw=raw;
   return(p->raw);
 
 }
@@ -48,7 +48,7 @@ void view_recal_xmax() {
 
   p->x_max=p->width;
 
-  if (p->x_max>p->cols) p->x_max-=p->cols; 
+  if (p->x_max>p->cols) p->x_max-=p->cols;
     else p->x_max=0;
 
 }
@@ -118,7 +118,7 @@ void view_rm_view_exec(int n) {
    * move everythin in view_exec array up.
    */
   i=n+1;
-  while(p->view_exec[i]!=NULL) { 
+  while(p->view_exec[i]!=NULL) {
     p->view_exec[i-1]=p->view_exec[i];
     i++;
   }
@@ -288,7 +288,7 @@ int view_load () {
   /* ----------------- vari voor het starten van gzip ---------------------- */
   int  is_gz=0;
   char *gzip=NULL;
-  FILE *gz_fp; 
+  FILE *gz_fp;
   /* ----------------------------------------------------------------------- */
   ccc=p->view_exec;
 
@@ -298,13 +298,13 @@ int view_load () {
 
       while(*ccc) {
 
-        if (strlen(p->filename)>strlen(ccc[0][0])) { 
+        if (strlen(p->filename)>strlen(ccc[0][0])) {
           s=p->filename+strlen(p->filename)-strlen(ccc[0][0]);
         } else {
           s=p->filename;
         }
 
-        if (!strcmp(s,ccc[0][0])) {  
+        if (!strcmp(s,ccc[0][0])) {
 
           gzip=(char *)xmalloc(strlen(ccc[0][1])+strlen(p->filename)+2);
           strcpy(gzip,ccc[0][1]);
@@ -347,7 +347,7 @@ int view_load () {
       if (gz_fp==NULL) pclose(fp);
       else  is_gz=1;
 
-    } 
+    }
       
     if (win_freopen("/dev/tty","w",stdout,p->m_ok,p->win)) return(1);
 
@@ -365,7 +365,7 @@ int view_load () {
     if ((fp=fopen(p->filename,"r"))==NULL) {
 
       if (p->cmd==1) {
-        fprintf(stderr,"%s %s %s",p->txt_f_open1,p->filename,p->txt_f_open2); 
+        fprintf(stderr,"%s %s: %s %s",p->txt_f_open1,p->filename,strerror(errno),p->txt_f_open2);
         if (COLS) endwin();
         exit(1);
       } else {
@@ -432,7 +432,7 @@ int view_load () {
 
         if (p->x>1) {
 
-          if (*(p->file[p->y_max]+p->x-2)==13) { 
+          if (*(p->file[p->y_max]+p->x-2)==13) {
 
             *(p->file[p->y_max]+p->x-2)=10;
             *(p->file[p->y_max]+p->x-1)=0;
@@ -457,11 +457,11 @@ int view_load () {
               strcpy(p->file[p->y_max],s);
               xfree(s);
 
-          } 
+          }
 
-        } 
+        }
 
-        if ( (ansi_utf8_strlen(p->file[p->y_max])>p->width) && (p->x!=-1) ) p->width=ansi_utf8_strlen(p->file[p->y_max]); 
+        if ( (ansi_utf8_strlen(p->file[p->y_max])>p->width) && (p->x!=-1) ) p->width=ansi_utf8_strlen(p->file[p->y_max]);
         ++p->y_max;
 
       }
@@ -485,7 +485,6 @@ int view_load () {
  * int yp          = y-postie
  * unsigned long r = regel
  */
-
 void view_addline (int yp,unsigned long r) {
 
   char *str_start;
@@ -508,7 +507,7 @@ void view_addline (int yp,unsigned long r) {
 
         if (p->x) {
 
-            for (t=0;t<=p->x-1;t++) { 
+            for (t=0;t<=p->x-1;t++) {
 
               c=c+utf8_strsize(c);
               if(c>str_end) return;
@@ -516,7 +515,7 @@ void view_addline (int yp,unsigned long r) {
               if (t>=lx) return;
 
             }
-        } 
+        }
 
       wmove(p->win,yp,0);
       view_addstr(c);
@@ -526,14 +525,14 @@ void view_addline (int yp,unsigned long r) {
 }
 
 /*
- * print string 
+ * print string
  */
-void view_addstr(char *str) { 
+void view_addstr(char *str) {
 
   unsigned lx=0;
   unsigned size=strlen(str);
-  unsigned pointer=0; 
-  unsigned prevPointer=0; 
+  unsigned pointer=0;
+  unsigned prevPointer=0;
   char *c;
   char *utf8Char=NULL;
   char *prevChar=NULL;
@@ -546,7 +545,7 @@ void view_addstr(char *str) {
 
   while (*c) {
 
-      if ((lx>p->cols-1)&&*c!=0x08) break; 
+      if ((lx>p->cols-1)&&*c!=0x08) break;
 
       if (p->raw) {
 
@@ -569,7 +568,7 @@ void view_addstr(char *str) {
 
             if (nextChar != NULL) {
 
-              if (strcmp(prevChar,nextChar) == 0 ) { 
+              if (strcmp(prevChar,nextChar) == 0 ) {
 
                 waddch(p->win,*c);
                 /* bold */
@@ -663,7 +662,7 @@ void view_addstr(char *str) {
 
 }
 
-/* 
+/*
  * set the y position
  */
 void view_sety(unsigned long y) {
@@ -680,7 +679,7 @@ void view_sety(unsigned long y) {
    p->y=p->y_max-p->lines;
    p->sy=y-p->y;
 
-  } else  {  
+  } else  {
     
    p->y=(y/p->lines)*p->lines;
    p->sy=y%p->lines;
@@ -689,7 +688,7 @@ void view_sety(unsigned long y) {
 }
 
 
-/* 
+/*
  * set the x position
  */
 void view_setx(long x) {
@@ -732,7 +731,7 @@ void view_refresh() {
   for (i=0;i<p->lines;i++) view_addline(i,p->y++);
   wrefresh(p->win);
 
-  if (p->mode) { 
+  if (p->mode) {
     leaveok(p->win,FALSE);
     curs_set(1);
     view_set_cursor();
@@ -799,15 +798,15 @@ if (!p->mode) {
        }
       view_set_cursor();
       }
-}   
-/* ---------------------------------------------------- */ 
+}
+/* ---------------------------------------------------- */
 /* Vorige pagina printen ...        */
-/* ---------------------------------------------------- */ 
+/* ---------------------------------------------------- */
 void view_previous()
 {
 if (p->y>=2*(p->lines)) p->y-=2*(p->lines);
-   else p->y=0; 
-view_refresh(); 
+   else p->y=0;
+view_refresh();
 }
 
 /*
@@ -843,9 +842,9 @@ void view_right() {
    }
 }
 
-/* ---------------------------------------------------- */ 
+/* ---------------------------------------------------- */
 /* Scherm naar links ...        */
-/* ---------------------------------------------------- */ 
+/* ---------------------------------------------------- */
 void view_left()
 {
 if (!p->mode) {
@@ -870,5 +869,5 @@ if (!p->mode) {
     else p->sx=0;
       }
       else view_set_cursor();
-      } 
+      }
 }

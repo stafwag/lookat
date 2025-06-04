@@ -509,7 +509,7 @@ void view_addline (int yp,unsigned long r) {
 
             for (t=0;t<=p->x-1;t++) {
 
-              c=c+utf8_strsize(c);
+              c=c+ansi_strsize(c);
               if(c>str_end) return;
 
               if (t>=lx) return;
@@ -653,7 +653,7 @@ void view_addstr(char *str) {
       } /* switch (*c) */
 
       prevPointer=pointer;
-      pointer=pointer+utf8_strsize(c);
+      pointer=pointer+ansi_strsize(c);
       if(pointer>size) return;
       c=str+pointer;
       lx++;
@@ -722,19 +722,24 @@ void view_refresh() {
     if (p->y>p->y_max-1) p->y=p->y_max-1;
 
   } else {
+
       if (p->y_max>p->lines)
       if (p->y+p->sy+p->lines>p->y_max-1) p->y=p->y_max-p->lines;
+
   }
   
   werase(p->win);
 
   for (i=0;i<p->lines;i++) view_addline(i,p->y++);
+
   wrefresh(p->win);
 
   if (p->mode) {
+
     leaveok(p->win,FALSE);
     curs_set(1);
     view_set_cursor();
+
   }
 
 }
@@ -755,13 +760,16 @@ if (!p->mode) {
   }
   else {
       if (p->y+p->sy-p->lines<p->y_max-1) {
+
          if (++p->sy>=p->lines) {
-      p->sy=p->lines-1;
+
+            p->sy=p->lines-1;
             scrollok(p->win,TRUE);
             wscrl(p->win,1);
             scrollok(p->win,FALSE);
             view_addline(p->lines-1,p->y++);
-      wrefresh(p->win);
+            wrefresh(p->win);
+
             }
          }
       view_set_cursor();
@@ -845,29 +853,41 @@ void view_right() {
 /* ---------------------------------------------------- */
 /* Scherm naar links ...        */
 /* ---------------------------------------------------- */
-void view_left()
-{
+void view_left() {
+
 if (!p->mode) {
-   if (p->x>0) {
-      --p->x;
-      p->y-=p->lines;
-      view_refresh();
-      }
-    }
-  else {
-      if(--p->sx<0) {
-          if ((p->x+p->sx)>=0) {
+
+  if (p->x>0) {
+
+    --p->x;
+    p->y-=p->lines;
+    view_refresh();
+
+  }
+} else {
+
+  if (--p->sx<0) {
+
+    if ((p->x+p->sx)>=0) {
+
        p->sx=6;
-             p->y-=p->lines;
-             p->x-=7;
+       p->y-=p->lines;
+       p->x-=7;
+
        if (p->x<0) {
-          p->sx+=p->x;
-    p->x=0;
-    }
-             view_refresh();
+
+         p->sx+=p->x;
+         p->x=0;
+
+       }
+
+      view_refresh();
+
     }
     else p->sx=0;
-      }
-      else view_set_cursor();
-      }
+
+    } else view_set_cursor();
+
+  }
+
 }

@@ -21,8 +21,8 @@
 
 #include "xstring.h"
 /*
- * replaces the first ch in c with a '\0', if ch == '\0' 
- * the first space is replaced                                  
+ * replaces the first ch in c with a '\0', if ch == '\0'
+ * the first space is replaced
  */
 void cut_after_char (char *c,char ch)
 {
@@ -30,13 +30,13 @@ if (c==NULL) return;
 if(strlen(c)==0) return;
 for(;*c!='\0';c++) {
    if (ch=='\0') {
-      if (isspace(*c)) { 
+      if (isspace(*c)) {
          *c='\0';
          break;
 	 }
       }
       else {
-         if (*c==ch) { 
+         if (*c==ch) {
             *c='\0';
 	    break;
 	 }
@@ -49,7 +49,7 @@ for(;*c!='\0';c++) {
  * replaces the first quote ('\"') with a '\0'
  *
  */
-void cut_after_quote (char *c) 
+void cut_after_quote (char *c)
 {
 char *cp=c;
 
@@ -57,7 +57,7 @@ if (c==NULL) return;
 
 for(;*c!='\0';c++) {
    if(*c=='\"') {
-      if(c==cp) 
+      if(c==cp)
 	{
 	   *c='\0';
 	   break;
@@ -79,32 +79,32 @@ int get_quoted_item_size (char *c)
 {
 char *cc=c;
 for(;*c!='\0';c++) {
-  if (*c=='\"') 
+  if (*c=='\"')
      {
 	if(c==cc) break;
 	if(*(c-1)!='\\') break;
-     } 
+     }
 };
 return(c-cc);
 }
    
    
 /*
- * removes everything after a space           
+ * removes everything after a space
  */
 void cut_space (char *c)
 {
 cut_after_char(c,'\0');
 }
 /*
- * removes everything after a #                
+ * removes everything after a #
  */
 void cut_rem (char *c)
 {
 cut_after_char(c,'#');
 }
 /*
- * move to the next item                       
+ * move to the next item
  */
 char * mv_2_next (char *c)
 {
@@ -147,7 +147,7 @@ free(cc);
 }
 
 /*
- * replaces a needle with a new string head & tail are added to needle 
+ * replaces a needle with a new string head & tail are added to needle
  */
 char * replace_headtail_needle(char *txt, char *needle1, char *replace,char *head,char *tail)
 {
@@ -160,7 +160,7 @@ char * replace_headtail_needle(char *txt, char *needle1, char *replace,char *hea
    ret=(char *) xmalloc(sizeof(char));
    ret[0]='\0';                             /* start with a empty string */
    while(1) {
-      s=strstr(c,needle);    
+      s=strstr(c,needle);
       if (s==NULL) {
 	 ret=(char *) xrealloc(ret,strlen(ret)+strlen(c)+1);
 	 strcat(ret,c);
@@ -245,10 +245,10 @@ char * real_cut_between(char *txt,char *head, char *tail) {
 /*
  * delete all animals with head and tail.
  */
-char * cut_between(char *txt,char *head, char *tail) 
+char * cut_between(char *txt,char *head, char *tail)
 {
    char *txt2;
-   txt2=xmalloc(strlen(txt)+1);          
+   txt2=xmalloc(strlen(txt)+1);
    strcpy(txt2,txt);                    /* clone txt, the clone will die */
    return(real_cut_between(txt2,head,tail));
 }
@@ -316,7 +316,7 @@ char * strcasestr(char *haystack, char *needle) {
 void rmchar(char *str,char rmc) {
    char *c,*cc;
 
-   for( c=str;*c!='\0';c++) {  
+   for( c=str;*c!='\0';c++) {
       while(*c==rmc) {
 	 for(cc=c;*cc!='\0';cc++) *cc=cc[1];
       }
@@ -341,7 +341,7 @@ void rmpos (char *c,unsigned i)
 /*
  * removes all back slashes from a string
  */
-void stripslahes (char *c) 
+void stripslahes (char *c)
 {
 for(;*c!='\0';c++) {
    if(*c=='\\') {
@@ -378,9 +378,9 @@ int is_var_yes(char *var)
     char *no[]={"no","off","0",NULL};
     char **ccp;
     if(var==NULL) return(-1);
-    for(ccp=yes;*ccp!=NULL;ccp++) 
+    for(ccp=yes;*ccp!=NULL;ccp++)
        if(!strcasecmp(var,*ccp)) return(1);
-    for(ccp=no;*ccp!=NULL;ccp++) 
+    for(ccp=no;*ccp!=NULL;ccp++)
        if(!strcasecmp(var,*ccp)) return(0);
     return(-1);
 }
@@ -429,8 +429,8 @@ int copy_string_array_pointers (char **dest, char **src) {
 
 	ccp2=dest;
 	
-	for(ccp=src;*ccp!=NULL;ccp++) { 
-		*ccp2++=*ccp; 
+	for(ccp=src;*ccp!=NULL;ccp++) {
+		*ccp2++=*ccp;
 	}
 
 	return(0);
@@ -475,7 +475,7 @@ char *** add_2_string_pair (char ***str_array,char *str1, char *str2) {
 
 	}
 
-	else { 
+	else {
 
 		ret=(char ***) xcalloc(2,sizeof(char **));
 		ret[0] = xcalloc(2,sizeof(char *));
@@ -677,7 +677,7 @@ unsigned utf8_strlen(char *str) {
 
   unsigned u=0;
   unsigned size=strlen(str);
-  unsigned pointer=0; 
+  unsigned pointer=0;
   char *c;
   c=str;
 
@@ -706,7 +706,7 @@ unsigned ansi_utf8_strlen(char *str) {
 
   unsigned u=0;
   unsigned size=strlen(str);
-  unsigned pointer=0; 
+  unsigned pointer=0;
   char *c;
   c=str;
 
@@ -723,20 +723,23 @@ unsigned ansi_utf8_strlen(char *str) {
 
         case '\033':
 
-          c++;
+          if(*(++c)) {
 
-          if (*c == '[' ) {
+            if (*c == '[' ) {
 
-            while(*c++) {
-              pointer++;
+              while(*c++) {
 
-              if(*c=='m') {
                 pointer++;
-                break;
 
-              }
+                if(*c=='m') {
+
+                  pointer++;
+                  break;
+                }
              
-            } 
+              }
+
+            }
 
           }
           break;
@@ -745,6 +748,7 @@ unsigned ansi_utf8_strlen(char *str) {
 
           ++u;
           break;
+
       } /* switch */
 
       if(pointer>size) return u;
@@ -776,7 +780,7 @@ char * utf8_firstchar(char *c) {
 }
 
 /*
- * calcuates the byte size for utf8 string
+ * calcuates the byte size for utf8 char string
  */
 unsigned utf8_strsize(char *c) {
 
@@ -799,6 +803,41 @@ unsigned utf8_strsize(char *c) {
       number_of_chars=1;
       break;
   }
+
+  return(number_of_chars);
+
+}
+
+/*
+ * calcuates the byte size for ansi utf8 char string
+ */
+unsigned ansi_strsize(char *start) {
+
+  int number_of_chars=0;
+  char *c=start;
+
+  if(*c++ == '\033') {
+    
+    if (*c++ == '[' ) {
+
+      while(*c++) {
+
+        if(*c=='m') {
+
+          c++;
+          break;
+
+        }
+             
+      }
+
+    }
+
+    number_of_chars=c-start;
+
+  } else c=start;
+
+  number_of_chars+=utf8_strsize(c);
 
   return(number_of_chars);
 

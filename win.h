@@ -1,7 +1,7 @@
 /*
  *  win.h
  *
- *  Copyright (C) 1997, 1998, 2001, 2006, 2015, 2019, 2025  Staf Wagemakers Belgie/Belgium
+ *  Copyright (C) 1997, 1998, 2001, 2006, 2015, 2019  Staf Wagemakers Belgie/Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -65,5 +65,3 @@ void wexit(int i);
 int open_ynwin (int yy,int xx,MENU *m,char **txt,WINDOW *win1);
 int win_freopen(const char *pathname, const char *mode, FILE *stream, MENU *m, WINDOW *win1);
 #endif
-
-

@@ -288,7 +288,7 @@ int view_load () {
   /* ----------------- vari voor het starten van gzip ---------------------- */
   int  is_gz=0;
   char *gzip=NULL;
-  FILE *gz_fp;
+  FILE *popen(),*gz_fp;
   /* ----------------------------------------------------------------------- */
   ccc=p->view_exec;
 
@@ -541,7 +541,7 @@ void view_addstr(char *str) {
   c=str;
 
   /* always start with the normal color */
-  /* wbkgdset(p->win,p->ansi_colors[0]); */
+  wbkgdset(p->win,p->ansi_colors[0]);
 
   while (*c) {
 

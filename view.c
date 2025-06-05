@@ -554,25 +554,38 @@ void view_addstr(char *str) {
 
       } else {
 
-      switch(*c) {
+        switch(*c) {
 
-        case 0x8:
-          /* backspace handeling */
-          --lx;
+          case 0x8:
+            /* backspace handeling */
+            --lx;
 
-          prevChar=utf8_firstchar(str+prevPointer);
-          if ( (c+1) > (str+size) ) nextChar=NULL;
-          else nextChar=utf8_firstchar(c+1);
+            prevChar=utf8_firstchar(str+prevPointer);
+            if ( (c+1) > (str+size) ) nextChar=NULL;
+            else nextChar=utf8_firstchar(c+1);
 
-          if (prevChar != NULL ) {
+            if (prevChar != NULL ) {
 
-            if (nextChar != NULL) {
+              if (nextChar != NULL) {
 
-              if (strcmp(prevChar,nextChar) == 0 ) {
+                if (strcmp(prevChar,nextChar) == 0 ) {
+
+                  waddch(p->win,*c);
+                  /* bold */
+                  wbkgdset(p->win,p->ansi_colors[1]);
+                  waddstr(p->win,nextChar);
+                  pointer+=strlen(nextChar);
+                  wbkgdset(p->win,p->ansi_colors[0]);
+
+                }
+
+              }
+
+              if (strcmp(prevChar,"_") == 0 ) {
 
                 waddch(p->win,*c);
-                /* bold */
-                wbkgdset(p->win,p->ansi_colors[1]);
+                /* italic */
+                wbkgdset(p->win,p->ansi_colors[2]);
                 waddstr(p->win,nextChar);
                 pointer+=strlen(nextChar);
                 wbkgdset(p->win,p->ansi_colors[0]);
@@ -581,76 +594,63 @@ void view_addstr(char *str) {
 
             }
 
-            if (strcmp(prevChar,"_") == 0 ) {
+            xfree(prevChar);
+            xfree(nextChar);
+            break;
 
-              waddch(p->win,*c);
-              /* italic */
-              wbkgdset(p->win,p->ansi_colors[2]);
-              waddstr(p->win,nextChar);
-              pointer+=strlen(nextChar);
-              wbkgdset(p->win,p->ansi_colors[0]);
+          case '\033':
+            /* ANSI SGR color handeling */
 
-            }
+            c++;
 
-          }
+            if (*c == '[' ) {
 
-          xfree(prevChar);
-          xfree(nextChar);
-          break;
+              int ansiNumber=0;
+              int ansiNumberSize=0;
+              char *ansiNumberStr=NULL;
+              char *ansiStartPointer=c+1;
 
-        case '\033':
-          /* ANSI SGR color handeling */
+              while(*c++) {
+                pointer++;
+                ansiNumberSize++;
 
-          c++;
+                if(*c=='m') {
+                  ansiNumberStr=xcalloc(ansiNumberSize,sizeof(char));
+                  strncpy(ansiNumberStr,ansiStartPointer,ansiNumberSize-1);
 
-          if (*c == '[' ) {
+                  if(isstrdigit(ansiNumberStr)) {
+                    chtype ansi_color;
+                    ansiNumber=atoi(ansiNumberStr);
 
-            int ansiNumber=0;
-            int ansiNumberSize=0;
-            char *ansiNumberStr=NULL;
-            char *ansiStartPointer=c+1;
+                    if(ansiNumber > ANSI_SGR_PARAMS) wbkgdset(p->win,p->ansi_colors[0]);
+                      else wbkgdset(p->win,p->ansi_colors[ansiNumber]);
 
-            while(*c++) {
-              pointer++;
-              ansiNumberSize++;
+                  } else {
+                      /* might be an invalid ansi code, reset to normal */
+                      wbkgdset(p->win,p->ansi_colors[0]);
+                  }
 
-              if(*c=='m') {
-                ansiNumberStr=xcalloc(ansiNumberSize,sizeof(char));
-                strncpy(ansiNumberStr,ansiStartPointer,ansiNumberSize-1);
-
-                if(isstrdigit(ansiNumberStr)) {
-                  chtype ansi_color;
-                  ansiNumber=atoi(ansiNumberStr);
-
-                  if(ansiNumber > ANSI_SGR_PARAMS) wbkgdset(p->win,p->ansi_colors[0]);
-                    else wbkgdset(p->win,p->ansi_colors[ansiNumber]);
-
-                } else {
-                    /* might be an invalid ansi code, reset to normal */
-                    wbkgdset(p->win,p->ansi_colors[0]);
+                  pointer++;
+                  break;
                 }
 
-                pointer++;
-                break;
               }
+
+              xfree(ansiNumberStr);
 
             }
 
-            xfree(ansiNumberStr);
+            break;
 
-          }
+          default:
 
-          break;
+            utf8Char=utf8_firstchar(c);
+            waddstr(p->win,utf8Char);
+            xfree(utf8Char);
 
-        default:
+          } /* switch (*c) */
 
-          utf8Char=utf8_firstchar(c);
-          waddstr(p->win,utf8Char);
-          xfree(utf8Char);
-
-        }
-
-      } /* switch (*c) */
+      } /* else */
 
       prevPointer=pointer;
       pointer=pointer+ansi_strsize(c);
@@ -658,8 +658,10 @@ void view_addstr(char *str) {
       c=str+pointer;
       lx++;
 
-  }
+  } /* while (c) */
 
+  /* might be an invalid ansi code, reset to normal */
+  wbkgdset(p->win,p->ansi_colors[0]);
 }
 
 /*

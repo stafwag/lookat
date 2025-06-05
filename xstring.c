@@ -828,7 +828,7 @@ unsigned ansi_strsize(char *start) {
           break;
 
         }
-             
+
       }
 
     }

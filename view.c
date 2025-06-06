@@ -288,7 +288,7 @@ int view_load () {
   /* ----------------- vari voor het starten van gzip ---------------------- */
   int  is_gz=0;
   char *gzip=NULL;
-  FILE *popen(),*gz_fp;
+  FILE *gz_fp;
   /* ----------------------------------------------------------------------- */
   ccc=p->view_exec;
 

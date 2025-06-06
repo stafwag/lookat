@@ -816,16 +816,29 @@ unsigned ansi_strsize(char *start) {
   int number_of_chars=0;
   char *c=start;
 
-  if(*c++ == '\033') {
-    
-    if (*c++ == '[' ) {
+  /*
+   * Detect if we have an ANSI string
+   */
 
-      while(*c++) {
+  if(*c == '\033') {
 
-        if(*c=='m') {
+    /*
+     * We might a sequence of ANSI controls
+     * loop over all ^[ sequences
+     */
 
-          c++;
-          break;
+    while(*c++ == '\033') {
+
+      if (*c++ == '[' ) {
+
+        while(*c++) {
+
+          if(*c=='m') {
+
+            c++;
+            break;
+
+          }
 
         }
 
@@ -833,7 +846,7 @@ unsigned ansi_strsize(char *start) {
 
     }
 
-    number_of_chars=c-start;
+    number_of_chars=c-start-1;
 
   } else c=start;
 

@@ -21,7 +21,7 @@
 
 #include "get_dir.h"
 /* int compare(const char **c1,const char **c2)  */
-int compare(const void *e1, const void *e2) 
+int compare(const void *e1, const void *e2)
 {
   char **c1=(char **) e1, **c2=(char **) e2;
   return strcmp (*c1,*c2);
@@ -43,22 +43,22 @@ struct dir_data* get_dir(char *path)
        strcpy(s,path);
        strcat(s,ep->d_name);
        if (stat(s,&stat_buf)==-1) {
-             data->file=(char **) xrealloc(data->file,(data->files+1)*sizeof(char **)); 
+             data->file=(char **) xrealloc(data->file,(data->files+1)*sizeof(char **));
              data->file[data->files]=(char *) xmalloc(strlen(ep->d_name)+1);
 	     strcpy (data->file[data->files++],ep->d_name);
          }
-	else { 
-            if (S_ISDIR(stat_buf.st_mode)) { 
+	else {
+            if (S_ISDIR(stat_buf.st_mode)) {
               data->dir=(char **) xrealloc(data->dir,(data->dirs+1)*sizeof(char **));
-              data->dir[data->dirs]=(char *) xmalloc(strlen(ep->d_name)+1); 
+              data->dir[data->dirs]=(char *) xmalloc(strlen(ep->d_name)+1);
 	      strcpy (data->dir[data->dirs++],ep->d_name);
 	      }
 	      else {
-                  data->file=(char **) xrealloc(data->file,(data->files+1)*sizeof(char *)); 
+                  data->file=(char **) xrealloc(data->file,(data->files+1)*sizeof(char *));
 	          data->file[data->files]=(char *) xmalloc(strlen(ep->d_name)+1);
 	          strcpy (data->file[data->files++],ep->d_name);
               }
-	 }     
+	 }
        xfree(s);
        };
    (void) closedir (dp);
@@ -75,4 +75,3 @@ xfree(data->file);
 xfree(data->dir);
 xfree(data);
 }
-

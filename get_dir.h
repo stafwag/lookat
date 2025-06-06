@@ -39,5 +39,3 @@ struct dir_data {
 struct dir_data* get_dir(char *path);
 void get_dir_free(struct dir_data *data);
 #endif
-
-

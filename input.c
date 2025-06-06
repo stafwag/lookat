@@ -20,21 +20,21 @@
  */
 
 /* ------------------------------------------------------------------------- */
-/* Funkties voor de input(....) procedure			             */
+/* Funkties voor de input(....) procedure			                               */
 /* ------------------------------------------------------------------------- */
 #include "input.h"
 /* ----------------------------------------- */
 /* Bijvoegen van een karakter in een string  */
 /* char     *c -> string                     */
 /* unsigned i  -> positie in string          */
-/* char     cc -> karakter		     */
+/* char     cc -> karakter		               */
 /* ----------------------------------------- */
 void ins_char (char *c,unsigned i,char cc)
 {
 unsigned x;
 unsigned einde=strlen(c);
 if (i!=einde) {
-  if (i) for (x=einde;x>=i;x--) c[x]=c[x-1]; 
+  if (i) for (x=einde;x>=i;x--) c[x]=c[x-1];
     else { for  (x=einde-1;x>0;x--) c[x+1]=c[x];c[1]=c[0];
     }
 	
@@ -46,9 +46,9 @@ c[einde+1]=0;
 /* Verwijderen v/e karakter in een string    */
 /* char     *c -> string                     */
 /* unsigned i  -> positie in string          */
-/*					     */
+/*					                                 */
 /* P.S. Deze funktie schuift de kar's ook    */
-/* naar rechts!			             */
+/* naar rechts!			                         */
 /* ----------------------------------------- */
 void del_char (char *c,unsigned i)
 {
@@ -116,20 +116,20 @@ if (p->mode > 2) xfree(s);
 /*                   1 -> dec. string            */
 /*                   2 -> hex. string            */
 /*		     3 -> passwd string		 */
-/* int      p->key = pointer naar ekstra toetsen */ 
+/* int      p->key = pointer naar ekstra toetsen */
 /* --------------------------------------------- */
 int input (INPUT_STRING *p)
 {
 int i,brol;
 unsigned einde=0;
-if (p->c==NULL) { 
+if (p->c==NULL) {
    p->c=(char *) xmalloc(sizeof(char));
    p->c[0]='\0';
    }
 if (p->insert) mvwaddstr(p->w,p->w->_maxy,p->w->_maxx-2,"I");
    else mvwaddstr(p->w,p->w->_maxy,p->w->_maxx-2,"O");
 noecho();
-leaveok(p->w,FALSE); 
+leaveok(p->w,FALSE);
 curs_set(1);
 keypad(p->w,TRUE);
 meta(p->w,TRUE);
@@ -162,13 +162,13 @@ do {
                           p->insert=TRUE;
 			  mvwaddstr(p->w,p->w->_maxy,p->w->_maxx-2,"I");
 			  };
-			wrefresh(p->w);  
+			wrefresh(p->w);
 			i=0;
 			break;
     case KEY_DC:	if (p->count==einde) break;
 			++p->count;
-    case KEY_BACKSPACE: if (einde) { 
-                           wis(p->w,p->yp,p->xp,p->n);   
+    case KEY_BACKSPACE: if (einde) {
+                           wis(p->w,p->yp,p->xp,p->n);
 			   };
 			if (p->count) --p->count;
                         p->c[einde]=0;
@@ -176,14 +176,14 @@ do {
 			if (einde) einde--;
 			p->c[einde]=0;
 			break;
-    case KEY_LEFT:      if (p->count) --p->count;			
+    case KEY_LEFT:      if (p->count) --p->count;
                         break;
     case KEY_RIGHT:     if (p->count<einde) ++p->count;
 			break;
     }
     if (p->m) { if (einde>p->m) einde=p->m;}
        else { p->c=(char *) xrealloc(p->c,strlen(p->c)+2); }
-    if (!p->c) { endwin();fprintf(stderr,"realloc failed...\n"); exit(1);} 
+    if (!p->c) { endwin();fprintf(stderr,"realloc failed...\n"); exit(1);}
     switch (p->mode) {
       case 0 : brol=isprint(i);
                if (i==' ') brol=TRUE;
@@ -196,7 +196,7 @@ do {
       }
      if (isprint(i)) {
         if (brol) {
-           if ((p->count < p->m)||(!p->m)) { 
+           if ((p->count < p->m)||(!p->m)) {
 	      if (p->insert) ins_char(p->c,p->count++,i);
 	         else p->c[p->count++]=i;
 	      einde=strlen(p->c);
@@ -213,5 +213,3 @@ p->c=(char *)xrealloc(p->c,strlen(p->c)+1);
 wrefresh(p->w);
 return (0);
 }
-
-

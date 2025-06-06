@@ -25,7 +25,7 @@
 #include "config.h"
 #include "xmalloc.h"
 
-#ifdef	HAVE_STRINGS_H 
+#ifdef	HAVE_STRINGS_H
 #include <string.h>
 #endif
 
@@ -35,5 +35,3 @@
 
 #include <locale.h>
 #endif
-
-

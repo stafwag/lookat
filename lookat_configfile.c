@@ -81,4 +81,3 @@ char ** lookat_get_next_config (FILE *fp) {
 
 	return(ret);
 }
-

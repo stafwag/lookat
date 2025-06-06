@@ -1,7 +1,7 @@
 /*
  *  ned.h
  *
- *  Copyright (C) 1997 - 2024   Staf Wagemakers Belgium
+ *  Copyright (C) 1997 - 2025   Staf Wagemakers Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ const int sel_zm		='z';
 const int sel_om    ='o';
 const int sel_hm		='h';
 int help_width=75;
-char txt_prg_dates[]="1997-2024";
+char txt_prg_dates[]="1997-2025";
 char txt_gpl_short[]="(GPL)";
 char txt_help_prgname[] = "bekijk";
 char txt_belgie[]="Belgie  Belgium";
@@ -141,7 +141,7 @@ int over_width=54;
 char txt_gpl_2[]="GNU Public License 2";
 char txt_email[]="email: ";
 char txt_homepage[]="homepagina";
-char txt_homepage_url[]="http://www.wagemakers.be";
+char txt_homepage_url[]="https://www.wagemakers.be";
 char txt_bedank[]       ="Bedankt voor het gebruik van dit programma!";
 char *txt_verder_zoeken_begin[]={"Begin van het document bereikt, van 't einde verder zoeken?",NULL};
 char *txt_verder_zoeken_einde[]={"Einde van het document bereikt, van 't begin verder zoeken?",NULL};

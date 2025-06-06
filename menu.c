@@ -41,7 +41,7 @@ void menu_hletter(MENU *m,unsigned i,chtype hcolor) {
 	mvwaddnstr(m->w,m->place[i<<1],m->place[(i<<1)+1]+m->hplace[i<<1],
         m->txt[i]+m->hplace[i<<1],m->hplace[(i<<1)+1]);
 
-}	 
+}
 
 void menu_print_item(MENU *m,unsigned i,chtype hcolor) {
 
@@ -51,7 +51,7 @@ void menu_print_item(MENU *m,unsigned i,chtype hcolor) {
 
 }
 
-/* Zet de menu tekst op het scherm in de normale kleur */ 
+/* Zet de menu tekst op het scherm in de normale kleur */
 void menu_print(MENU *m) {
 
 	unsigned i;
@@ -75,7 +75,7 @@ void menu_sel(MENU *m,unsigned s) {
    		wbkgdset(m->w,m->color1);
    		menu_print_item(m,m->sel,m->color3);
 
-	} 
+	}
 
 	wbkgdset(m->w,m->color2);
 	menu_print_item(m,s,m->color4);
@@ -101,9 +101,9 @@ int menu_key (MENU *m)
 
    		for (u=0;u<m->amount;u++) {
 
-     			if (m->hkey[u]!=0) {   
+     			if (m->hkey[u]!=0) {
 
-       				if (i==m->hkey[u]) { 
+       				if (i==m->hkey[u]) {
 
          				menu_sel(m,u);
 	 				m->used=1;
@@ -112,8 +112,8 @@ int menu_key (MENU *m)
 	 			}
 
        			}
-     		} 
-  	}   
+     		}
+  	}
 
 	if (i==m->key[0]){if (s==0) s=m->amount; --s;menu_sel(m,s);return(1);};
 	if (i==m->key[1]){++s;menu_sel(m,s);return(2);};
@@ -138,8 +138,8 @@ void menu_pull (MENU *m,unsigned submenu) {
     		menu_print(m);
     		menu_sel(m,submenu-1);
 
-    		if(m->next!=NULL) m3=m->next[submenu-1]; 
-   	} 
+    		if(m->next!=NULL) m3=m->next[submenu-1];
+   	}
 
 	for(;;) {
 
@@ -149,7 +149,7 @@ void menu_pull (MENU *m,unsigned submenu) {
 
    		menu_print(m2);
 
-   		do i=menu_key(m2); while(i<3); 
+   		do i=menu_key(m2); while(i<3);
 
    		if ((m2->call_close!=NULL)&&(m2!=m)) m2->call_close(m2);
    		if (i==6) {m->used=2;break;}
@@ -160,14 +160,14 @@ void menu_pull (MENU *m,unsigned submenu) {
 
          			case 4: m3=m2->parent;m2=m3;s=m2->sel;if (s==0) s=m2->amount;
                  			--s;menu_sel(m2,s);
-		 			break; 
+		 			break;
 
          			case 5: m3=m2->parent;m2=m3;s=m2->sel+1;
                  			menu_sel(m2,s);
-		 			break; 
+		 			break;
 
          		}
-      		} 
+      		}
 
    		if(m2->next!=NULL) {
 
@@ -177,7 +177,7 @@ void menu_pull (MENU *m,unsigned submenu) {
    		}
  	}
 
-   	if (m->call_close!=NULL) m->call_close(m); 
+   	if (m->call_close!=NULL) m->call_close(m);
 }
 
 /*
@@ -202,7 +202,7 @@ void menu_pull (MENU *m,unsigned submenu) {
  *                het huidige item ekstra
  *		            getoond moet worden
  *	              Indien l=0 wordt het sel.
- *                niet ekstra getoond 
+ *                niet ekstra getoond
  *
  *unsigned *u   : voorselektie + hulpvar.
  *
@@ -216,7 +216,7 @@ int scroll_menu(MENU *m,unsigned g,void (*call_proc)(MENU *m),unsigned *u) {
 	int c;
 	unsigned teller,s,v_s;
 	char **cp,**v_txt;
-	cp=m->txt; 
+	cp=m->txt;
 	m->txt=cp;
 	v_s=*u+1;
 	v_txt=NULL;
@@ -234,7 +234,7 @@ int scroll_menu(MENU *m,unsigned g,void (*call_proc)(MENU *m),unsigned *u) {
   			v_s=s;
   			v_txt=m->txt;
 
-  			if (call_proc) call_proc(m); 
+  			if (call_proc) call_proc(m);
 
   			c=wgetch(m->w);
 
@@ -248,7 +248,7 @@ int scroll_menu(MENU *m,unsigned g,void (*call_proc)(MENU *m),unsigned *u) {
     				break;
     			}
 
-    			if (c==m->key[1])  { 
+    			if (c==m->key[1])  {
 
         			++s;
 
@@ -274,10 +274,10 @@ int scroll_menu(MENU *m,unsigned g,void (*call_proc)(MENU *m),unsigned *u) {
       				if (teller-s>m->amount) {
 
         				teller-=(m->amount-1);
-        				m->txt=&cp[teller-s]; 
+        				m->txt=&cp[teller-s];
 
         			}
-        			else { 
+        			else {
 
             				teller=s=0;
 	    				m->txt=cp;
@@ -330,7 +330,7 @@ int scroll_menu(MENU *m,unsigned g,void (*call_proc)(MENU *m),unsigned *u) {
 
        			}
 
-  		} while(1);   
+  		} while(1);
 
   	} while (c!=m->key[2]);
 

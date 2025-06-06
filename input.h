@@ -41,5 +41,3 @@ typedef struct {
 int input (INPUT_STRING *p);
 void input_show_string (INPUT_STRING *p);
 #endif
-
-

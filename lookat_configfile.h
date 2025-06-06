@@ -25,4 +25,3 @@
 
 char * lookat_get_config(FILE *fp, char *var_name);
 char ** lookat_get_next_config (FILE *fp);
-

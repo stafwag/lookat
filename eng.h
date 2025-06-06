@@ -1,7 +1,7 @@
 /*
  *  eng.h
  *
- *  Copyright (C) 1997 - 2024  Staf Wagemakers Belgie/Belgium
+ *  Copyright (C) 1997 - 2025  Staf Wagemakers Belgie/Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ const char sel_zm		='s';
 const char sel_hm		='h';
 const int sel_om    ='o';
 int help_width=75;
-char txt_prg_dates[]="1997-2024";
+char txt_prg_dates[]="1997-2025";
 char txt_gpl_short[]="(GPL)";
 char txt_help_prgname[] = "lookat";
 char txt_belgie[]="Belgie  Belgium";
@@ -64,7 +64,7 @@ int hkey_hlp[]          ={'s','k','a'};
 unsigned hplace_bm[]         	={0,1,0,1,0,1};
 unsigned hplace_gm[]         	={3,1,3,1,3,1,21,5,21,6};
 unsigned hplace_zm[]         	={0,1,5,1,0,1};
-unsigned hplace_om[]         	={3,1,3,1,0,1,0,1}; 
+unsigned hplace_om[]         	={3,1,3,1,0,1,0,1};
 unsigned hplace_hlpm[]       	={0,1,0,1,0,1};
 unsigned hplace_hm[]         	={0,1,0,1,0,1,0,1,0,1};
 unsigned hplace_ok[]         	={2,1};
@@ -93,7 +93,7 @@ char txt_f_toegang[]	="Access denied ...";
 char txt_f_ok[]         ="[ Ok ]";
 char txt_f_initscr[]	="Sorry, initscr() has failed ...";
 char txt_h_dir[]	=" Current directory : ";
-char txt_sel[]		=" Selection         : "; 
+char txt_sel[]		=" Selection         : ";
 char txt_lezen_bestn[]	=" Reading the filename ... ";
 char txt_bestanden[]	=" Files ";
 char txt_dirs[]		=" Directories ";
@@ -139,7 +139,7 @@ int over_width=54;
 char txt_gpl_2[]="GNU Public License 2";
 char txt_email[]="email: ";
 char txt_homepage[]="homepage";
-char txt_homepage_url[]="http://www.wagemakers.be";
+char txt_homepage_url[]="https://www.wagemakers.be";
 char txt_bedank[]       ="Thank you for using this program!";
 char *txt_verder_zoeken_begin[]={"Top of document reached, continue from bottom?",NULL};
 char *txt_verder_zoeken_einde[]={"End of document reached, continue from beginning?",NULL};

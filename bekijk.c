@@ -2311,7 +2311,7 @@ do {
        curs_set(0);
            }
    werase(win2);
-   mvwprintw(win2,0,0,"%s %4d / %4d  %s %4d %s %ld",
+   mvwprintw(win2,0,0,"%s %4lu / %4lu  %s %4lu %s %ld",
    txt_lijn,view_gety(),bv.y_max,txt_kol,view_getx(),txt_Grootte,bv.size);
    mvwprintw(win2,0,COLS-strlen(bv.filename)-3,"%s",bv.filename);
    touchwin(win1);

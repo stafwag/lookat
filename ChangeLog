@@ -1,3 +1,6 @@
+Lookat / Bekijk 2.1.0rc1	( 7 Jun 2025)
+ - ANSI Color support
+
 Lookat / Bekijk 2.0.1			( 23 Apr 2020)
  - BUGFIX: corrected screen refresh code.  To handle non-utf8 terminals
  	 correctly.
@@ -11,15 +14,15 @@ Lookat / Bekijk 2.0.0			( 01 Mar 2020)
  - improved error handeling
  - Macos 10.7+ support
 
-Lookat / Bekijk 1.4.4     ( 28 Dec 2015 ) 
+Lookat / Bekijk 1.4.4     ( 28 Dec 2015 )
  - Lookat / Bekijk 1.4.4rc2 has been released as 1.4.4
 
-Lookat / Bekijk 1.4.4rc2  ( 17 Oct 2015 ) 
- - NetBSD support 
+Lookat / Bekijk 1.4.4rc2  ( 17 Oct 2015 )
+ - NetBSD support
 
 Lookat / Bekijk 1.4.4rc1  ( 21 Jul 2015 )
  - OpenBSD support
- - English translation issues corrected 
+ - English translation issues corrected
  - autoconf updated to 2.69
  - Corrected minor compile warnings
 
@@ -37,7 +40,7 @@ Lookat / Bekijk 1.4.2rc2  ( 2 Sep 2012 )
  - Added redhat specfile
  - Added debian package dir
  - Corrected mirror manpage errors
- - xmalloc.c updated for non compatible GNU malloc for systems like AIX 
+ - xmalloc.c updated for non compatible GNU malloc for systems like AIX
  
 Lookat / Bekijk 1.4.2rc1  ( 2 Nov 2011 )
  - Lookat 1.4.2rc1 is a maintenance release that resolves compile issues on some 64bits systems.
@@ -58,7 +61,7 @@ Lookat / Bekijk 1.4.0     ( 16 Apr 2004 )
  - Makefile.am updated
 
 Lookat / Bekijk 1.4.0rc1  ( 21 Feb 2004 )
- - BUGFIX: error in dos text file handling corrected 
+ - BUGFIX: error in dos text file handling corrected
 
 Lookat / Bekijk 1.4.0pre2 ( 22 Apr 2003 )
  - BUGFIX: resolves some segmentation fault in previous release

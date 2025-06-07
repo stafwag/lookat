@@ -510,7 +510,7 @@ void view_addline (int yp,unsigned long r) {
             for (t=0;t<=p->x-1;t++) {
 
               c=c+ansi_strsize(c);
-              c=c+2 if(*c==0x8);
+              if(*c==0x8) c=c+2;
               if(c>str_end) return;
 
               if (t>=lx) return;

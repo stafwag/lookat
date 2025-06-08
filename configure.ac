@@ -1,8 +1,8 @@
 dnl Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.69])
-AC_INIT(lookat_bekijk,2.1.0pre,staf@wagemakers.be)
-AC_CANONICAL_SYSTEM
+AC_PREREQ([2.72])
+AC_INIT([lookat_bekijk],[2.1.0rc1],[staf@wagemakers.be])
+AC_CANONICAL_TARGET
 AC_CONFIG_SRCDIR(bekijk.c)
 AM_INIT_AUTOMAKE
 AM_MAINTAINER_MODE([disable])
@@ -53,12 +53,45 @@ AC_FUNC_STAT
 AC_C_CONST
 AC_HEADER_STDBOOL
 AC_HEADER_DIRENT
-AC_HEADER_STDC
-AC_HEADER_TIME
+m4_warn([obsolete],
+[The preprocessor macro 'STDC_HEADERS' is obsolete.
+  Except in unusual embedded environments, you can safely include all
+  C89 headers unconditionally.])dnl
+# Autoupdate added the next two lines to ensure that your configure
+# script's behavior did not change.  They are probably safe to remove.
+AC_CHECK_INCLUDES_DEFAULT
+AC_PROG_EGREP
+
+m4_warn([obsolete],
+[Update your code to rely only on HAVE_SYS_TIME_H,
+then remove this warning and the obsolete code below it.
+All current systems provide time.h; it need not be checked for.
+Not all systems provide sys/time.h, but those that do, all allow
+you to include it and time.h simultaneously.])dnl
+AC_CHECK_HEADERS_ONCE([sys/time.h])
+# Obsolete code to be removed.
+if test $ac_cv_header_sys_time_h = yes; then
+  AC_DEFINE([TIME_WITH_SYS_TIME],[1],[Define to 1 if you can safely include both <sys/time.h>
+	     and <time.h>.  This macro is obsolete.])
+fi
+# End of obsolete code.
+
 AC_PROG_AWK
 AC_PROG_INSTALL
-AC_PROG_LN_S 
-AC_TYPE_SIGNAL
+AC_PROG_LN_S
+m4_warn([obsolete],
+[your code may safely assume C89 semantics that RETSIGTYPE is void.
+Remove this warning and the 'AC_CACHE_CHECK' when you adjust the code.])dnl
+AC_CACHE_CHECK([return type of signal handlers],[ac_cv_type_signal],[AC_COMPILE_IFELSE(
+[AC_LANG_PROGRAM([#include <sys/types.h>
+#include <signal.h>
+],
+		 [return *(signal (0, 0)) (0) == 1;])],
+		   [ac_cv_type_signal=int],
+		   [ac_cv_type_signal=void])])
+AC_DEFINE_UNQUOTED([RETSIGTYPE],[$ac_cv_type_signal],[Define as the return type of signal handlers
+		    ('int' or 'void').])
+
 AC_TYPE_SIZE_T
 AC_CHECK_LIB(ncursesw,initscr,,
 
@@ -91,4 +124,5 @@ fi
 )
 
 
-AC_OUTPUT(Makefile)
+AC_CONFIG_FILES([Makefile])
+AC_OUTPUT

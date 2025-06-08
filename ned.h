@@ -29,9 +29,9 @@ char txt_prg_dates[]="1997-2025";
 char txt_gpl_short[]="(GPL)";
 char txt_help_prgname[] = "bekijk";
 char txt_belgie[]="Belgie  Belgium";
-char txt_help_copyright[]= "(GPL) 1997-2022 Belgie  Belgium";
+char txt_help_copyright[]= "(GPL) 1997-2025 Belgie  Belgium";
 char txt_author[]="Staf Wagemakers";
-char txt_author_email[]="Staf Wagemakers";
+char txt_author_email[]="staf@wagemakers.be";
 
 char *txt_help_body[]		= {
 " ",
@@ -140,8 +140,10 @@ char txt_search_back[]  ="[ ] Achteruit zoeken";
 int over_width=54;
 char txt_gpl_2[]="GNU Public License 2";
 char txt_email[]="email: ";
-char txt_homepage[]="homepagina";
+char txt_homepage[]="homepagina: ";
 char txt_homepage_url[]="https://www.wagemakers.be";
+char txt_company[]="my company: ";
+char txt_company_url[]="https://mask27.dev";
 char txt_bedank[]       ="Bedankt voor het gebruik van dit programma!";
 char *txt_verder_zoeken_begin[]={"Begin van het document bereikt, van 't einde verder zoeken?",NULL};
 char *txt_verder_zoeken_einde[]={"Einde van het document bereikt, van 't begin verder zoeken?",NULL};

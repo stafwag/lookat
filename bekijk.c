@@ -2568,17 +2568,20 @@ do {
                       char *txt_over_2=right_align_2_strings(txt_author,txt_prg_dates,over_width);
                       char *txt_over_3=right_align_2_strings(txt_email,txt_author_email,over_width);
                       char *txt_over_4=right_align_2_strings(txt_homepage,txt_homepage_url,over_width);
+                      char *txt_over_5=right_align_2_strings(txt_company,txt_company_url,over_width);
                       char *txt_over[] = {
                         txt_over_1,
                         "\n",
                         txt_over_2,
                         txt_over_3,
+                        "\n",
                         txt_over_4,
+                        txt_over_5,
                         "\n",
                         NULL
                       };
 
-                      open_animwin(12,60,&m_ok,txt_over,txt_bedank,win1,0);
+                      open_animwin(15,60,&m_ok,txt_over,txt_bedank,win1,0);
                       xfree(txt_prgname_version);
                       xfree(txt_over_1);
                       xfree(txt_over_2);

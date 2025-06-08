@@ -30,7 +30,7 @@ char txt_gpl_short[]="(GPL)";
 char txt_help_prgname[] = "lookat";
 char txt_belgie[]="Belgie  Belgium";
 char txt_author[]="Staf Wagemakers";
-char txt_author_email[]="Staf Wagemakers";
+char txt_author_email[]="staf@wagemakers.be";
 char *txt_help_body[]		= {
 " ",
 "How to start 'lookat'?",
@@ -138,8 +138,10 @@ char txt_search_back[]  ="[ ] Search backwards";
 int over_width=54;
 char txt_gpl_2[]="GNU Public License 2";
 char txt_email[]="email: ";
-char txt_homepage[]="homepage";
+char txt_homepage[]="homepage: ";
 char txt_homepage_url[]="https://www.wagemakers.be";
+char txt_company[]="my company: ";
+char txt_company_url[]="https://mask27.dev";
 char txt_bedank[]       ="Thank you for using this program!";
 char *txt_verder_zoeken_begin[]={"Top of document reached, continue from bottom?",NULL};
 char *txt_verder_zoeken_einde[]={"End of document reached, continue from beginning?",NULL};

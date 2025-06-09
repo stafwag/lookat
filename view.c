@@ -586,7 +586,7 @@ void view_addstr(char *str) {
 
                 waddch(p->win,*c);
                 /* italic */
-                wbkgdset(p->win,p->ansi_colors[2]);
+                wbkgdset(p->win,p->ansi_colors[3]);
                 waddstr(p->win,nextChar);
                 pointer+=strlen(nextChar);
                 wbkgdset(p->win,p->ansi_colors[0]);

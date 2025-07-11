@@ -683,7 +683,7 @@ unsigned utf8_strlen(char *str) {
 
   while (*c) {
 
-      pointer=pointer+utf8_strsize(c);
+      pointer=pointer+utf8_charsize(c);
 
       if (*c == 0x08 ) {
         if (u) --u;
@@ -712,7 +712,7 @@ unsigned ansi_utf8_strlen(char *str) {
 
   while (*c) {
 
-      pointer=pointer+utf8_strsize(c);
+      pointer=pointer+utf8_charsize(c);
 
       switch(*c) {
 
@@ -765,7 +765,7 @@ unsigned ansi_utf8_strlen(char *str) {
 char * utf8_firstchar(char *c) {
 
   char *str;
-  int   number_of_chars=utf8_strsize(c);
+  int   number_of_chars=utf8_charsize(c);
 
   str=xcalloc(number_of_chars + 1, sizeof(char));
 
@@ -782,7 +782,7 @@ char * utf8_firstchar(char *c) {
 /*
  * calcuates the byte size for utf8 char string
  */
-unsigned utf8_strsize(char *c) {
+unsigned utf8_charsize(char *c) {
 
   int   number_of_chars=0;
 
@@ -811,7 +811,7 @@ unsigned utf8_strsize(char *c) {
 /*
  * calcuates the byte size for ansi utf8 char string
  */
-unsigned ansi_strsize(char *start) {
+unsigned ansi_charsize(char *start) {
 
   int number_of_chars=0;
   char *c=start;
@@ -850,7 +850,7 @@ unsigned ansi_strsize(char *start) {
 
   } else c=start;
 
-  number_of_chars+=utf8_strsize(c);
+  number_of_chars+=utf8_charsize(c);
 
   return(number_of_chars);
 

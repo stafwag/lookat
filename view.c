@@ -509,7 +509,7 @@ void view_addline (int yp,unsigned long r) {
 
             for (t=0;t<=p->x-1;t++) {
 
-              c=c+ansi_strsize(c);
+              c=c+ansi_charsize(c);
               if(*c==0x8) c=c+2;
               if(c>str_end) return;
 
@@ -654,7 +654,7 @@ void view_addstr(char *str) {
       } /* else */
 
       prevPointer=pointer;
-      pointer=pointer+ansi_strsize(c);
+      pointer=pointer+ansi_charsize(c);
       if(pointer>size) return;
       c=str+pointer;
       lx++;

@@ -561,7 +561,6 @@ void zoek(unsigned long start,int mode) {
      if (view_par(NULL)->mode) {
 
        getyx(bv.win,bv.sy,bv.sx);
-       zoek_offset=view_getx();
 
      };
 

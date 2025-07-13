@@ -723,20 +723,24 @@ unsigned ansi_utf8_strlen(char *str) {
 
         case '\033':
 
-          if(*(++c)) {
+          while(*c++ == '\033') {
 
-            if (*c == '[' ) {
+            if(*c) {
 
-              while(*c++) {
+              if (*c == '[' ) {
 
-                pointer++;
-
-                if(*c=='m') {
+                while(*c++) {
 
                   pointer++;
-                  break;
+
+                  if(*c=='m') {
+
+                    pointer++;
+                    break;
+                  }
+               
                 }
-             
+
               }
 
             }

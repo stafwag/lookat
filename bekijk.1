@@ -1,4 +1,4 @@
-.TH BEKIJK "1" "April 2004" "BEKIJK 1.4.0" "User Commands"
+.TH BEKIJK "12" "Jul 2025" "BEKIJK 2.1.0" "User Commands"
 .SH NAME
 .PP
 bekijk \- Un*x bestand bekijker
@@ -27,16 +27,16 @@ opent de directorie \fIdirectorie_naam\fP
 .PP
 Nog niet bekend, indien je er vindt mag je het me laten weten :-)
 .SH GEBRUIK
-.PP   
+.PP
 Je kan "bekijk" op 4 manieren starten:
 .I bekijk
 :
-.PP  
+.PP
 * door gewoon '\fIbekijk\fP' te typen, hierna kan je uit het bestandsmenu
 een bestand selecteren om te bekijken.
-.PP	 
+.PP
 indien er data via stdin kan lezen worden zal 'bekijk' deze tonen
-.PP	 
+.PP
 voorbeeld:
 .IP
 ls | bekijk
@@ -49,7 +49,7 @@ bestand selecteren.
 opstarten het bestand automatisch geladen.
 .PP
 in combinatie met man
-.PP       
+.PP
 voorbeelden:
 .IP
 man \-Pbekijk ls
@@ -87,7 +87,7 @@ Toetsen:
    F10,ESC,q       : verlaat het programma
    F1,h,?          : openend help bestand
    r               : herteken het scherm
-.PP 
+.PP
 Door op F9 te drukken kan je gebruik maken van de trekmenu's,
 de meeste functies zijn ook bereikbaar via het toetsenbord (zie
 hierboven).
@@ -104,7 +104,7 @@ door een directorie te selecteren wordt er van directorie
 veranderd.
 .IP
 Door op ESC te drukken verlaat je het venster
-.PP	  
+.PP
 .B Bestand|Afsluiten   of 'F10,ESC,q':
 .IP
 Verlaat het programma.
@@ -116,64 +116,64 @@ Verplaats je naar het begin van het bestand.
 .B Ga|Einde   of 'e':
 .IP
 Verplaats je naar het einde van een bestand.
-.PP		  
+.PP
 .B Ga|Naar begin regel   of 'HOME':
-.IP       
+.IP
 Verplaats je naar het begin van een regel.
-.PP	  
+.PP
 .B Ga|Naar einde regel   of 'END':
-.IP       
+.IP
 Verplaats je naar het einde van een regel
-.PP   
+.PP
 .B Zoek|tekst   of '/,z,s,f'
 .IP
-Deze functie dient om tekst in het bestand te zoeken. Het opzoeken van de 
-tekst gebeurt van huidige regel tot de laatste. Er komt een venster op het 
-scherm welke je vraagt om de te-zoeken-tekst in te geven. Het opzoeken kan 
-op twee manieren gebeuren ofwel wordt er géén rekening houden met hoofd \-of 
+Deze functie dient om tekst in het bestand te zoeken. Het opzoeken van de
+tekst gebeurt van huidige regel tot de laatste. Er komt een venster op het
+scherm welke je vraagt om de te-zoeken-tekst in te geven. Het opzoeken kan
+op twee manieren gebeuren ofwel wordt er géén rekening houden met hoofd \-of
 kleine letters ofwel wel. Met de TAB toets kan men selecteren bij
 .IP
      [ ] Onderscheidt tussen grootte & kleine letters
 .IP
-hoe de opzoeking moet gebeuren. Door middel van de TAB toets kan je gebruik 
+hoe de opzoeking moet gebeuren. Door middel van de TAB toets kan je gebruik
 maken van de [  OK  ] en [ Annuleer ] knoppen.
 .PP
 .B Zoek|van begin tekst
-Zelfde functie als hierboven alleen, gebeurt de opzoeking vanaf het begin 
+Zelfde functie als hierboven alleen, gebeurt de opzoeking vanaf het begin
 van het bestand.
 .PP
 .B Zoek|Nogmaals   of 'F3'
-.IP       
+.IP
 Zoek de laatste tekst nogmaals.
-.PP       
+.PP
 .B Opties|cursor
-.IP       
+.IP
 Zet de cursor aan/uit.
-.PP       
+.PP
 .B Opties|vragen om af te sluiten
-.IP       
+.IP
 Vragen om af te sluiten aan/uit.
-.PP       
+.PP
 .B Opties|Types
-.IP       
+.IP
 Bijvoegen, wissen, veranderen van types.
 .PP
 .B Opties|Kleuren
 .IP
 Veranderen van de kleuren.
-.PP 
+.PP
 .B Opties|Opties bewaren
-.IP 
+.IP
 Opties bewaren in je cfg bestand ($HOME/.lookat)
-.PP	  
+.PP
 .B Help|Zie helptekst  of 'F1,h,?'
-.IP       
-Open help bestand. 
-.PP       
+.IP
+Open help bestand.
+.PP
 .B Help|Toetsen
 .IP
 Toont een lijst met welke toetsen je in "bekijk" kan gebruiken.
-.PP	  
+.PP
 .B Help|Over
 .IP
 Geeft algemene informatie over het programma (versie ,etc.)
@@ -188,16 +188,16 @@ nog maar worden waarschijnlijk niet verder ondersteund in de volgende
 versies.
 .PP
 bekijk gebruikt twee configuratie bestanden, een globaal configuratie
-bestand ( /etc/lookat.conf ) en gebruikers configuratie bestand 
+bestand ( /etc/lookat.conf ) en gebruikers configuratie bestand
 ( $HOME/.lookat ). Indien het gebruikers configuratie bestand bestaat
 wordt het globale genegeerd.
 .PP
 Als de configuratie bestanden niet beschikbaar zijn worden de
 default waarden gebruikt.
-.SH 
+.SH
 .PP CONFIGURATIE PARAMETERS
 .nf
-\fBcursor\fP  \fIon\fP\fb|\fP\fIoff\fP	     
+\fBcursor\fP  \fIon\fP\fb|\fP\fIoff\fP
 .fi
 .IP
 zet de cursor aan / uit
@@ -234,17 +234,17 @@ moet je het .tar.gz eerst zetten.
 .IP
 Indien je terminal kleuren ondersteund laat deze parameter je toe om
 bepaalde objecten van kleur te veranderen. Geldige objecten zijn:
-\fBview\fP, \fBview_bold\fP, \fBview_italic\fP, \fBmain_menu\fP, 
-\fBmain_menusel\fP, \fBmain_menuhot\fP, \fBmain_menuhotsel\fP, 
-\fBstatus_bar\fP, \fBwin1\fP, \fBwin1_edit\fP, \fBwin1_menu\fP, 
-\fBwin1_menusel\fP, \fBwin1_menuhot\fP, \fBwin1_menuhotsel\fP, 
-\fBwin2\fP, \fBwin2_edit\fP, \fBwin2_menu\fP, \fBwin2_menusel\fP, 
+\fBview\fP, \fBview_bold\fP, \fBview_italic\fP, \fBmain_menu\fP,
+\fBmain_menusel\fP, \fBmain_menuhot\fP, \fBmain_menuhotsel\fP,
+\fBstatus_bar\fP, \fBwin1\fP, \fBwin1_edit\fP, \fBwin1_menu\fP,
+\fBwin1_menusel\fP, \fBwin1_menuhot\fP, \fBwin1_menuhotsel\fP,
+\fBwin2\fP, \fBwin2_edit\fP, \fBwin2_menu\fP, \fBwin2_menusel\fP,
 \fBwin2_menuhot\fP, \fBwin2_menuhotsel\fP, \fBview_found\fP.
 .IP
-Geldige kleuren zijn: \fBwhite\fP, \fBblack\fP, \fBgreen\fP, \fBmagenta\fP, 
+Geldige kleuren zijn: \fBwhite\fP, \fBblack\fP, \fBgreen\fP, \fBmagenta\fP,
 \fBblue\fP, \fBcyan\fP, \fByellow\fP, \fBred\fP.
 .IP
-Geldige attributen zijn: \fBnormal\fP, \fBbold\fP, \fBunderline\fP, \fBreverse\fP, 
+Geldige attributen zijn: \fBnormal\fP, \fBbold\fP, \fBunderline\fP, \fBreverse\fP,
 and \fBstandout\fP.
 .PP
 .nf
@@ -254,28 +254,28 @@ and \fBstandout\fP.
 Indien je terminal geen kleuren ondersteund dan kan je
 \fIvoorgrond\fP en \fIAchtergrond\fP attributen aan objecten toekennen.
 .SH DANK AAN ...
-.PP 
+.PP
 Free Software Foundation inc.
 .IP
 The GNU C Library Reference Manual door Sandra Loosemore
 En natuurlijk voor gcc, make, bash, grep, man, ls, cp, tar, gzip,
 emacs, less en more :-)
-.PP      
+.PP
 Sven Golt, Sven van der Meer, Scott Burkett, Matt Welsh
 .IP
 Van het Linux Documentation Project voor hun Linux Programmer's Guide.
 .PP
-Linus, en anderen ... 
+Linus, en anderen ...
 .IP
 Voor Linux natuurlijk ;-)
-.PP         
+.PP
 Jan Wagemakers
 .IP
 Voor het zoeken naar bugs in de beta versie & het plaatsen van "bekijk"
 op zijn Webpagina. http://www.janw.easynet.be
-.PP	 
+.PP
 Roel Diederen
-.IP   
+.IP
 Voor het creëren van de manpage voor see 1.1
 .PP
 Aubin Paul
@@ -286,7 +286,7 @@ andere platformen te porten dan GNU/Linux.
 Jim W. Jaszewski
 .IP
 Corrigeerde spellingsfouten fouten in de manpage van lookat.
-.PP 
+.PP
 Kevin Keegan
 .IP
 Voor melde van zij installatie problemen op SCO OpenServer. En het beschikbaar stellen van binaries voor SCO Unix.
@@ -295,12 +295,12 @@ Alle vrije software programmeurs (op gelijk welk platform)
 .PP
 En iedereen die ik vergeten ben :-{
 .SH SLOT
-.PP 
+.PP
 Indien je "bekijk" bruikbaar vindt (of onbruikbaar), suggesties hebt,
 bugs vindt :-( , mag je dit altijd laten weten.
 .SH AUTEUR
 V1.4.0pre2 Staf Wagemakers
-.PP   
+.PP
 homepage : http://www.wagemakers.be
 .br
 email : staf@wagemakers.be

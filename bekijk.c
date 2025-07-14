@@ -2077,10 +2077,10 @@ start_color();
   set_color(txt_view_found,mono_array,A_REVERSE,A_NORMAL,0,1);
     
   set_color(txt_view,color_array,COLOR_WHITE,COLOR_BLACK,A_NORMAL,color_mode);
-  set_color(txt_view_bold,color_array,COLOR_WHITE,COLOR_BLACK,A_BOLD,color_mode);
+  set_color(txt_view_bold,color_array,COLOR_GREEN,COLOR_BLACK,A_BOLD,color_mode);
   set_color(txt_view_italic,color_array,COLOR_RED,COLOR_BLACK,A_BOLD,color_mode);
-  set_color(txt_view_underline,color_array,COLOR_YELLOW,COLOR_BLACK,A_UNDERLINE,color_mode);
-  set_color(txt_view_blink,color_array,COLOR_WHITE,COLOR_BLACK,A_BLINK,color_mode);
+  set_color(txt_view_underline,color_array,COLOR_GREEN,COLOR_BLACK,A_UNDERLINE,color_mode);
+  set_color(txt_view_blink,color_array,COLOR_GREEN,COLOR_BLACK,A_BLINK,color_mode);
   set_color(txt_view_reverse,color_array,COLOR_WHITE,COLOR_BLACK,A_REVERSE,color_mode);
   set_color(txt_main_menu,color_array,COLOR_WHITE,COLOR_BLUE,A_NORMAL,color_mode);
   set_color(txt_main_menusel,color_array,COLOR_BLUE,COLOR_WHITE,A_NORMAL,color_mode);

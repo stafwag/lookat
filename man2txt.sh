@@ -37,4 +37,6 @@ if [ $# != "1" ]; then
 
 fi
 
-groff -t -e -mandoc -Tascii $1 | col -bx 
+man ./${1} | col -bx
+
+# groff -t -e -mandoc -Tascii $1 | col -bx

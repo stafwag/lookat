@@ -7,12 +7,12 @@ lookat \- Un*x file viewer
 [ \-\-help ] [ \fIfilename\fP ] [ \fIdir_name\fP ]
 .SH DESCRIPTION
 .PP
-"lookat" (or "bekijk" in the Dutch version) is a program to view 
+"lookat" (or "bekijk" in the Dutch version) is a program to view
 Un*x text files and manual pages.
 .PP
-Under DOS I used list.com to view text files. I didn't 
-find such a program under my favorite OS, GNU/Linux. The standard Un*x 
-utilities ( more, less, view ...) weren't userfriendly enough. For this 
+Under DOS I used list.com to view text files. I didn't
+find such a program under my favorite OS, GNU/Linux. The standard Un*x
+utilities ( more, less, view ...) weren't userfriendly enough. For this
 reason I created "lookat".
 .SH OPTIONS
 .IP "--help"
@@ -26,37 +26,37 @@ change the current directory to \fIdir_name\fP
 .PP
 None known yet, when you find one you let me know :-)
 .SH USAGE
-.PP   
+.PP
 There are four ways to start
 .I lookat
 :
-.PP  
-* by just typing '\fIlookat\fP', after the program is started you can select 
+.PP
+* by just typing '\fIlookat\fP', after the program is started you can select
 the file you want to view.
-.PP	 
-if there is already data on stdin, lookat will read the from stdin, 
+.PP
+if there is already data on stdin, lookat will read the from stdin,
 and display the contents of stdin
-.PP	 
+.PP
 example:
 .IP
 ls | lookat
-.PP	 
-* type '\fIlookat\fP \fIdir_name\fP', change the current directory to 
+.PP
+* type '\fIlookat\fP \fIdir_name\fP', change the current directory to
 \fIdir_name\fP.
 When the program is started you can select the file you want to view.
 .PP
-* by typing 'lookat <filename>', the file with <filename> will 
+* by typing 'lookat <filename>', the file with <filename> will
 automatically be loaded.
-.PP       
+.PP
 * in combination with "man"
-.PP       
-examples : 
+.PP
+examples :
 .IP
 man \-Plookat ls
 .br
 export PAGER=lookat; man ls
 .PP
-If you like "lookat" as your manual page viewer you can put the 
+If you like "lookat" as your manual page viewer you can put the
 next lines in your /etc/profile
 .IP
 alias man="man \-Plookat"
@@ -69,16 +69,16 @@ Keys:
    ->, C-f         : move right / forward
    arrow up, C-p   : move up / previous line
    arrow down, C-n : move down / next line
-   PgUp, u         : move up a screen 
-   PgDwn, d        : move down a screen 
-   HOME            : go to the beginning of a line 
+   PgUp, u         : move up a screen
+   PgDwn, d        : move down a screen
+   HOME            : go to the beginning of a line
    END             : go to the end of a line
    o               : open a new file
    t,<             : go to top (start of file)
    b,e,>           : go to the last line  (end of file)
    g               : go to a line number
    /,z,s,f         : search for a string
-   F3, n, c, v, \  : continue search 
+   F3, n, c, v, \  : continue search
    F9              : menu
    ALT+f           : file menu
    ALT+g           : go menu
@@ -87,21 +87,21 @@ Keys:
    F10,ESC,q       : quit program
    F1,h,?          : view this help file
    r               : rebuild screen
-.PP 
-When you press F9 you get access to the pull-down menus, most of the 
+.PP
+When you press F9 you get access to the pull-down menus, most of the
 functions are also available through the keyboard (see above).
 .PP
 .B File|Open  or 'o':
-.IP       
-When you select this function you get a window, at the left 
-side of the window you get the files of the current directory. 
-By selecting a file it will be loaded. At the right size of 
-the window you see the directories, by pressing the TAB key 
+.IP
+When you select this function you get a window, at the left
+side of the window you get the files of the current directory.
+By selecting a file it will be loaded. At the right size of
+the window you see the directories, by pressing the TAB key
 you are able to switch between the file and the directory
-selection. By selecting a directory with ENTER you change the 
-current directory. With the ESC key you cancel the file open 
+selection. By selecting a directory with ENTER you change the
+current directory. With the ESC key you cancel the file open
 operation.
-.PP	  
+.PP
 .B File|Quit   or 'F10,ESC,q':
 .IP
 Quit program.
@@ -111,96 +111,96 @@ Quit program.
 Move to the first line of the file.
 .PP
 .B Go|to end   or 'e':
-.IP       
+.IP
 Move to the last line of the file.
-.PP		  
+.PP
 .B Go|to line  or 'g':
-.IP       
-With this function you are able to move to a certain line 
-number. After you have selected this function you get a window 
-which asks you to give a line number. With ESC you cancel the 
-operation, by pressing the TAB key you can use the [   OK   ] 
+.IP
+With this function you are able to move to a certain line
+number. After you have selected this function you get a window
+which asks you to give a line number. With ESC you cancel the
+operation, by pressing the TAB key you can use the [   OK   ]
 and [ Cancel ] buttons.
-.PP	  
+.PP
 .B Go|to end of a line   or 'END':
-.IP       
+.IP
 Move to the end of a line.
-.PP	  
+.PP
 .B Go|to the beginning of a line   or 'HOME':
-.IP       
+.IP
 Move to the beginning of a line.
-.PP   
+.PP
 .B Search|for a string   or '/,z,s,f'
-.IP       
-With this function you can search for a string in the file. 
-The searching will start from the current line (the first 
-line on the screen) to the last line in the file. After you 
-select this function you will see a window which asks you to 
-give a string. The searching can been done on two ways, with 
-or without case sensitivity. By pressing the TAB key you can 
-select \-with SPACE or ENTER\- how to search at 
-.IP	     
+.IP
+With this function you can search for a string in the file.
+The searching will start from the current line (the first
+line on the screen) to the last line in the file. After you
+select this function you will see a window which asks you to
+give a string. The searching can been done on two ways, with
+or without case sensitivity. By pressing the TAB key you can
+select \-with SPACE or ENTER\- how to search at
+.IP
     [ ] Case sensitive
 .IP
-With the TAB key you are also able to use the [   OK   ] and [ Cancel ] 
+With the TAB key you are also able to use the [   OK   ] and [ Cancel ]
 buttons.
-.PP	  
+.PP
 .B Search|from beginning of the file
 .IP
 See above, the searching will start from the first line.
 .PP
 .B Search|Again  or 'F3'
-.IP       
+.IP
 Search for the last string again.
-.PP       
+.PP
 .B Options|cursor
-.IP       
+.IP
 Turn the cursor on/off
-.PP       
+.PP
 .B Options|give notice
-.IP       
+.IP
 Notice on exit on/off
-.PP       
+.PP
 .B Options|types
-.IP       
+.IP
 Add, delete, modify types
 .PP
 .B Options|colors
 .IP
 Modify the colors
-.PP 
+.PP
 .B Options|Save options
-.IP 
+.IP
 Save the options to your cfg file ($HOME/.lookat)
-.PP	  
+.PP
 .B Help|See help file  or 'F1,h,?'
-.IP       
+.IP
 View this help file.
-.PP       
+.PP
 .B Help|Keys ...
-.IP       
+.IP
 Shows a list with the keys you can use in "lookat".
-.PP	  
+.PP
 .B Help|About
-.IP       
+.IP
 Shows information about the program (version ,etc.).
 .SH CONFIGURATION
 .PP
 .B Note:
 .IP
-The format of the configuration file has changed, please 
+The format of the configuration file has changed, please
 remove the "=" sign. The old configuration files will still
 work, but may not be supported in the future.
 .PP
 lookat uses two configuration files a global configuration file
 ( /etc/lookat.conf ) and a user configuration file ( $HOME/.lookat )
 if the user's configuration file exists the global is ignored.
-.PP   
+.PP
 If the configuration files aren't available the defaults are used.
 .SH CONFIGURATION DIRECTIVES
 .PP
 .nf
-\fBcursor\fP  \fIon\fP\fb|\fP\fIoff\fP	     
+\fBcursor\fP  \fIon\fP\fb|\fP\fIoff\fP
 .fi
 .IP
 turn the cursor on / off
@@ -217,16 +217,16 @@ give notice on exit  on / off
 .IP
 create a new type
 .IP
-If a filename matches a type the external command will be 
+If a filename matches a type the external command will be
 used to open the file. A typical usage are gzipped files:
 .IP
    \.gz     "gzip \-cd"
-.IP   
-The type order is important lookat will compare the filename 
-with the types starting with the first type and continues 
+.IP
+The type order is important lookat will compare the filename
+with the types starting with the first type and continues
 until a type matches a filename.
-.IP   
-So if you want to define a type for ".gz" and ".tar.gz" files 
+.IP
+So if you want to define a type for ".gz" and ".tar.gz" files
 you have to put the .tar.gz type first.
 .PP
 .nf
@@ -235,17 +235,17 @@ you have to put the .tar.gz type first.
 .IP
 If your terminal supports colors, this directive can be use
 to modify the color of certain objects. Valid objects are:
-\fBview\fP, \fBview_bold\fP, \fBview_italic\fP, \fBmain_menu\fP, 
-\fBmain_menusel\fP, \fBmain_menuhot\fP, \fBmain_menuhotsel\fP, 
-\fBstatus_bar\fP, \fBwin1\fP, \fBwin1_edit\fP, \fBwin1_menu\fP, 
-\fBwin1_menusel\fP, \fBwin1_menuhot\fP, \fBwin1_menuhotsel\fP, 
-\fBwin2\fP, \fBwin2_edit\fP, \fBwin2_menu\fP, \fBwin2_menusel\fP, 
+\fBview\fP, \fBview_bold\fP, \fBview_italic\fP, \fBmain_menu\fP,
+\fBmain_menusel\fP, \fBmain_menuhot\fP, \fBmain_menuhotsel\fP,
+\fBstatus_bar\fP, \fBwin1\fP, \fBwin1_edit\fP, \fBwin1_menu\fP,
+\fBwin1_menusel\fP, \fBwin1_menuhot\fP, \fBwin1_menuhotsel\fP,
+\fBwin2\fP, \fBwin2_edit\fP, \fBwin2_menu\fP, \fBwin2_menusel\fP,
 \fBwin2_menuhot\fP, \fBwin2_menuhotsel\fP, \fBview_found\fP.
 .IP
-Valid colors are: \fBwhite\fP, \fBblack\fP, \fBgreen\fP, \fBmagenta\fP, 
+Valid colors are: \fBwhite\fP, \fBblack\fP, \fBgreen\fP, \fBmagenta\fP,
 \fBblue\fP, \fBcyan\fP, \fByellow\fP, \fBred\fP.
 .IP
-Valid attributes are: \fBnormal\fP, \fBbold\fP, \fBunderline\fP, \fBreverse\fP, 
+Valid attributes are: \fBnormal\fP, \fBbold\fP, \fBunderline\fP, \fBreverse\fP,
 and \fBstandout\fP.
 .PP
 .nf
@@ -255,34 +255,34 @@ and \fBstandout\fP.
 If your terminal doesn't support color, you can still assign
 \fIforeground\fP and \fIbackground\fP attributes to certain objects.
 .SH THANKS TO ...
-.PP 
-Free Software Foundation inc.
-.IP      
-The GNU C Library Reference Manual by Sandra Loosemore
-And of course for gcc, make, bash, grep, man, ls, cp, tar, 
-gzip, emacs, less, ..., and more :\-)
-.PP      
-Sven Golt, Sven van der Meer, Scott Burkett, Matt Welsh
-.IP      
-From the Linux Documentation Project for their Linux Programmer's Guide.  
 .PP
-Linus, and others ... 
-.IP      
+Free Software Foundation inc.
+.IP
+The GNU C Library Reference Manual by Sandra Loosemore
+And of course for gcc, make, bash, grep, man, ls, cp, tar,
+gzip, emacs, less, ..., and more :\-)
+.PP
+Sven Golt, Sven van der Meer, Scott Burkett, Matt Welsh
+.IP
+From the Linux Documentation Project for their Linux Programmer's Guide.
+.PP
+Linus, and others ...
+.IP
 for Linux of course ;\-)
-.PP         
+.PP
 Jan Wagemakers
-.IP   
-For his debugging & to place "see" on his Webpage. 
-You can find more information about Linux and Assembly on his 
+.IP
+For his debugging & to place "see" on his Webpage.
+You can find more information about Linux and Assembly on his
 Webpage : http://www.janw.easynet.be
-.PP	 
+.PP
 Roel Diederen
-.IP   
+.IP
 To create the man page for see 1.1
 .PP
 Aubin Paul
 .IP
-Aubin created the Mac OSX patch, this made it a lot easier to 
+Aubin created the Mac OSX patch, this made it a lot easier to
 port "lookat" to other platform than GNU/Linux.
 .PP
 Jim W. Jaszewski
@@ -291,7 +291,7 @@ Corrected some typos in the manpage.
 .PP
 Kevin Keegan
 .IP
-For reporting his installation problem on SCO OpenServer box, and to 
+For reporting his installation problem on SCO OpenServer box, and to
 provide pre\-compiled binaries for SCO Unix.
 .PP
 Brian Callahan <bcallah@cvs.openbsd.org>
@@ -299,18 +299,31 @@ Brian Callahan <bcallah@cvs.openbsd.org>
 openbsd patch, corrected English translation issues
 .PP
 All Free software programmers (on any computer system)
-.PP      
+.PP
 And everyone I had forgot to mention :\-{
 .SH LAST WORDS ...
-.PP 
-When you find "lookat" useful (or useless), have suggestions, 
+.PP
+When you find "lookat" useful (or useless), have suggestions,
 find a bug :\-( you may let me know.
-.SH AUTHOR
-V2.0.1 Staf Wagemakers
-.PP   
-homepage : http://www.wagemakers.be
+.SH AUTHORS
+.SS Staf Wagemakers <staf@wagemakers.be>.
+.PP
+Main author
+.PP
 .br
-email : staf@wagemakers.be
+Homepage: https://www.wagemakers.be
+.br
+My company: https://mask27.dev
+.SS Aubin Paul.
+.PP
+Created the Mac OSX patch this made it a lot easier to port lookat /bekijk
+to other platforms than GNU/Linux.
+.SS Brian Callahan <bcallah@cvs.openbsd.org>.
+.PP
+openbsd patch, corrected English translation issues
+.SS Ryan Schmidt.
+.PP
+patch to compile Lookat on Macos 10.7+
 .SH COPYRIGHT
 .SS Documentation
 The documentation for Lookat is licensed under the terms of
@@ -335,9 +348,9 @@ the above copyright notice, this list of conditions and the following
 disclaimer in the documentation and/or other materials provided with
 the distribution.
 
-THIS DOCUMENTATION IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED 
-WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
-MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+THIS DOCUMENTATION IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
 IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
 DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE

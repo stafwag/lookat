@@ -39,4 +39,6 @@ fi
 
 man ./${1} | col -bx
 
+# Code generate the text manpage with GNU groff
+# Using man dirrectly now
 # groff -t -e -mandoc -Tascii $1 | col -bx

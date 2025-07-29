@@ -19,7 +19,7 @@ give_notice     on
 
 color   view	            white   black normal
 color   view_bold	        green	    black	bold
-color   view_italic	      red	    black	bold
+color   view_italic	      yellow	    black	underline
 color view_underline  green black underline
 color   main_menu	        white	  blue  normal
 color   main_menusel	    blue	  white	normal
@@ -41,7 +41,7 @@ color   win2_menuhotsel	  yellow	blue	bold
 color   view_found	      white	  green	  bold
 mono    view	normal	    normal
 mono    view_bold	bold	  normal
-mono    view_italic	bold	normal
+mono    view_italic	underline normal
 mono    main_menu	reverse	normal
 mono    main_menusel	    normal	normal
 mono    main_menuhot	    reverse	bold

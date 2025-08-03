@@ -1,11 +1,15 @@
-Lookat / Bekijk 2.1.0rc1	( ?? Jul 2025)
+Lookat / Bekijk 2.1.0rc2	( 03 Aug 2025)
  - Corrected italic color
  - Don't reset zoek_offset in cursor mode
  - Renamed strsize to charsize ( ansi_strsize -> ansi_charsize,
 	 utf8_strsize -> utf8_charsize) to be less confusing
- - Support for multiple ansi streams ansi_utf8_strlen
+ - Support for multiple ansi streams in ansi_utf8_strlen()
  - Update default color theme to green for this release
  - Update manpages & documentation
+ - Reorganized contrib directory
+ 		- Moved ci/cd related file from contrib/* to contrib/cicd
+ 		- Moved debian dir to contrib/dist
+ 		- Moved support script to contrib/scripts
  
 Lookat / Bekijk 2.1.0rc1	( 7 Jun 2025)
  - ANSI Color support

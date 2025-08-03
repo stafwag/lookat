@@ -3,6 +3,8 @@
 #
 # man2txt.sh
 #
+# script to convert a manpage to a text file
+#
 # Copyright (C) 2007, 2020 Staf Wagemakers Belgie/Belgium
 #
 # This program is free software; you can redistribute it and/or modify

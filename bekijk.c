@@ -1987,6 +1987,14 @@ if (!isatty(STDIN_FILENO)) {
           /*
            * open the file selection window if the file argument is a directory
            */
+
+          if (chdir(arg_filename)==-1) {
+
+             fprintf(stderr,"chdir(%s) failed", arg_filename );
+             wexit(1);
+
+          }
+
           open_filewin_flag=1;
           break;
 

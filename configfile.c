@@ -21,7 +21,7 @@
 
 #include "configfile.h"
 #include <string.h>
-#define BUFFER_LEN 200
+#define BUFFER_LEN 256
 /*
  * converts line to a string with only the global part
  * current_section = hulp string

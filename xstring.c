@@ -392,13 +392,13 @@ void free_string_array (char **array) {
 	char **ccp;
 	if( array==NULL) return;
 	ccp=array;
-	for (;;) {
-	  if (ccp!=NULL) {
-		  if (*ccp!=NULL) {
+	for(;;) {
+	  if(ccp!=NULL) {
+	       if (*ccp!=NULL) {
 	       xfree(*ccp);
 	       ccp++;
-		     continue;
-		  }
+	       continue;
+             }
 	  }
 	  break;
 	}

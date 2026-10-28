@@ -439,4 +439,3 @@ char ** get_next_config_var_array(FILE *fp, char *var_name) {
 
 	return(ret);
 }
-

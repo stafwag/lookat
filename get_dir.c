@@ -20,7 +20,6 @@
  */
 
 #include "get_dir.h"
-/* int compare(const char **c1,const char **c2)  */
 int compare(const void *e1, const void *e2)
 {
   char **c1=(char **) e1, **c2=(char **) e2;

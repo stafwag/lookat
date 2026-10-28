@@ -1,7 +1,7 @@
 /*
  *  ned.h
  *
- *  Copyright (C) 1997 - 2025   Staf Wagemakers Belgium
+ *  Copyright (C) 1997 - 2026   Staf Wagemakers Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ const int sel_zm		='z';
 const int sel_om    ='o';
 const int sel_hm		='h';
 int help_width=75;
-char txt_prg_dates[]="1997-2025";
+char txt_prg_dates[]="1997-2026";
 char txt_gpl_short[]="(GPL)";
 char txt_help_prgname[] = "bekijk";
 char txt_belgie[]="Belgie  Belgium";

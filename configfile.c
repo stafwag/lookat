@@ -1,7 +1,7 @@
 /*
  * configfile.c
  *
- * Copyright (C) 1999, 2001, 2003, 2006, 2007, 2020 Staf Wagemakers Belgie/Belgium
+ * Copyright (C) 1999, 2001, 2003, 2006, 2007, 2020, 2026 Staf Wagemakers Belgie/Belgium
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -75,8 +75,8 @@ return(globals);
  * mode         = 0 -> normal mode
  *                1 -> get only global variables
  *                2 -> get_next
- * return       = value 
- *              = NULL bij een fout                
+ * return       = value
+ *              = NULL bij een fout
  */
 char * real_get_config(FILE *fp,char *section_name,char *var_name,int mode)
 {
@@ -84,9 +84,9 @@ int l=0,lc=0;
 int sect=0,global=1;
 char *r=NULL,*c=NULL,*ss=NULL,s[BUFFER_LEN],*start_section=NULL;
 char *end_section=NULL,*current_section=NULL;
-if(var_name==NULL) return(NULL);
-if(fp==NULL) return NULL;
-if(mode!=2) fseek(fp,0,SEEK_SET);
+if (var_name==NULL) return(NULL);
+if (fp==NULL) return NULL;
+if (mode!=2) fseek(fp,0,SEEK_SET);
   else var_name[0]='\0';
 
 if (section_name!=NULL) {
@@ -140,8 +140,8 @@ while (fgets(s,BUFFER_LEN,fp)) {
   }
 }
 
-if((mode==1)&&(ss!=NULL)) xfree(ss); 
-if(start_section!=NULL) xfree(start_section); 
+if((mode==1)&&(ss!=NULL)) xfree(ss);
+if(start_section!=NULL) xfree(start_section);
 if(end_section!=NULL) xfree(end_section);
 if(current_section!=NULL) xfree(current_section);
 return(r);
@@ -172,13 +172,13 @@ return(get_section_config(fp,NULL,var_name));
  * mk_single_item
  */
 void mk_single_item( char *c ) {
-if(c!=NULL) {
-   if (c[0]=='\"') {
-      rmpos(c,0);
-      cut_after_quote(c);
-   }
-   else cut_space(c);
-}
+  if(c!=NULL) {
+     if(c[0]=='\"') {
+        rmpos(c,0);
+        cut_after_quote(c);
+     }
+     else cut_space(c);
+  }
 }
 
 /*
@@ -189,31 +189,34 @@ if(c!=NULL) {
  * var_name          = variable name
  * mode         = 0 -> normal mode
  *                1 -> global mode
- * returns char * item 
+ * returns char * item
  *         NULL = error
  */
-char * real_get_config_item(FILE *fp,char *section_name,char *var_name,int mode) 
+char * real_get_config_item(FILE *fp,char *section_name,char *var_name,int mode)
 {
 char *c;
 c=real_get_config(fp,section_name,var_name,mode);
-if(c!=NULL) {
-mk_single_item(c);
 
-xrealloc(c,strlen(c)+1); 
+if(c!=NULL) {
+
+  mk_single_item(c);
+  xrealloc(c,strlen(c)+1);
+
 }
+
 return(c);
 }
 /*
  * get a section item
  */
-char * get_section_config_item(FILE *fp,char *section_name,char *var_name) 
+char * get_section_config_item(FILE *fp,char *section_name,char *var_name)
 {
 return(real_get_config_item(fp,section_name,var_name,0));
 }
 /*
  * get any item
  */
-char * get_config_item(FILE *fp,char *var_name) 
+char * get_config_item(FILE *fp,char *var_name)
 {
 return(get_section_config_item(fp,NULL,var_name));
 }
@@ -227,33 +230,39 @@ return(real_get_config_item(fp,NULL,var_name,1));
 /*
  * mk_array
  */
-char ** mk_array(char *c) 
+char ** mk_array(char *c)
 {
 char *c2=NULL;
 char **cc=NULL;
 int i=0,n=0;
 
 if (c==NULL) return (NULL);
+
 c2=c;
 c2=mv_2_next(c2);
 cc=(char **) xmalloc(sizeof(char **)*n+2);
+
 do {
+
    c2=mv_2_next(c2);
    if (c2[0]=='\"') {
-   rmpos(c2,0);
-   i=get_quoted_item_size(c2);
-   rmpos(c2,i);
-}
-else i=get_item_size(c2);
-cc=(char **) xrealloc(cc,sizeof(char **)*(n+2));
-if (i) {
-   cc[n]=(char *) xmalloc(i+1);
-   strncpy(cc[n],c2,i);
-   cc[n][i]='\0';
-   c2=c2+i;
-}
-++n;
+     rmpos(c2,0);
+     i=get_quoted_item_size(c2);
+     rmpos(c2,i);
+   } else i=get_item_size(c2);
+
+    cc=(char **) xrealloc(cc,sizeof(char **)*(n+2));
+
+   if (i) {
+      cc[n]=(char *) xmalloc(i+1);
+      strncpy(cc[n],c2,i);
+      cc[n][i]='\0';
+      c2=c2+i;
+   }
+
+   ++n;
 }  while (i);
+
 cc[--n]=NULL;
 return(cc);
 
@@ -287,7 +296,7 @@ char ** get_section_config_array(FILE *fp,char *section_name,char *var_name)
 {
 return(real_get_config_array(fp,section_name,var_name,0));
 }
-/* 
+/*
  * get any config array
  */
 char ** get_config_array(FILE *fp,char *var_name)
@@ -303,7 +312,7 @@ return(real_get_config_array(fp,NULL,var_name,1));
 }
 /*
  * replaces %{variable_name} with a new string
- * 
+ *
  * parms[0][0] = variable name , parms[0][1] = value , ...
  */
 char * add_parms(char *txt,char ***parms) {
@@ -379,7 +388,7 @@ char ** real_get_next_config(FILE *fp, int mode) {
 			   mk_single_item(var_value);
 			   var_value=xrealloc(var_value,strlen(var_value)+1);
 			   break;
-		  default: 
+		  default:
 			   break;
 	  }
 	  ret[1]=var_value;

@@ -35,14 +35,15 @@ char *txt_help_body[]		= {
 " ",
 "How to start 'lookat'?",
 " ",
-"- by just typing 'lookat', after the program is started you can select the",
-"  file you want to view.",
-"- by typing 'lookat <dir_name>', change the current directory to <dir_name>.",
-"- by typing 'lookat <filename>', the file with <filename> will automatically",
-"  be loaded.",
+"- by typing 'lookat', after the program is started you can select the",
+"  file you want to view.\n",
+"- by typing 'lookat <dir_name>', change the current directory to",
+"  <dir_name>.\n",
+"- by typing 'lookat <filename>', the file with <filename> will",
+"  automatically be loaded.\n",
 "- read from stdin",
 "  examples : lookat < test.txt",
-"             ls | lookat",
+"             ls | lookat\n",
 "- use 'lookat' as a manual page viewer : man -Plookat ls",
 " ",
 "Thank you for using this program!",NULL };
@@ -76,7 +77,6 @@ unsigned hplace_colorm[]	={2,1,4,1,2,1,0,0,0,0};
 unsigned hplace_ok_anu[]     	={4,1,2,1};
 unsigned hplace_zoek[]       	={0,0,0,0,4,1,2,1};
 unsigned hplace_type[]      	={4,1,2,1};
-
 
 char txt_info_open[]	="Select a file or directory     TAB = files <-> directories       ESC = cancel";
 char txt_term[]         ="Program terminated by signal ";

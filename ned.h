@@ -35,18 +35,17 @@ char txt_author_email[]="staf@wagemakers.be";
 
 char *txt_help_body[]		= {
 " ",
-"Je kan 'bekijk' op de volgende manieren starten:",
-" "
+"Je kan 'bekijk' op de volgende manieren starten:\n",
 "- door gewoon 'bekijk' te typen, hierna kan je uit het bestandsmenu",
-"  een bestand selekteren om te bekijken.",
+"  een bestand selekteren om te bekijken.\n",
 "- door 'bekijk <dir_naam>' te typen, de huidige direktorie wordt",
-"  verandert in <dir_naam>.",
+"  verandert in <dir_naam>.\n",
 "- door 'bekijk <bestandsnaam>' te typen, hierdoor wordt bij het",
-"  opstarten het bestand automatisch geladen.",
+"  opstarten het bestand automatisch geladen.\n",
 "- lezen van stdin",
 "  voorbeeld:  bekijk < test.txt",
 "              ls | bekijk",
-"- om man paginas te bekijken: man -Pbekijk ls",
+"- om man paginas te bekijken: man -Pbekijk ls\n",
 " ",
 "Bedankt voor het gebruik van dit programma!", NULL };
 

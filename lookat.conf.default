@@ -11,6 +11,7 @@ give_notice     on
 .gz             "gzip -cd"
 .bz2            "bzip2 -cd"
 .zip            "unzip"
+.md     	"pandoc -t rst"
 
 #
 # colors

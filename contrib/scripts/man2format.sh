@@ -26,7 +26,7 @@
 usage () {
 
 	echo >&2
-	echo >&2  "Usage: $(basename $0) [ -f txt|html|md ] manpage.man"
+	echo >&2  "Usage: $(basename "$0") [ -f txt|html|md ] manpage.man"
 	echo >&2
 
 	exit 1
@@ -38,7 +38,7 @@ format="txt"
 verbose=""
 
 
-while getopts “hvf:” OPTION; do
+while getopts "hvf:" OPTION; do
   case $OPTION in
     f)
       format=$OPTARG
@@ -79,13 +79,13 @@ case "$format" in
         # Code generate the text manpage with GNU groff
         # Using man dirrectly now
         # groff -t -e -mandoc -Tascii $1 | col -bx
-        man ./${file} | col -bx
+        man "./${file}" | col -bx
         ;;
     html)
-        groff -t -e -mandoc -Thtml ${file}
+        groff -t -e -mandoc -Thtml "${file}"
         ;;
     markdown)
-        pandoc -f man -t markdown ${file}
+        pandoc -f man -t markdown "${file}"
         ;;
     *)
 	    echo >&2

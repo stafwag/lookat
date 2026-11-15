@@ -88,7 +88,7 @@ case "$format" in
         pandoc -f man -t markdown "${file}"
         ;;
     *)
-	    echo >&2
+	echo >&2
         echo >&2 "Unknown format ${format}"
         usage
         ;;

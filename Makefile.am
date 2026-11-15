@@ -1,3 +1,9 @@
+# Use default directory permissions.
+# To support build systems where the umask is set.
+MKDIR_P = umask 022 && mkdir -p
+install_sh = umask 022 && $(SHELL) $(top_srcdir)/install-sh
+mkinstalldirs = umask 022 && $(install_sh) -d
+
 bin_PROGRAMS = lookat bekijk
 man_MANS = lookat.1 bekijk.1
 lookat_SOURCES = get_dir.c get_dir.h menu.c menu.h configfile.c configfile.h win.h win.c view.c view.h input.c input.h msg.c msg.h eng.h xmalloc.c xmalloc.h outofmemory.c outofmemory.h getline.c getline.h lookat_configfile.c lookat_configfile.h xstring.c xstring.h color.c color.h eng.h common.h ncurses_h.h

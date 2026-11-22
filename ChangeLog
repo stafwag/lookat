@@ -1,4 +1,4 @@
-Lookat / Bekijk 2.1.1	( 15 Nov 2025)
+Lookat / Bekijk 2.1.1	( 22 Nov 2026)
  - BUGFIX: Added missing change to directory when argument is a directory
  - Code cleanup
  - Added prototype for getstr to avoid compile warning with clang

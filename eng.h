@@ -1,7 +1,7 @@
 /*
  *  eng.h
  *
- *  Copyright (C) 1997 - 2025  Staf Wagemakers Belgie/Belgium
+ *  Copyright (C) 1997 - 2026  Staf Wagemakers Belgie/Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ const char sel_zm		='s';
 const char sel_hm		='h';
 const int sel_om    ='o';
 int help_width=75;
-char txt_prg_dates[]="1997-2025";
+char txt_prg_dates[]="1997-2026";
 char txt_gpl_short[]="(GPL)";
 char txt_help_prgname[] = "lookat";
 char txt_belgie[]="Belgie  Belgium";
@@ -35,14 +35,15 @@ char *txt_help_body[]		= {
 " ",
 "How to start 'lookat'?",
 " ",
-"- by just typing 'lookat', after the program is started you can select the",
-"  file you want to view.",
-"- by typing 'lookat <dir_name>', change the current directory to <dir_name>.",
-"- by typing 'lookat <filename>', the file with <filename> will automatically",
-"  be loaded.",
+"- by typing 'lookat', after the program is started you can select the",
+"  file you want to view.\n",
+"- by typing 'lookat <dir_name>', change the current directory to",
+"  <dir_name>.\n",
+"- by typing 'lookat <filename>', the file with <filename> will",
+"  automatically be loaded.\n",
 "- read from stdin",
 "  examples : lookat < test.txt",
-"             ls | lookat",
+"             ls | lookat\n",
 "- use 'lookat' as a manual page viewer : man -Plookat ls",
 " ",
 "Thank you for using this program!",NULL };
@@ -76,7 +77,6 @@ unsigned hplace_colorm[]	={2,1,4,1,2,1,0,0,0,0};
 unsigned hplace_ok_anu[]     	={4,1,2,1};
 unsigned hplace_zoek[]       	={0,0,0,0,4,1,2,1};
 unsigned hplace_type[]      	={4,1,2,1};
-
 
 char txt_info_open[]	="Select a file or directory     TAB = files <-> directories       ESC = cancel";
 char txt_term[]         ="Program terminated by signal ";

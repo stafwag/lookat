@@ -92,13 +92,8 @@ extern char *realloc ();
    null terminator), or -1 on error or EOF.
    NOTE: There is another getstr() function declared in <curses.h>.  */
 
-static int
-getstr (lineptr, n, stream, terminator, offset)
-     char **lineptr;
-     size_t *n;
-     FILE *stream;
-     char terminator;
-     size_t offset;
+static int getstr (char **lineptr, size_t *n, FILE *stream, char terminator, size_t offset);
+static int getstr (char **lineptr, size_t *n, FILE *stream, char terminator, size_t offset)
 {
   int nchars_avail;		/* Allocated but unused chars in *LINEPTR.  */
   char *read_pos;		/* Where we're reading into *LINEPTR. */

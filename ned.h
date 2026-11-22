@@ -1,7 +1,7 @@
 /*
  *  ned.h
  *
- *  Copyright (C) 1997 - 2025   Staf Wagemakers Belgium
+ *  Copyright (C) 1997 - 2026   Staf Wagemakers Belgium
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ const int sel_zm		='z';
 const int sel_om    ='o';
 const int sel_hm		='h';
 int help_width=75;
-char txt_prg_dates[]="1997-2025";
+char txt_prg_dates[]="1997-2026";
 char txt_gpl_short[]="(GPL)";
 char txt_help_prgname[] = "bekijk";
 char txt_belgie[]="Belgie  Belgium";
@@ -35,18 +35,17 @@ char txt_author_email[]="staf@wagemakers.be";
 
 char *txt_help_body[]		= {
 " ",
-"Je kan 'bekijk' op de volgende manieren starten:",
-" "
+"Je kan 'bekijk' op de volgende manieren starten:\n",
 "- door gewoon 'bekijk' te typen, hierna kan je uit het bestandsmenu",
-"  een bestand selekteren om te bekijken.",
+"  een bestand selekteren om te bekijken.\n",
 "- door 'bekijk <dir_naam>' te typen, de huidige direktorie wordt",
-"  verandert in <dir_naam>.",
+"  verandert in <dir_naam>.\n",
 "- door 'bekijk <bestandsnaam>' te typen, hierdoor wordt bij het",
-"  opstarten het bestand automatisch geladen.",
+"  opstarten het bestand automatisch geladen.\n",
 "- lezen van stdin",
 "  voorbeeld:  bekijk < test.txt",
 "              ls | bekijk",
-"- om man paginas te bekijken: man -Pbekijk ls",
+"- om man paginas te bekijken: man -Pbekijk ls\n",
 " ",
 "Bedankt voor het gebruik van dit programma!", NULL };
 

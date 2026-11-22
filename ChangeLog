@@ -1,3 +1,8 @@
+Lookat / Bekijk 2.1.1	( 22 Nov 2026)
+ - BUGFIX: Added missing change to directory when argument is a directory
+ - Code cleanup
+ - Added prototype for getstr to avoid compile warning with clang
+
 Lookat / Bekijk 2.1.0	( 09 Sep 2025)
  - Lookat / Bekijk 2.1.0rc2 has been released as Lookat / Bekijk 2.1.0
 

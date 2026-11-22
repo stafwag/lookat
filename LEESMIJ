@@ -1,4 +1,4 @@
-BEKIJK(1)                                          User Commands                                         BEKIJK(1)
+BEKIJK(1)                        User Commands                       BEKIJK(1)
 
 NAME
        bekijk - Un*x bestand bekijker
@@ -7,13 +7,14 @@ SYNOPSIS
        bekijk [ --help ] [ bestandsnaam ] [ directorie_naam ]
 
 OMSCHRIJVING
-       "bekijk"  (of  "lookat"  in  de Engelse versie) is een programma om Un*x tekst bestanden en manual pages te
-       bekijken.
+       "bekijk" (of "lookat" in de Engelse versie) is een programma om Un*x
+       tekst bestanden en manual pages te bekijken.
 
-       Onder DOS gebruikte ik het programma (en gebruik ik nog steeds) list.com om tekst  bestanden  te  bekijken.
-       Onder  Linux  bestond  een  dergelijk  programma niet (of heb ik het niet gevonden). De standaard Un*x pro‐
-       gramma's (more, less, view ...) waren niet gebruiksvriendelijk genoeg. Om deze rede  heb  ik  "bekijk"  on‐
-       twikkeld.
+       Onder DOS gebruikte ik het programma (en gebruik ik nog steeds)
+       list.com om tekst bestanden te bekijken. Onder Linux bestond een
+       dergelijk programma niet (of heb ik het niet gevonden). De standaard
+       Un*x programma's (more, less, view ...) waren niet gebruiksvriendelijk
+       genoeg. Om deze rede heb ik "bekijk" ontwikkeld.
 
 OPTIES
        --help
@@ -31,7 +32,8 @@ LUIZEN EN ANDER ONGEDIERTE
 GEBRUIK
        Je kan "bekijk" op 4 manieren starten: bekijk :
 
-       * door gewoon 'bekijk' te typen, hierna kan je uit het bestandsmenu een bestand selecteren om te bekijken.
+       * door gewoon 'bekijk' te typen, hierna kan je uit het bestandsmenu een
+       bestand selecteren om te bekijken.
 
        indien er data via stdin kan lezen worden zal 'bekijk' deze tonen
 
@@ -39,10 +41,12 @@ GEBRUIK
 
               ls | bekijk
 
-       door 'bekijk dir_naam' te typen, de huidige directorie wordt veranderd naar dir_naam. Hierna kan je uit het
-       bestandsmenu een bestand selecteren.
+       door 'bekijk dir_naam' te typen, de huidige directorie wordt veranderd
+       naar dir_naam. Hierna kan je uit het bestandsmenu een bestand
+       selecteren.
 
-       * door 'bekijk <bestandsnaam>' te typen, hierdoor wordt bij het opstarten het bestand automatisch geladen.
+       * door 'bekijk <bestandsnaam>' te typen, hierdoor wordt bij het
+       opstarten het bestand automatisch geladen.
 
        in combinatie met man
 
@@ -51,48 +55,78 @@ GEBRUIK
               man -Pbekijk ls
               export PAGER=bekijk; man ls
 
-       Als je "bekijk" altijd wil gebruiken om man pagina's te bekijken, plaats  je  best  de  volgende  regel  in
-       /etc/profile
+       Als je "bekijk" altijd wil gebruiken om man pagina's te bekijken,
+       plaats je best de volgende regel in /etc/profile
 
               alias man="man -Pbekijk"
 
        Nadat je een bestand geladen hebt kan je volgende toetsen gebruiken:
 
-       Toetsen:
+TOETSEN
+       <-, C-b
+              Links
 
-                 <-, C-b         : links
-                 ->, C-f         : rechts
-                 arrow up, C-p   : omhoog
-                 arrow down, C-n : omlaag
-                 PgUp, u         : pagina omhoog
-                 PgDwn, d        : pagina omlaag
-                 HOME            : ga naar het begin van een regel
-                 END             : ga naar het einde van een regel
-                 o               : openen van een bestand
-                 t,<             : ga naar de eerste regel
-                 b,e,>           : ga naar de laatste regel
-                 g               : ga naar een lijnnummer
-                 /,z,s,f         : zoeken van een tekst
-                 F3, n, c, v,   : verder zoeken
-                 F9              : menu
-                 ALT+b           : bestandsmenu
-                 ALT+g           : ga menu
-                 ALT+z           : zoek menu
-                 ALT+h           : help menu
-                 F10,ESC,q       : verlaat het programma
-                 F1,h,?          : openend help bestand
-                 r               : herteken het scherm
+       -">,   Rechts
 
-       Door  op  F9  te drukken kan je gebruik maken van de trekmenu's, de meeste functies zijn ook bereikbaar via
-       het toetsenbord (zie hierboven).
+       arrow up, C-p
+              Omhoog
+
+       arrow  Omlaag
+
+       PgUp, u
+              Pagina omhoog
+
+       PgDwn, d
+              Pagina omlaag
+
+       HOME   Ga naar het begin van een regel
+
+       END    Ga naar het einde van een regel
+
+       o      Openen van een bestand
+
+       t,<    Ga naar de eerste regel
+
+       b,e,>  Ga naar de laatste regel
+
+       g      Ga naar een lijnnummer
+
+       /,z,s,f
+              Zoeken van een tekst
+
+       F3, n, c, v,
+              Verder zoeken
+
+       F9     Menu
+
+       ALT+b  Bestandsmenu
+
+       ALT+g  Ga menu
+
+       ALT+z  Zoek menu
+
+       ALT+h  Help menu
+
+       F10,ESC,q
+              Verlaat het programma
+
+       F1,h,? Open het help bestand
+
+       r      Herteken het scherm
+
+MENU
+       Door op F9 te drukken kan je gebruik maken van de trekmenu's, de meeste
+       functies zijn ook bereikbaar via het toetsenbord (zie hierboven).
 
        Bestand|Openen of 'o':
 
-              Hierna wordt er een venster geopend met links de bestanden van de huidige directorie, door  een  be‐
-              stand te selecteren wordt het geladen.
+              Hierna wordt er een venster geopend met links de bestanden van
+              de huidige directorie, door een bestand te selecteren wordt het
+              geladen.
 
-              Rechts  staan de directories, door op de TAB toets te drukken kan je omschakelen tussen de bestanden
-              en de directories, door een directorie te selecteren wordt er van directorie veranderd.
+              Rechts staan de directories, door op de TAB toets te drukken kan
+              je omschakelen tussen de bestanden en de directories, door een
+              directorie te selecteren wordt er van directorie veranderd.
 
               Door op ESC te drukken verlaat je het venster
 
@@ -118,18 +152,21 @@ GEBRUIK
 
        Zoek|tekst of '/,z,s,f'
 
-              Deze functie dient om tekst in het bestand te zoeken. Het opzoeken van de tekst gebeurt van  huidige
-              regel  tot de laatste. Er komt een venster op het scherm welke je vraagt om de te-zoeken-tekst in te
-              geven. Het opzoeken kan op twee manieren gebeuren ofwel wordt er g��n rekening houden met hoofd  -of
-              kleine letters ofwel wel. Met de TAB toets kan men selecteren bij
+              Deze functie dient om tekst in het bestand te zoeken. Het
+              opzoeken van de tekst gebeurt van huidige regel tot de laatste.
+              Er komt een venster op het scherm welke je vraagt om de te-
+              zoeken-tekst in te geven. Het opzoeken kan op twee manieren
+              gebeuren ofwel wordt er géén rekening houden met hoofd -of
+              kleine letters ofwel wel. Met de TAB toets kan men selecteren
+              bij
 
                    [ ] Onderscheidt tussen grootte & kleine letters
 
-              hoe de opzoeking moet gebeuren. Door middel van de TAB toets kan je gebruik maken van de [  OK  ] en
-              [ Annuleer ] knoppen.
+              hoe de opzoeking moet gebeuren. Door middel van de TAB toets kan
+              je gebruik maken van de [  OK  ] en [ Annuleer ] knoppen.
 
-       Zoek|van begin tekst Zelfde functie als hierboven alleen, gebeurt de opzoeking vanaf het begin van het  be‐
-       stand.
+       Zoek|van begin tekst Zelfde functie als hierboven alleen, gebeurt de
+       opzoeking vanaf het begin van het bestand.
 
        Zoek|Nogmaals of 'F3'
 
@@ -170,15 +207,19 @@ GEBRUIK
 CONFIGURATIE
        Nota:
 
-              Het  formaat van het configuratie bestand is gewijzigd, het is aangeraden om het "=" teken te verwi‐
-              jderen in je oude configuratie bestand te verwijderen. De oude  configuratie  bestanden  werken  nog
-              maar worden waarschijnlijk niet verder ondersteund in de volgende versies.
+              Het formaat van het configuratie bestand is gewijzigd, het is
+              aangeraden om het "=" teken te verwijderen in je oude
+              configuratie bestand te verwijderen. De oude configuratie
+              bestanden werken nog maar worden waarschijnlijk niet verder
+              ondersteund in de volgende versies.
 
-       bekijk  gebruikt  twee configuratie bestanden, een globaal configuratie bestand ( /etc/lookat.conf ) en ge‐
-       bruikers configuratie bestand ( $HOME/.lookat ). Indien het gebruikers configuratie bestand  bestaat  wordt
-       het globale genegeerd.
+       bekijk gebruikt twee configuratie bestanden, een globaal configuratie
+       bestand ( /etc/lookat.conf ) en gebruikers configuratie bestand (
+       $HOME/.lookat ). Indien het gebruikers configuratie bestand bestaat
+       wordt het globale genegeerd.
 
-       Als de configuratie bestanden niet beschikbaar zijn worden de default waarden gebruikt.
+       Als de configuratie bestanden niet beschikbaar zijn worden de default
+       waarden gebruikt.
 
        cursor  on|off
 
@@ -190,45 +231,54 @@ CONFIGURATIE
 
        .[extensie] "extern commando"
 
-              cre�er een type.
+              creëer een type.
 
-              Indien  bestandsnaam  overeen komt met een type wordt er een extern commando gebruikt om het bestand
-              te openen. Een typisch voorbeeld zijn gegzipte bestanden:
+              Indien bestandsnaam overeen komt met een type wordt er een
+              extern commando gebruikt om het bestand te openen. Een typisch
+              voorbeeld zijn gegzipte bestanden:
 
                  .gz     "gzip -cd"
 
-              De type volgorde is belangrijk, bekijk vergelijk de bestandsnaam met de type en begint met de eerste
-              type. Indien een .gz en .tar.gz wilt definieren moet je het .tar.gz eerst zetten.
+              De type volgorde is belangrijk, bekijk vergelijk de bestandsnaam
+              met de type en begint met de eerste type. Indien een .gz en
+              .tar.gz wilt definieren moet je het .tar.gz eerst zetten.
 
-              De type volgorde is belangrijk, bekijk vergelijk de bestandsnaam met de type en begint met de eerste
-              type. Indien een .gz en .tar.gz wilt definieren moet je het .tar.gz eerst zetten.
+              De type volgorde is belangrijk, bekijk vergelijk de bestandsnaam
+              met de type en begint met de eerste type. Indien een .gz en
+              .tar.gz wilt definieren moet je het .tar.gz eerst zetten.
 
        color object voorgrond achtergrond [ attribuut ]
 
-              Indien je terminal kleuren ondersteund laat deze parameter je toe om bepaalde objecten van kleur  te
-              veranderen.   Geldige   objecten   zijn:  view,  view_bold,  view_italic,  main_menu,  main_menusel,
-              main_menuhot, main_menuhotsel, status_bar, win1, win1_edit, win1_menu,  win1_menusel,  win1_menuhot,
-              win1_menuhotsel,   win2,   win2_edit,   win2_menu,   win2_menusel,   win2_menuhot,  win2_menuhotsel,
-              view_found.
+              Indien je terminal kleuren ondersteund laat deze parameter je
+              toe om bepaalde objecten van kleur te veranderen. Geldige
+              objecten zijn: view, view_bold, view_italic, main_menu,
+              main_menusel, main_menuhot, main_menuhotsel, status_bar, win1,
+              win1_edit, win1_menu, win1_menusel, win1_menuhot,
+              win1_menuhotsel, win2, win2_edit, win2_menu, win2_menusel,
+              win2_menuhot, win2_menuhotsel, view_found.
 
-              Geldige kleuren zijn: white, black, green, magenta, blue, cyan, yellow, red.
+              Geldige kleuren zijn: white, black, green, magenta, blue, cyan,
+              yellow, red.
 
-              Geldige attributen zijn: normal, bold, underline, reverse, and standout.
+              Geldige attributen zijn: normal, bold, underline, reverse, and
+              standout.
 
        mono object voorgrond_attribuut [ background_attribuut ]
 
-              Indien je terminal geen kleuren ondersteund dan kan je voorgrond en Achtergrond attributen  aan  ob‐
-              jecten toekennen.
+              Indien je terminal geen kleuren ondersteund dan kan je voorgrond
+              en Achtergrond attributen aan objecten toekennen.
 
 DANK AAN ...
        Free Software Foundation inc.
 
-              The  GNU  C Library Reference Manual door Sandra Loosemore En natuurlijk voor gcc, make, bash, grep,
-              man, ls, cp, tar, gzip, emacs, less en more :-)
+              The GNU C Library Reference Manual door Sandra Loosemore En
+              natuurlijk voor gcc, make, bash, grep, man, ls, cp, tar, gzip,
+              emacs, less en more :-)
 
        Sven Golt, Sven van der Meer, Scott Burkett, Matt Welsh
 
-              Van het Linux Documentation Project voor hun Linux Programmer's Guide.
+              Van het Linux Documentation Project voor hun Linux Programmer's
+              Guide.
 
        Linus, en anderen ...
 
@@ -236,17 +286,17 @@ DANK AAN ...
 
        Jan Wagemakers
 
-              Voor het zoeken naar bugs in de  beta  versie  &  het  plaatsen  van  "bekijk"  op  zijn  Webpagina.
-              http://www.janw.easynet.be
+              Voor het zoeken naar bugs in de beta versie & het plaatsen van
+              "bekijk" op zijn Webpagina. http://www.janw.easynet.be
 
        Roel Diederen
 
-              Voor het cre�ren van de manpage voor see 1.1
+              Voor het creëren van de manpage voor see 1.1
 
        Aubin Paul
 
-              Voor  zijn  Mac  OSX patch, dit maakte het mogelijk om "bekijk" naar andere platformen te porten dan
-              GNU/Linux.
+              Voor zijn Mac OSX patch, dit maakte het mogelijk om "bekijk"
+              naar andere platformen te porten dan GNU/Linux.
 
        Jim W. Jaszewski
 
@@ -254,16 +304,16 @@ DANK AAN ...
 
        Kevin Keegan
 
-              Voor melde van zij installatie problemen op SCO OpenServer. En het beschikbaar stellen van  binaries
-              voor SCO Unix.
+              Voor melde van zij installatie problemen op SCO OpenServer. En
+              het beschikbaar stellen van binaries voor SCO Unix.
 
        Alle vrije software programmeurs (op gelijk welk platform)
 
        En iedereen die ik vergeten ben :-{
 
 SLOT
-       Indien  je  "bekijk"  bruikbaar vindt (of onbruikbaar), suggesties hebt, bugs vindt :-( , mag je dit altijd
-       laten weten.
+       Indien je "bekijk" bruikbaar vindt (of onbruikbaar), suggesties hebt,
+       bugs vindt :-( , mag je dit altijd laten weten.
 
 AUTEURS
        SS Staf Wagemakers <staf@wagemakers.be>
@@ -277,8 +327,8 @@ AUTEURS
        To create the man page for see 1.1
 
    Aubin Paul.
-       Created the Mac OSX patch this made it  a  lot  easier  to  port  lookat/bekijk  to  other  platforms  than
-       GNU/Linux.
+       Created the Mac OSX patch this made it a lot easier to port
+       lookat/bekijk to other platforms than GNU/Linux.
 
    Jim W. Jaszewski
        Corrected some typos in the manpage.
@@ -291,44 +341,57 @@ AUTEURS
 
 COPYRIGHT
    Documentation
-       The documentation for Lookat is licensed under the terms of the FreeBSD Documentation License.
+       The documentation for Lookat is licensed under the terms of the FreeBSD
+       Documentation License.
 
        The FreeBSD Documentation License
 
        Copyright (c) 1997 - 2020 Staf Wagemakers
 
-       Redistribution  and  use in source (plaintext, HTML) and 'compiled' forms (SGML, HTML, PDF, PostScript, RTF
-       and so forth) with or without modification, are permitted provided that the following conditions are met:
+       Redistribution and use in source (plaintext, HTML) and 'compiled' forms
+       (SGML, HTML, PDF, PostScript, RTF and so forth) with or without
+       modification, are permitted provided that the following conditions are
+       met:
 
-       1. Redistributions of source code (plaintext, HTML) must retain the above copyright notice,  this  list  of
-       conditions and the following disclaimer.
+       1. Redistributions of source code (plaintext, HTML) must retain the
+       above copyright notice, this list of conditions and the following
+       disclaimer.
 
-       2. Redistributions in compiled form (transformed to other DTDs, converted to PDF, PostScript, RTF and other
-       formats) must reproduce the above copyright notice, this list of conditions and the following disclaimer in
-       the documentation and/or other materials provided with the distribution.
+       2. Redistributions in compiled form (transformed to other DTDs,
+       converted to PDF, PostScript, RTF and other formats) must reproduce the
+       above copyright notice, this list of conditions and the following
+       disclaimer in the documentation and/or other materials provided with
+       the distribution.
 
-       THIS  DOCUMENTATION  IS  PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
-       TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.   IN  NO
-       EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEM‐
-       PLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF  SUBSTITUTE  GOODS  OR  SER‐
-       VICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABIL‐
-       ITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY  WAY
-       OUT OF THE USE OF THIS DOCUMENTATION, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+       THIS DOCUMENTATION IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+       WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+       MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+       IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+       DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+       DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+       OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+       HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+       STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+       IN ANY WAY OUT OF THE USE OF THIS DOCUMENTATION, EVEN IF ADVISED OF THE
+       POSSIBILITY OF SUCH DAMAGE.
 
    Software
-       Lookat (the software) is licensed under the terms of the GNU General Public License version 2 or later.
+       Lookat (the software) is licensed under the terms of the GNU General
+       Public License version 2 or later.
 
        Copyright (c) 1997 - 2020 Staf Wagemakers.
 
-       This  program is free software: you can redistribute it and/or modify it under the terms of the GNU General
-       Public License as published by the Free Software Foundation, either version 2 of the License, or  (at  your
+       This program is free software: you can redistribute it and/or modify it
+       under the terms of the GNU General Public License as published by the
+       Free Software Foundation, either version 2 of the License, or (at your
        option) any later version.
 
-       This  program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
-       implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU  General  Public  Li‐
-       cense for more details.
+       This program is distributed in the hope that it will be useful, but
+       WITHOUT ANY WARRANTY; without even the implied warranty of
+       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+       General Public License for more details.
 
-       You  should  have  received  a copy of the GNU General Public License along with this program.  If not, see
-       <https://www.gnu.org/licenses/>.
+       You should have received a copy of the GNU General Public License along
+       with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-BEKIJK 2.1.0                                         Jul 2025                                            BEKIJK(1)
+BEKIJK 2.1.1                       Nov 2026                          BEKIJK(1)

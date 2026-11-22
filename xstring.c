@@ -392,13 +392,13 @@ void free_string_array (char **array) {
 	char **ccp;
 	if( array==NULL) return;
 	ccp=array;
-	for (;;) {
-	  if (ccp!=NULL) {
-		  if (*ccp!=NULL) {
+	for(;;) {
+	  if(ccp!=NULL) {
+	       if (*ccp!=NULL) {
 	       xfree(*ccp);
 	       ccp++;
-		     continue;
-		  }
+	       continue;
+             }
 	  }
 	  break;
 	}
@@ -868,7 +868,7 @@ unsigned ansi_charsize(char *start) {
 char * right_align_2_strings(char * str1, char * str2, int width) {
   char *ret=NULL;
   int number_of_spaces=0;
-  int total_string_length=strlen(str1)+strlen(str2);
+  int total_string_length=strlen(str1)+strlen(str2)+2;
 
   if (width < total_string_length) return NULL;
 

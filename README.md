@@ -1,3 +1,9 @@
+* **Main development site:** [https://codeberg.org/stafwag/lookat](https://codeberg.org/stafwag/lookat)
+* **Project homepage:** [https://www.wagemakers.be/english/programs/lookat/](https://www.wagemakers.be/english/programs/lookat/)
+
+---
+
+
 # NAME
 
 lookat - Un\*x file viewer
